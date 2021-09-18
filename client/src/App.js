@@ -10,7 +10,6 @@ import { add } from "./arr-utils";
 function App() {
   // Modal state
   const { modalOpen, close, open } = useModal();
-
   // Modal type
   const [modalType, setModalType] = useState("dropIn");
   const handleType = (e) => setModalType(e.target.value);
@@ -23,12 +22,28 @@ function App() {
   const handleText = (e) => setText(e.target.value);
 
   // Notification style
-  const [style, setStyle] = useState("success");
+  const [style, setStyle] = useState("FaceClassification");
   const handleStyle = (e) => setStyle(e.target.value);
   // Notification position
   const position= 'bottom'
-  // const [position, setPosition] = useState("bottom");
-  // const handlePosition = (e) => setPosition(e.target.value);
+
+  const handleUrl = () =>{
+    fetch(`send-image/${text}`).then((response) =>{ //make predictions
+      console.log(response);
+      if(response.ok){
+          return response.json()
+      }
+  }).then(data =>{ 
+      console.log("data---",data.data); // save the predictions in ans 
+      // setNotifications(add(notifications, text, style, ans))
+      return data.data
+    }).then(data =>{
+      console.log("data----------",data);
+      const ans = data;
+      setNotifications(add(notifications, text, style, ans))
+    })
+     
+  }
 
   return (
     <>
@@ -78,7 +93,7 @@ function App() {
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.95 }}
           className="add-button"
-          onClick={() => setNotifications(add(notifications, text, style))}
+          onClick={handleUrl}
         >
           Predict
         </motion.button>
@@ -138,5 +153,7 @@ const NotificationContainer = ({ children, position }) => {
     </div>
   );
 };
+
+
 
 export default App;
