@@ -57,7 +57,7 @@ const Notification = ({ notifications, setNotifications, notification }) => {
       exit="exit" // Target to animate to when removed from the tree
     >
       <h3 style={{ color: style ? "#030303" : "#929292" }} className="notification-text">
-        {text}
+        {`The Prediction id ${ans}`}
       </h3>
       <CloseButton color={style ? "#030303" : "#989898"} handleClose={handleClose} />
     </motion.li>
