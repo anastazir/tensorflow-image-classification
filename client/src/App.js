@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-no-comment-textnodes */
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import useModal from "./hooks/useModal";
@@ -29,6 +30,7 @@ function App() {
   // Notification position
   const position= 'bottom'
 
+  // TODO make a new file for this function
   const handleUrl = () =>{
     fetch(`send-image/${text}`).then((response) =>{ //make predictions
       setImgUrl(text)
@@ -58,11 +60,8 @@ function App() {
         <motion.select className="input" onChange={handleType}>
           <option value="dropIn">🪂 Drop in</option>
           <option value="flip">🛹 Flip</option>
-          <option value="newspaper">🗞 Newspaper</option>
-          <option value="badSuspension">🔩 Bad Suspension</option>
-          <option value="gifYouUp">🎸 GIF you up</option>
         </motion.select>
-
+// !            Launches Modal
         <motion.button
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.9 }}
@@ -70,7 +69,7 @@ function App() {
           onClick={open}
         >
           Launch modal
-        </motion.button>
+        </motion.button>  
 
         <br />
         <br />
@@ -147,6 +146,7 @@ const ModalContainer = ({ children, label }) => (
   </AnimatePresence>
 );
 
+// TODO make a new file for this compontent
 const NotificationContainer = ({ children, position }) => {
   return (
     <div className="container">
