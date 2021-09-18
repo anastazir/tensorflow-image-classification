@@ -1,6 +1,5 @@
 import { motion } from "framer-motion";
 import { remove } from "../../arr-utils";
-import { predict } from "../../Tensorflow/urlCassification";
 
 const notificationVariants = {
   initial: {
@@ -57,7 +56,7 @@ const Notification = ({ notifications, setNotifications, notification }) => {
       exit="exit" // Target to animate to when removed from the tree
     >
       <h3 style={{ color: style ? "#030303" : "#929292" }} className="notification-text">
-        {`The Prediction id ${ans}`}
+        {`The Prediction is ${ans}`}
       </h3>
       <CloseButton color={style ? "#030303" : "#989898"} handleClose={handleClose} />
     </motion.li>
