@@ -6,6 +6,7 @@ import Notification from "./components/Notification";
 import Input from "./components/Input";
 import Modal from "./components/Modal";
 import { add } from "./arr-utils";
+import ImageShow from "./components/ImageShow/ImageShow";
 
 function App() {
   // Modal state
@@ -47,8 +48,9 @@ function App() {
 
   return (
     <>
-      <motion.main>
         <Header />
+    <div id="left">
+      <motion.main>
         <SubHeader text="Animated modals" />
 
         <motion.select className="input" onChange={handleType}>
@@ -116,7 +118,11 @@ function App() {
             />
           ))}
       </NotificationContainer>
-    </>
+    </div>
+      <div id='right'>
+            <ImageShow  />
+      </div>
+      </>
   );
 }
 
