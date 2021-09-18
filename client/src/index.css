@@ -13,7 +13,17 @@
 #left, #middle, #right {display: inline-block; *display: inline; zoom: 1; vertical-align: top; font-size: 12px;}
 #left {width: 35%;}
 #middle {width: 100%; }
-/* #right {width: 25%;} */
+#right {width: 50%;
+  align-items: center;
+}
+
+.image-shown{
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  max-width:600px;
+  max-height:600px;
+}
 
 * {
   box-sizing: border-box;
