@@ -68,7 +68,7 @@ def predict_image(filename):
     image = image / 255.0
     image = image.reshape(1,150,150,3)
     prediction = model.predict(image)
-    print (prediction[0])
+    print ("prediction------",prediction[0])
     if(prediction[0][0] > 0.5):
         return 1
     else:
@@ -83,7 +83,7 @@ def image_check(url):
     file_name_for_base64_data = dateTimeObj.strftime("%d-%b-%Y--(%H-%M-%S)")
     
     file_name_for_regular_data = url[-10:-4]
-    print(url)
+    print("url--------------------------",url)
     try:
         if "data:image/jpeg;base64," in url:
             base_string = url.replace("data:image/jpeg;base64,", "")
@@ -110,8 +110,9 @@ def image_check(url):
             print(type(img))
             file_name = file_name_for_regular_data + ".jpg"
             img.save(file_name, "jpeg")
-        
-            return jsonify(prediction= predict_image(file_name))
+            print('image saved')
+            prediction= predict_image(file_name)
+            return {"data": f"{prediction}"}
 
         
         status = "Image has been succesfully sent to the server."
