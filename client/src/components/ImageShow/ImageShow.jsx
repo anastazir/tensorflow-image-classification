@@ -9,9 +9,10 @@ const ImageShow = () => {
             <div className="">
         <img
           src={image}
-          width="400"
+        //   width="400"
           crossOrigin="anonymous"
           alt="Image"
+          className="image-shown"
           
         //   ref={imageRef}
         />
