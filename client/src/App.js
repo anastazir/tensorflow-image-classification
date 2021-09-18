@@ -9,6 +9,7 @@ import { add } from "./arr-utils";
 import ImageShow from "./components/ImageShow/ImageShow";
 
 function App() {
+  const [imgUrl, setImgUrl] = useState('')
   // Modal state
   const { modalOpen, close, open } = useModal();
   // Modal type
@@ -30,6 +31,7 @@ function App() {
 
   const handleUrl = () =>{
     fetch(`send-image/${text}`).then((response) =>{ //make predictions
+      setImgUrl(text)
       console.log(response);
       if(response.ok){
           return response.json()
@@ -83,7 +85,7 @@ function App() {
 
         <motion.select className="input" onChange={handleStyle}>
           <option value="FaceClassification">✅ Face Classification</option>
-          <option value="CatvsDog">⚠️ Cat vs Dog</option>
+          <option value="CatvsDog">🐱 or🐶</option>
           <option value="DogBreed">🛑 Dog Breed</option>
           <option value="mask">☀️ Mask</option>
           {/* <option value="">🌙 Dark</option> */}
@@ -120,7 +122,7 @@ function App() {
       </NotificationContainer>
     </div>
       <div id='right'>
-            <ImageShow  />
+            <ImageShow imgUrl={imgUrl}  />
       </div>
       </>
   );
