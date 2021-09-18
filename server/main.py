@@ -15,12 +15,12 @@ import requests
 
 app = Flask(__name__)
 
-model = tf.keras.models.load_model('Facemask002.h5')
+model = tf.keras.models.load_model('masknet.h5')
 
 def prepare_image(img):
     print('Preparing image')
     img = Image.open(io.BytesIO(img))
-    img = img.resize((150, 150))
+    img = img.resize((128, 128))
     img = np.array(img)
     img = np.expand_dims(img, 0)
     print('returning img')
@@ -31,10 +31,10 @@ def predict_result(img):
     print('Predict results')
     predictions= model.predict(img)[0][0]
     print(predictions)
-    if predictions>=0.5:
-        return 1
+    if predictions>0.5:
+        return 1    # NO MASK
     else:
-        return 0
+        return 0    #MASK
 
 
 
@@ -51,7 +51,7 @@ def infer_image():
     img_bytes = file.read()
     img = prepare_image(img_bytes)
     print('final step')
-    return jsonify(prediction=predict_result(img))
+    return jsonify(data=predict_result(img))
     
 
 @app.route('/', methods=['GET'])
@@ -63,12 +63,12 @@ def index():
 from tensorflow.keras.preprocessing.image import  load_img
 
 def predict_image(filename):
-    img = load_img(filename, target_size=(150, 150))
+    img = load_img(filename, target_size=(128, 128))
     image = tf.keras.preprocessing.image.img_to_array(img)
     image = image / 255.0
-    image = image.reshape(1,150,150,3)
+    image = image.reshape(1,128,128,3)
     prediction = model.predict(image)
-    print ("prediction------",prediction[0])
+    print ("prediction------",prediction[0][0])
     if(prediction[0][0] > 0.5):
         return 1
     else:
