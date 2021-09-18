@@ -10,6 +10,11 @@
   font-size: 1rem;
 }
 
+#left, #middle, #right {display: inline-block; *display: inline; zoom: 1; vertical-align: top; font-size: 12px;}
+#left {width: 35%;}
+#middle {width: 100%; }
+/* #right {width: 25%;} */
+
 * {
   box-sizing: border-box;
 }
