@@ -11,8 +11,6 @@ import Modal from "./components/Modal";
 import { add } from "./arr-utils";
 import ImageShow from "./components/ImageShow/ImageShow";
 import { handleUrl } from "./Fetch/fetchByUrl";
-// TODO Check for url validity
-// TODO Display on Click
 // TODO Make file input Button
 // TODO Convert Image to base64
 function App() {
@@ -40,8 +38,8 @@ function App() {
   const validateUrl = () =>{
     if(text){
       if (validator.isURL(text)){
-        console.log(text);
-        handleUrl(text, setImgUrl, setNotifications, add, style, notifications);
+        setImgUrl(text)
+        handleUrl(text, setNotifications, add, style, notifications);
       }
       else{
         setModalType('invalid')
