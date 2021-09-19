@@ -14,12 +14,12 @@ import { handleUrl } from "./Fetch/fetchByUrl";
 // TODO Make file input Button
 // TODO Convert Image to base64
 function App() {
-  const [imgUrl, setImgUrl] = useState('')
+  const [image, setImage] = useState(null)    // for image file
+  const [imgUrl, setImgUrl] = useState('')    // for image URL
   // Modal state
   const { modalOpen, close, open } = useModal();
   // Modal type
   const [modalType, setModalType] = useState("dropIn");
-  const handleType = (e) => setModalType(e.target.value);
 
   // Notifications state
   const [notifications, setNotifications] = useState([]);
@@ -34,10 +34,18 @@ function App() {
   // Notification position
   const position= 'bottom'
 
+  const onImageFileChange= (e) =>{
+    if (e.target.files && e.target.files[0]) {
+      setImage(URL.createObjectURL(e.target.files[0]))
+      console.log('image file changed', e.target.files[0]);
+    }
+  }
+
 
   const validateUrl = () =>{
     if(text){
       if (validator.isURL(text)){
+        setImage(null)
         setImgUrl(text)
         handleUrl(text, setNotifications, add, style, notifications);
       }
@@ -56,11 +64,8 @@ function App() {
     <div id="left">
       <motion.main>
         <SubHeader text="Animated modals" />
-
-        <motion.select className="input" onChange={handleType}>
-          <option value="dropIn">🪂 Drop in</option>
-          <option value="flip">🛹 Flip</option>
-        </motion.select>
+// !     Accept image file
+        <input type="file" accept="image/*" className="input" onChange={onImageFileChange} /> 
 // !            Launches Modal
         <motion.button
           whileHover={{ scale: 1.1 }}
@@ -83,10 +88,10 @@ function App() {
         <br />
 
         <motion.select className="input" onChange={handleStyle}>
-          <option value="FaceClassification">✅ Face Classification</option>
+          <option value="FaceClassification">✅ Mask Classification</option>
           <option value="CatvsDog">🐱 or🐶</option>
           <option value="DogBreed">🛑 Dog Breed</option>
-          <option value="mask">☀️ Mask</option>
+          <option value="mask">☀️ Face</option>
           {/* <option value="">🌙 Dark</option> */}
         </motion.select>
 
@@ -121,7 +126,7 @@ function App() {
       </NotificationContainer>
     </div>
       <div id='right'>
-            <ImageShow imgUrl={imgUrl}  />
+            <ImageShow img={image ? image: imgUrl}  />
       </div>
       </>
   );
