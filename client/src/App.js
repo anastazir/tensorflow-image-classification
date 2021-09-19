@@ -31,12 +31,13 @@ function App() {
   // Notification position
   const position= 'bottom'
 
-  // TODO make a new file for this function
-
 
   const validateUrl = () =>{
     if(text){
       handleUrl(text, setImgUrl, setNotifications, add, style, notifications);
+    }else{
+      setModalType('emptyInput')
+      open();
     }
   }
   return (
@@ -125,7 +126,7 @@ const Header = () => (
 
 const SubHeader = ({ text }) => <motion.h2 className="sub-header">{text}</motion.h2>;
 
-const ModalContainer = ({ children, label }) => (
+const   ModalContainer = ({ children, label }) => (
   <AnimatePresence
     initial={false}
     exitBeforeEnter={true}
