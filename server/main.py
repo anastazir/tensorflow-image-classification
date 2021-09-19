@@ -122,6 +122,21 @@ def image_check(url):
 
     return status
 
+@app.route("/url/<path:image_url>")
+def tensor(image_url):
+    print(image_url)
+    image_url = tf.keras.utils.get_file('Court', origin=image_url )
+    img = tf.keras.preprocessing.image.load_img(image_url, target_size=( 128, 128 ) )
+    img_array = tf.keras.preprocessing.image.img_to_array(img)
+    print('--------------------------------final step------')
+    prediction = model.predict(np.expand_dims(img_array, axis=0)/255.0)
+    print ("prediction------",prediction[0][0])
+    if(prediction[0][0] > 0.5):
+        return {'data':'1'}
+    else:
+        return {'data':'0'}
+
+
 
 if __name__ == '__main__':
     app.run(debug=True)
