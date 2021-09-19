@@ -2,6 +2,8 @@
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import useModal from "./hooks/useModal";
+import validator from 'validator' // to check if URL is valid
+
 import { framerLogger } from "./stateLogger";
 import Notification from "./components/Notification";
 import Input from "./components/Input";
@@ -9,7 +11,10 @@ import Modal from "./components/Modal";
 import { add } from "./arr-utils";
 import ImageShow from "./components/ImageShow/ImageShow";
 import { handleUrl } from "./Fetch/fetchByUrl";
-
+// TODO Check for url validity
+// TODO Display on Click
+// TODO Make file input Button
+// TODO Convert Image to base64
 function App() {
   const [imgUrl, setImgUrl] = useState('')
   // Modal state
@@ -34,7 +39,14 @@ function App() {
 
   const validateUrl = () =>{
     if(text){
-      handleUrl(text, setImgUrl, setNotifications, add, style, notifications);
+      if (validator.isURL(text)){
+        console.log(text);
+        handleUrl(text, setImgUrl, setNotifications, add, style, notifications);
+      }
+      else{
+        setModalType('invalid')
+        open()
+      }
     }else{
       setModalType('emptyInput')
       open();
