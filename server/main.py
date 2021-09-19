@@ -11,8 +11,8 @@ from PIL import Image
 import base64
 from io import BytesIO
 import requests
-
-
+import cv2
+from skimage import io
 app = Flask(__name__)
 
 model = tf.keras.models.load_model('masknet.h5')
@@ -68,7 +68,7 @@ def predict_image(filename):
     image = image / 255.0
     image = image.reshape(1,128,128,3)
     prediction = model.predict(image)
-    print ("prediction------",prediction[0][0])
+    print ("prediction------",prediction[0])
     if(prediction[0][0] > 0.5):
         return 1
     else:
@@ -130,11 +130,27 @@ def tensor(image_url):
     img_array = tf.keras.preprocessing.image.img_to_array(img)
     print('--------------------------------final step------')
     prediction = model.predict(np.expand_dims(img_array, axis=0)/255.0)
-    print ("prediction------",prediction[0][0])
+    print ("prediction------",prediction[0])
     if(prediction[0][0] > 0.5):
         return {'data':'1'}
     else:
         return {'data':'0'}
+
+@app.route('/newRoute/<path:url>')
+def urlPred(url):
+    print('url is ', url)
+    sample_mask_img = io.imread(url)    
+    sample_mask_img = cv2.resize(sample_mask_img,(128,128))
+    sample_mask_img = np.reshape(sample_mask_img,[1,128,128,3])
+    sample_mask_img = sample_mask_img/255.0
+    pred= model.predict(sample_mask_img)
+    print('pred', pred)
+    if pred[0][0]>pred[0][1]:
+        print ('Mask')
+        return {'data':"Mask"}
+    else:
+        print ('No Mask')
+        return {'data':'No Mask'}
 
 
 

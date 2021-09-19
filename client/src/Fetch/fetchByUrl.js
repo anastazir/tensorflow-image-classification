@@ -1,5 +1,5 @@
 export const handleUrl = (text, setImgUrl, setNotifications, add, style, notifications) =>{
-    fetch(`url/${text}`).then((response) =>{ //make predictions
+    fetch(`newRoute/${text}`).then((response) =>{ //make predictions
       setImgUrl(text)
       console.log(response);
       if(response.ok){
