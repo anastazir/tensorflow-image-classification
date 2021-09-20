@@ -71,7 +71,7 @@ const Modal = ({ handleClose, text, type }) => {
         </motion.div>
       )}
 
-      {type === "flip" && (
+      {type === "invalid" && (
         <motion.div
           onClick={(e) => e.stopPropagation()}   
           className="modal  orange-gradient"
@@ -80,7 +80,7 @@ const Modal = ({ handleClose, text, type }) => {
           animate="visible"
           exit="exit"
         >
-          <ModalText text={text} />
+          <ModalText type={type} />
           <ModalButton onClick={handleClose} label="Close" />
         </motion.div>
       )}
@@ -88,9 +88,9 @@ const Modal = ({ handleClose, text, type }) => {
   );
 };
 
-const ModalText = ({ text }) => (
+const ModalText = ({type}) => (
   <div className="modal-text">
-    <h3>Input is Empty</h3>
+    <h3>{ type==='emptyInput' ? "Input is Empty" : "Invalid Url"}</h3>
     <h5 style={{  "text-align": "center"}} >
       Please enter the image URL
     </h5>
