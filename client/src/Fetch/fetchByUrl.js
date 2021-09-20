@@ -15,8 +15,17 @@ export const handleUrl = (text, setNotifications, add, style, notifications) =>{
     })
 }
 
-export const handleBase64= (fileBase64String, setNotifications, add, style, notifications) =>{
+export const handleBase64= (fileBase64String, setNotifications, add, style, notifications, text) =>{
   fetch(`send-image/${fileBase64String}`).then((response) =>{
+    console.log(fileBase64String);
     console.log('imageSent');
+    return response.json()
+  }).then(data =>{
+    console.log('data---',data.data);
+    return data.data
+  }).then (data =>{
+    console.log(data);
+    const ans = data;
+    setNotifications(add(notifications, text, style, ans))
   })
 }
