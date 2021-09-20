@@ -11,6 +11,7 @@ import Modal from "./components/Modal";
 import { add } from "./arr-utils";
 import ImageShow from "./components/ImageShow/ImageShow";
 import { handleUrl } from "./Fetch/fetchByUrl";
+import {encodeFileBase64} from "./helper/helperFunctions"
 // TODO Make file input Button
 // TODO Convert Image to base64
 function App() {
@@ -20,7 +21,8 @@ function App() {
   const { modalOpen, close, open } = useModal();
   // Modal type
   const [modalType, setModalType] = useState("dropIn");
-
+  // For base64 images
+  const [fileBase64String, setFileBase64String] = useState("");
   // Notifications state
   const [notifications, setNotifications] = useState([]);
 
@@ -37,7 +39,8 @@ function App() {
   const onImageFileChange= (e) =>{
     if (e.target.files && e.target.files[0]) {
       setImage(URL.createObjectURL(e.target.files[0]))
-      console.log('image file changed', e.target.files[0]);
+      encodeFileBase64(e.target.files[0], setFileBase64String)
+      
     }
   }
 
@@ -58,6 +61,7 @@ function App() {
       open();
     }
   }
+
   return (
     <>
         <Header />
