@@ -10,7 +10,7 @@ import Input from "./components/Input";
 import Modal from "./components/Modal";
 import { add } from "./arr-utils";
 import ImageShow from "./components/ImageShow/ImageShow";
-import { handleUrl } from "./Fetch/fetchByUrl";
+import { handleUrl, handleBase64 } from "./Fetch/fetchByUrl";
 import {encodeFileBase64} from "./helper/helperFunctions"
 // TODO Make file input Button
 // TODO Convert Image to base64
@@ -75,9 +75,9 @@ function App() {
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.9 }}
           className="save-button"
-          onClick={open}
+          onClick={()=>handleBase64(fileBase64String, setNotifications, add, style, notifications)}
         >
-          Launch modal
+          Predict Local Image
         </motion.button>  
 
         <br />
