@@ -54,6 +54,7 @@ const Modal = ({ handleClose, text, type }) => {
     stateLogger("Modal", true);
     return () => stateLogger("Modal", false);
   }, []);
+  console.log(type==='invalid');
 
   return (
     <Backdrop onClick={handleClose}>
@@ -87,13 +88,24 @@ const Modal = ({ handleClose, text, type }) => {
     </Backdrop>
   );
 };
-
 const ModalText = ({type}) => (
   <div className="modal-text">
-    <h3>{ type==='emptyInput' ? "Input is Empty" : "Invalid Url"}</h3>
-    <h5 style={{  "text-align": "center"}} >
-      Please enter the image URL
-    </h5>
+    {
+    type==="invalid" ?
+      <div>
+        <h3>Invalid Input</h3> 
+        <h5 style={{  "text-align": "center"}} >
+          Please make sure that the url is valid
+        </h5>
+      </div> 
+    :  
+      <div>
+        <h3>Empty Input</h3> 
+        <h5 style={{  "text-align": "center"}} >
+          The input field is Empty
+        </h5>
+      </div>
+    }
   </div>
 );
 
