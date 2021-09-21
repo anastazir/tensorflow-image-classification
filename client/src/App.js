@@ -14,9 +14,7 @@ import { handleUrl, handleBase64 } from "./Fetch/fetchByUrl";
 import {encodeFileBase64} from "./helper/helperFunctions"
 import NotificationContainer from "./hooks/NotificationContainer";
 function App() {
-  // Todo Add emojies 
   // Todo Add Gender Classification Modal
-  // 
   const [image, setImage] = useState(null)    // for image file
   const [imgUrl, setImgUrl] = useState('')    // for image URL
   // Modal state
@@ -33,7 +31,7 @@ function App() {
   const handleText = (e) => setText(e.target.value);
 
   // Notification style
-  const [style, setStyle] = useState("FaceClassification");
+  const [style, setStyle] = useState("FaceMaskClassification");
   const handleStyle = (e) => setStyle(e.target.value);
   // Notification position
   const position= 'bottom'
@@ -94,10 +92,10 @@ function App() {
         <br />
 
         <motion.select className="input" onChange={handleStyle}>
-          <option value="FaceClassification">✅ Mask Classification</option>
-          <option value="CatvsDog">🐱 or🐶</option>
-          <option value="DogBreed">🛑 Dog Breed</option>
-          <option value="mask">☀️ Face</option>
+          <option value="FaceMaskClassification">🤿 Mask Classification</option>
+          <option value="GenderClassification">♂️ or ♀️ Classification</option>
+          <option value="CatvsDog">🐱or🐶</option>
+          <option value="DogBreed">🐕 Dog Breed</option>
           {/* <option value="">🌙 Dark</option> */}
         </motion.select>
 
