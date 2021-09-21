@@ -10,7 +10,12 @@ export const handleUrl = (text, setNotifications, add, style, notifications) =>{
       return data.data
     }).then(data =>{
       console.log("data----------",data);
-      const ans = data;
+      var ans =data;
+      if (data==='Mask'){
+        ans= ans+'😷'
+      }else{
+         ans=ans+'😃' 
+      }
       setNotifications(add(notifications, text, style, ans))
     })
 }
