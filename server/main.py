@@ -68,7 +68,7 @@ def urlPredSecondOption(url):  # IF NO FACES ARE FOUND
 
 
 # --------------------------------------
-@app.route("/send-image/<path:base64_string>")
+@app.route("/faceMaskClassification/send-image/<path:base64_string>")
 def decodeFace(base64_string): 
     if "data:image/jpeg;base64," in base64_string:
         base64_string = base64_string.replace("data:image/jpeg;base64,", "")
@@ -104,7 +104,7 @@ def decodeFace(base64_string):
         return {'data':'No Mask'}
 
 
-@app.route('/newRoute/<path:url>')
+@app.route('/faceMaskClassification/newRoute/<path:url>')
 def urlPred(url):
     if "https://images.unsplash.com/" in url:
         url= url+ add 
