@@ -31,7 +31,7 @@ function App() {
   const handleText = (e) => setText(e.target.value);
 
   // Notification style
-  const [style, setStyle] = useState("FaceMaskClassification");
+  const [style, setStyle] = useState("faceMaskClassification");
   const handleStyle = (e) => setStyle(e.target.value);
   // Notification position
   const position= 'bottom'
@@ -92,10 +92,10 @@ function App() {
         <br />
 
         <motion.select className="input" onChange={handleStyle}>
-          <option value="FaceMaskClassification">🤿 Mask Classification</option>
-          <option value="GenderClassification">♂️ or ♀️ Classification</option>
-          <option value="CatvsDog">🐱or🐶</option>
-          <option value="DogBreed">🐕 Dog Breed</option>
+          <option value="faceMaskClassification">🤿 Mask Classification</option>
+          <option value="genderClassification">♂️ or ♀️ Classification</option>
+          <option value="catvsDog">🐱or🐶</option>
+          <option value="dogBreed">🐕 Dog Breed</option>
           {/* <option value="">🌙 Dark</option> */}
         </motion.select>
 
