@@ -13,3 +13,12 @@ export   const encodeFileBase64 = (file, setFileBase64String) => {
       };
     }
 };
+
+export const switchAns = (data) =>{
+  if (data==='Mask'){
+    data= data+' 😷'
+  }else{
+    data=data+' 😃' 
+  }
+  return data;
+}

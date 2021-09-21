@@ -1,3 +1,6 @@
+import { switchAns } from "../helper/helperFunctions";
+
+
 export const handleUrl = (text, setNotifications, add, style, notifications) =>{
   fetch(`newRoute/${text}`).then((response) =>{ //make predictions
     // console.log(response);
@@ -10,12 +13,7 @@ export const handleUrl = (text, setNotifications, add, style, notifications) =>{
       return data.data
     }).then(data =>{
       console.log("data----------",data);
-      var ans =data;
-      if (data==='Mask'){
-        ans= ans+'😷'
-      }else{
-         ans=ans+'😃' 
-      }
+      const ans = switchAns(data);
       setNotifications(add(notifications, text, style, ans))
     })
 }
