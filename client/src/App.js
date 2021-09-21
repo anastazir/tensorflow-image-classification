@@ -12,9 +12,11 @@ import { add } from "./arr-utils";
 import ImageShow from "./components/ImageShow/ImageShow";
 import { handleUrl, handleBase64 } from "./Fetch/fetchByUrl";
 import {encodeFileBase64} from "./helper/helperFunctions"
-// TODO Make file input Button
-// TODO Convert Image to base64
+import NotificationContainer from "./hooks/NotificationContainer";
 function App() {
+  // Todo Add emojies 
+  // Todo Add Gender Classification Modal
+  // 
   const [image, setImage] = useState(null)    // for image file
   const [imgUrl, setImgUrl] = useState('')    // for image URL
   // Modal state
@@ -75,7 +77,7 @@ function App() {
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.9 }}
           className="save-button"
-          onClick={()=>handleBase64(fileBase64String, setNotifications, add, style, notifications)}
+          onClick={()=>handleBase64(fileBase64String, setNotifications, add, style, notifications, text)}
         >
           Predict Local Image
         </motion.button>  
@@ -154,23 +156,5 @@ const   ModalContainer = ({ children, label }) => (
     {children}
   </AnimatePresence>
 );
-
-// TODO make a new file for this compontent
-const NotificationContainer = ({ children, position }) => {
-  return (
-    <div className="container">
-      <ul className={position}>
-        <AnimatePresence
-          initial={false}
-          onExitComplete={() => framerLogger("Notifications container")}
-        >
-          {children}
-        </AnimatePresence>
-      </ul>
-    </div>
-  );
-};
-
-
 
 export default App;
