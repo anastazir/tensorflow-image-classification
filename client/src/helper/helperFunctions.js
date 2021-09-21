@@ -17,8 +17,12 @@ export   const encodeFileBase64 = (file, setFileBase64String) => {
 export const switchAns = (data) =>{
   if (data==='Mask'){
     data= data+' 😷'
-  }else{
+  }else if (data==='No Mask'){
     data=data+' 😃' 
+  }else if (data==='Female'){
+    data=data+' 👩'
+  }else if (data==='Male'){
+    data=data+' 👨'
   }
   return data;
 }
