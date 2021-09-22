@@ -27,6 +27,16 @@ export const switchAns = (data) =>{
     data=data+' 🐶'
   }else if (data==='Cat'){
     data=data+' 🐱'
+  }else if (data==='Happy'){
+    data=data+' 😃'
+  }else if (data==='Surprise'){
+    data=data+' 😮'
+  }else if (data==='Angry'){
+    data=data+' 👿'
+  }else if (data==='Sad'){
+    data= data+' 😔'
+  }else if (data==='Neutral'){
+    data= data+' 😐'
   }
   return data;
 }
