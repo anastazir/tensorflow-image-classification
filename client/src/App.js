@@ -14,7 +14,14 @@ import { handleUrl, handleBase64 } from "./Fetch/fetchByUrl";
 import {encodeFileBase64} from "./helper/helperFunctions"
 import NotificationContainer from "./hooks/NotificationContainer";
 import ThreeDotsWave from "./components/Loading/ThreeDotsWave";
+import {randomImages} from "./helper/randomImages";
+
 function App() {
+// TODO: MAKE A BUTTON TO GENERATE RANDOM IMAGES ON THE BASES OF INPUT
+// TODO: SET THE TEXT FEILD TO THE RANDOM URL
+// TODO: AUTOMATICALLY PREDICT THE RESULT
+// TODO: LAUNCH A NOTIFICATION DURING THE PREDICTION PHASE
+// TODO: ONCE THE RESULTS HAVE ARRIVED DELETE THE NOTIFICATION
 
   const [image, setImage] = useState(null)    // for image file
   const [imgUrl, setImgUrl] = useState('')    // for image URL
@@ -55,8 +62,6 @@ function App() {
         setImgUrl(text)
         if(!predicting){
           handleUrl(text, setNotifications, add, style, notifications, setPredicting);
-        }else{
-          console.log('still predicting');
         }
       }
       else{
@@ -71,7 +76,7 @@ function App() {
 
   return (
     <>
-        <Header />
+    <Header />
     <div id="left">
       <motion.main>
         <SubHeader text="Animated modals" />
@@ -83,10 +88,9 @@ function App() {
           whileTap={{ scale: 0.9 }}
           className="save-button"
           onClick={()=>
-            {if (!predicting){
-              handleBase64(fileBase64String, setNotifications, add, style, notifications, text)}
-            }}
-        >
+          {if (!predicting){
+            handleBase64(fileBase64String, setNotifications, add, style, notifications, text)}
+          }}>
           Predict Local Image
         </motion.button>  
 
@@ -111,21 +115,30 @@ function App() {
 
         <br />
 
-        {predicting? 
-        <ThreeDotsWave/>:
-        <motion.button
-        whileHover={{ scale: 1.1 }}
-        whileTap={{ scale: 0.95 }}
-        className="add-button"
-        onClick={validateUrl}
-      >
-        Predict
-      </motion.button>
-      
+      {  predicting ? 
+          <ThreeDotsWave/> :
+          <motion.button
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.95 }}
+          className="add-button"
+          onClick={validateUrl}>
+            Predict
+          </motion.button>
       }
+// ! RANDOM IMAGE BUTTON
+        <motion.button
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.9 }}
+          className="random-button"
+          onClick={()=>{
+            var url=randomImages(style)
+            setText(url)
+            setImgUrl(url)}}>
+          Random Image
+        </motion.button> 
 
         
-      </motion.main>
+    </motion.main>
 
       <ModalContainer>
         {modalOpen && (
@@ -145,9 +158,9 @@ function App() {
           ))}
       </NotificationContainer>
     </div>
-      <div id='right'>
-            <ImageShow img={image ? image: imgUrl}  />
-      </div>
+    <div id='right'>
+          <ImageShow img={image ? image: imgUrl}  />
+    </div>
       </>
   );
 }
