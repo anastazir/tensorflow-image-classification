@@ -25,10 +25,9 @@ face_model = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
 # -------------------------------------- MASK CLASSIFICATION ------------------------------
 
 
-def urlPredSecondOption(url):  # IF NO FACES ARE FOUND
-    sample_mask_img = io.imread(url)    
-    sample_mask_img = cv2.resize(sample_mask_img,(128,128))
-    sample_mask_img = np.reshape(sample_mask_img,[1,128,128,3])
+def urlPredSecondOption(new_img, shape):  # IF NO FACES ARE FOUND
+    sample_mask_img = cv2.resize(new_img,(shape,shape))
+    sample_mask_img = np.reshape(sample_mask_img,[1,shape,shape,3])
     sample_mask_img = sample_mask_img/255.0
     pred= masknet.predict(sample_mask_img)
     print('NO FACE PRED---------------',pred)
@@ -90,7 +89,7 @@ def urlPred(url):
     new_img = cv2.cvtColor(img, cv2.COLOR_RGB2BGR) #colored output image
     if len(faces)==0:
         print('no faces were found')
-        return  urlPredSecondOption(url)
+        return  urlPredSecondOption(new_img, shape=128)
     for i in range(len(faces)):
         print('------------------found face')
         (x,y,w,h) = faces[i]
