@@ -17,6 +17,8 @@ app = Flask(__name__)
 masknet = tf.keras.models.load_model('masknet.h5') # input shape of (128, 128, 3)
 genderModel = tf.keras.models.load_model('GenderModal.h5') # input shape of (150, 150, 3)
 catVsDogModel = tf.keras.models.load_model('catVsDogModel.h5') # input shape of (150, 150, 3)   
+emotionClassification = tf.keras.models.load_model('emotionDetection.h5') # input shape of (48, 48, 1)   
+
 
 add='?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyMTYyOTB8MHwxfHNlYXJjaHw5fHxmYWNlfGVufDB8fHx8MTYzMjA1MDM4MQ&ixlib=rb-1.2.1&q=80&w=150'
 face_model = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
@@ -225,6 +227,35 @@ def decodeAnimal(base64_string):
     else:
         print ('Dog')
         return {'data':'Dog'}
+
+# -------------------------------------Cat or Dog CLASSIFICATION ------------------------------
+
+@app.route('/emotionClassification/urlRoute/<path:url>')
+def urlEmotionClassification(url):
+    emotion_labels = ['Angry','Disgust','Fear','Happy','Neutral', 'Sad', 'Surprise']
+    if "https://images.unsplash.com/" in url:
+        url= url+ add 
+    print(url)
+    img = io.imread(url)    
+    img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+
+    faces = face_model.detectMultiScale(img,scaleFactor=1.1, minNeighbors=4) #returns a list of (x,y,w,h) tuples
+
+    # new_img = cv2.cvtColor(img, cv2.COLOR_RGB2BGR) #colored output image
+    # if len(faces)==0:
+    #     print('no faces were found')
+    #     return  urlPredSecondOption(new_img, shape=128)
+    for i in range(len(faces)):
+        print('------------------found face')
+        (x,y,w,h) = faces[i]
+        crop = img[y:y+h,x:x+w]
+        crop = cv2.resize(crop,(48,48))
+        crop = np.reshape(crop,[1,48,48,1])/255.0
+        pred = emotionClassification.predict(crop)
+        print('---------------------pred[0]',pred)
+        return emotion_labels[pred.argmax()]
+    return 'No faces were found'
+
 
 if __name__ == '__main__':
     app.run(debug=True)
