@@ -23,6 +23,10 @@ export const switchAns = (data) =>{
     data=data+' 👩'
   }else if (data==='Male'){
     data=data+' 👨'
+  }else if (data==='Dog'){
+    data=data+' 🐶'
+  }else if (data==='Cat'){
+    data=data+' 🐱'
   }
   return data;
 }
