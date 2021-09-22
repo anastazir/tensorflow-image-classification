@@ -34,7 +34,7 @@ const Notification = ({ notifications, setNotifications, notification }) => {
         return { background: "linear-gradient(15deg, #6adb00, #04e800)" };
       case "catvsDog":
         return { background: "linear-gradient(15deg, #ff596d, #d72c2c)" };
-      case "dogBreed":
+      case "emotionClassification":
         return { background: "linear-gradient(15deg, #ffac37, #ff9238)" };
       case "genderClassification":
         return { background: "linear-gradient(15deg, #e7e7e7, #f4f4f4)" };

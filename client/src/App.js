@@ -17,11 +17,6 @@ import ThreeDotsWave from "./components/Loading/ThreeDotsWave";
 import {randomImages} from "./helper/randomImages";
 
 function App() {
-// TODO: MAKE A BUTTON TO GENERATE RANDOM IMAGES ON THE BASES OF INPUT
-// TODO: SET THE TEXT FEILD TO THE RANDOM URL
-// TODO: AUTOMATICALLY PREDICT THE RESULT
-// TODO: LAUNCH A NOTIFICATION DURING THE PREDICTION PHASE
-// TODO: ONCE THE RESULTS HAVE ARRIVED DELETE THE NOTIFICATION
 
   const [image, setImage] = useState(null)    // for image file
   const [imgUrl, setImgUrl] = useState('')    // for image URL
@@ -108,8 +103,8 @@ function App() {
         <motion.select className="input" onChange={handleStyle}>
           <option value="faceMaskClassification">🤿 Mask Classification</option>
           <option value="genderClassification">♂️ or ♀️ Classification</option>
+          <option value="emotionClassification">👨‍🦰 Emotion Detection</option>
           <option value="catvsDog">🐱or🐶</option>
-          <option value="dogBreed">🐕 Dog Breed</option>
           {/* <option value="">🌙 Dark</option> */}
         </motion.select>
 
