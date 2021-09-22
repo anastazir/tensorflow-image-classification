@@ -16,7 +16,9 @@ app = Flask(__name__)
 
 masknet = tf.keras.models.load_model('masknet.h5') # input shape of (128, 128, 3)
 genderModel = tf.keras.models.load_model('GenderModal.h5') # input shape of (150, 150, 3)
-add='?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyMTYyOTB8MHwxfHNlYXJjaHw5fHxmYWNlfGVufDB8fHx8MTYzMjA1MDM4MQ&ixlib=rb-1.2.1&q=80&w=400'
+catVsDogModel = tf.keras.models.load_model('catVsDogModel.h5') # input shape of (150, 150, 3)   
+
+add='?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyMTYyOTB8MHwxfHNlYXJjaHw5fHxmYWNlfGVufDB8fHx8MTYzMjA1MDM4MQ&ixlib=rb-1.2.1&q=80&w=150'
 face_model = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
 
 
@@ -107,9 +109,11 @@ def urlPred(url):
 
 # -------------------------------------END OF MASK CLASSIFICATION ------------------------------
 
+
+# -------------------------------------GENDER CLASSIFICATION ------------------------------
 @app.route('/genderClassification/urlRoute/<path:url>')
 def urlPredGenderClassification(url):
-    if "https://images.unsplash.com/" in url:
+    if "https://images.unsplash.com/photo" in url:
         url= url+ add 
     print(url)
     img = io.imread(url)    
@@ -171,7 +175,57 @@ def decodeGender(base64_string):
     else:
         print ('Male')
         return {'data':'Male'}
+# -------------------------------------END OF GENDER CLASSIFICATION ------------------------------
 
+# -------------------------------------Cat or Dog CLASSIFICATION ------------------------------
+@app.route('/catvsDog/urlRoute/<path:url>')
+def urlPredCatORDog(url):
+    if "https://images.unsplash.com/photo" in url:
+        url= url+ add 
+    print(url)
+    img = io.imread(url)    
+    img = cv2.cvtColor(img, cv2.COLOR_RGB2BGR)
+
+
+    new_img = cv2.cvtColor(img, cv2.COLOR_RGB2BGR) #colored output image
+    
+    new_img = cv2.resize(new_img,(150,150))
+    new_img = np.reshape(new_img,[1,150,150,3])/255.0
+    pred = catVsDogModel.predict(new_img)
+    print('---------------------pred[0]',pred[0])
+    if pred[0]<0.5:
+        print ('Cat')
+        return {'data':"Cat"}
+    else:
+        print ('Dog')
+        return {'data':'Dog'}
+
+@app.route("/genderClassification/base64/<path:base64_string>")
+def decodeAnimal(base64_string): 
+    if "data:image/jpeg;base64," in base64_string:
+        base64_string = base64_string.replace("data:image/jpeg;base64,", "")
+    elif "data:image/png;base64," in base64_string:
+        base64_string = base64_string.replace("data:image/png;base64,", "")
+    elif "data:image/jpeg;base64," in base64_string:
+        base64_string = base64_string.replace("data:image/jpg;base64,", "")
+    if isinstance(base64_string, bytes):
+        base64_string = base64_string.decode("utf-8")
+
+    imgdata = base64.b64decode(base64_string)
+    img = io.imread(imgdata, plugin='imageio')
+    img = cv2.cvtColor(img, cv2.COLOR_RGB2BGR)
+
+    new_img = cv2.cvtColor(img, cv2.COLOR_RGB2BGR) #colored output image
+    new_img = cv2.resize(new_img,(150,150))
+    new_img = np.reshape(new_img,[1,150,150,3])/255.0
+    pred = genderModel.predict(new_img)
+    print('-----------------------pred[0]',pred[0])
+    if pred[0]<0.5:
+        print ('Cat')
+        return {'data':"Cat"}
+    else:
+        print ('Dog')
+        return {'data':'Dog'}
 
 if __name__ == '__main__':
     app.run(debug=True)
