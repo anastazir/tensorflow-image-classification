@@ -13,9 +13,9 @@ import ImageShow from "./components/ImageShow/ImageShow";
 import { handleUrl, handleBase64 } from "./Fetch/fetchByUrl";
 import {encodeFileBase64} from "./helper/helperFunctions"
 import NotificationContainer from "./hooks/NotificationContainer";
+import ThreeDotsWave from "./components/Loading/ThreeDotsWave";
 function App() {
-  // TODO: make a state to check if the server has done predicting
-  // TODO: if server is still predicting and user clicks on the button show an error modal
+
   const [image, setImage] = useState(null)    // for image file
   const [imgUrl, setImgUrl] = useState('')    // for image URL
   // Modal state
@@ -111,14 +111,20 @@ function App() {
 
         <br />
 
+        {predicting? 
+        <ThreeDotsWave/>:
         <motion.button
-          whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.95 }}
-          className="add-button"
-          onClick={validateUrl}
-        >
-          Predict
-        </motion.button>
+        whileHover={{ scale: 1.1 }}
+        whileTap={{ scale: 0.95 }}
+        className="add-button"
+        onClick={validateUrl}
+      >
+        Predict
+      </motion.button>
+      
+      }
+
+        
       </motion.main>
 
       <ModalContainer>
