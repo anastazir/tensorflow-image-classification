@@ -14,7 +14,8 @@ import { handleUrl, handleBase64 } from "./Fetch/fetchByUrl";
 import {encodeFileBase64} from "./helper/helperFunctions"
 import NotificationContainer from "./hooks/NotificationContainer";
 function App() {
-  // Todo Add Gender Classification Modal
+  // TODO: make a state to check if the server has done predicting
+  // TODO: if server is still predicting and user clicks on the button show an error modal
   const [image, setImage] = useState(null)    // for image file
   const [imgUrl, setImgUrl] = useState('')    // for image URL
   // Modal state
@@ -36,6 +37,8 @@ function App() {
   // Notification position
   const position= 'bottom'
 
+  const [predicting, setPredicting] = useState(false)
+
   const onImageFileChange= (e) =>{
     if (e.target.files && e.target.files[0]) {
       setImage(URL.createObjectURL(e.target.files[0]))
@@ -50,7 +53,11 @@ function App() {
       if (validator.isURL(text)){
         setImage(null)
         setImgUrl(text)
-        handleUrl(text, setNotifications, add, style, notifications);
+        if(!predicting){
+          handleUrl(text, setNotifications, add, style, notifications, setPredicting);
+        }else{
+          console.log('still predicting');
+        }
       }
       else{
         setModalType('invalid')
@@ -75,7 +82,10 @@ function App() {
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.9 }}
           className="save-button"
-          onClick={()=>handleBase64(fileBase64String, setNotifications, add, style, notifications, text)}
+          onClick={()=>
+            {if (!predicting){
+              handleBase64(fileBase64String, setNotifications, add, style, notifications, text)}
+            }}
         >
           Predict Local Image
         </motion.button>  

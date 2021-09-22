@@ -1,6 +1,7 @@
 import { switchAns } from "../helper/helperFunctions";
 
-export const handleUrl = (text, setNotifications, add, style, notifications) =>{
+export const handleUrl = (text, setNotifications, add, style, notifications, setPredicting) =>{
+  setPredicting(true)
   fetch(`${style}/urlRoute/${text}`).then((response) =>{ //make predictions
     if(response.ok){
       console.log('Ok');
@@ -13,6 +14,7 @@ export const handleUrl = (text, setNotifications, add, style, notifications) =>{
       console.log("data----------",data);
       const ans = switchAns(data);  // save the predictions in ans 
       setNotifications(add(notifications, text, style, ans))
+      setPredicting(false)
     })
 }
 
