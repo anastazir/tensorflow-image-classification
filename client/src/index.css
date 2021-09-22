@@ -264,10 +264,17 @@ li {
   color: var(--dark);
 }
 
+.random-button{
+  padding: 0 1rem;
+  margin: 2rem auto auto 0;
+  background: #c22129;
+  color: var(--dark);
+}
+
 .loading {
   padding: 0 1rem;
   margin: 2rem auto auto 0;
-  /* color: var(--dark); */
+  color: var(--dark);
 }
 
 .close {
