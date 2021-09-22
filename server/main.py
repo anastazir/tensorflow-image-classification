@@ -253,8 +253,8 @@ def urlEmotionClassification(url):
         crop = np.reshape(crop,[1,48,48,1])/255.0
         pred = emotionClassification.predict(crop)
         print('---------------------pred[0]',pred)
-        return emotion_labels[pred.argmax()]
-    return 'No faces were found'
+        return {"data":  f"{emotion_labels[pred.argmax()]}"}
+    return {"data": 'Face not found'}
 
 
 if __name__ == '__main__':
