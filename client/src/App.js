@@ -19,12 +19,10 @@ import {randomImages} from "./helper/randomImages";
 function App() {
 // TODO: USE THE OPENCV ALT VERSION OF FACE CLASSIFICATION
 // TODO: ADD RANDOM IMAGES FOR THE MASK CLASSIFICATION
-// TODO: MAKE A NEW INPUT IN WHICH THE ALL THE MODALS WILL PREDICT THE OUTCOME
 // TODO: ADD A BUTTON TO COPY URL FROM THE CLIPBOARD
 // TODO: FIX THE BASE64 ROUTES AND METHODS
 // TODO: TRY TO ADD A DOG BREED CLASSIFICATION MODAL
 // TODO: MAKE A READ ME WITH IMAGES
-// TODO: FIND A NEW MODAL FOR CATORDOG CLASSIFICATION
   const [image, setImage] = useState(null)    // for image file
   const [imgUrl, setImgUrl] = useState('')    // for image URL
   // Result Data
@@ -153,7 +151,7 @@ function App() {
 
       <ModalContainer>
         {modalOpen && (
-          <Modal modalOpen={modalOpen} text={modalType} type={modalType} handleClose={close} data={resultData} />
+          <Modal modalOpen={modalOpen} text={modalType} type={modalType} handleClose={close} data={resultData} url={text} />
         )}
       </ModalContainer>
 

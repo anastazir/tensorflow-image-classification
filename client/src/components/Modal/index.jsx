@@ -2,13 +2,15 @@ import { useEffect } from "react";
 import { motion } from "framer-motion";
 import { stateLogger } from "../../stateLogger";
 import Backdrop from "../Backdrop/index";
+import ImageShow from "../ImageShow/ImageShow";
 
 const liStyle = {
   margin: 'auto',
   width: '50%',
   color: 'var(--dark)',
-  fontWeight: '500',
+  fontWeight: '600',
   fontSize: '130%',
+    whiteSpace: "nowrap"
 }
 
 const dropIn = {
@@ -80,14 +82,14 @@ const result = {
   },
 };
 
-const Modal = ({ handleClose, text, type, data }) => {
+const Modal = ({ handleClose, text, type, data, url }) => {
   // Log state
   useEffect(() => {
     stateLogger("Modal", true);
     return () => stateLogger("Modal", false);
   }, []);
   console.log(type==='invalid');
-
+  console.log(url);
   return (
     <Backdrop onClick={handleClose}>
       {type === "emptyInput" && (
@@ -126,6 +128,7 @@ const Modal = ({ handleClose, text, type, data }) => {
           animate="visible"
           exit="exit"
         >
+          <ImageShow img={url}/>
           <ResultText data={data} />
         </motion.div>
       )}
