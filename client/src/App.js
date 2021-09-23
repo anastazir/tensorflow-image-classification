@@ -88,10 +88,8 @@ function App() {
     <Header />
     <div id="left">
       <motion.main>
-        <SubHeader text="Animated modals" />
-// !     Accept image file
+        <SubHeader text="Select File from local directory" />
         <input type="file" accept="image/*" className="input" onChange={onImageFileChange} /> 
-// !            Launches Modal
         <motion.button
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.9 }}
@@ -104,6 +102,9 @@ function App() {
         </motion.button>  
 
         <br />
+
+        <SubHeader text="Enter image URL" />
+
         <br />
 
         <Input
@@ -113,38 +114,46 @@ function App() {
         />
 
         <br />
+        
+        <SubHeader text="Select type of Classification" />
+        
+        <br />
 
         <motion.select className="input" onChange={handleStyle}>
           <option value="faceMaskClassification">🤿 Mask Classification</option>
           <option value="genderClassification">♂️ or ♀️ Classification</option>
           <option value="emotionClassification">👨‍🦰 Emotion Detection</option>
-          <option value="catvsDog">🐱or🐶</option>
           <option value="everything">🔥 Classify Everything</option>
+          <option value="catvsDog">🐱or🐶</option>
         </motion.select>
 
         <br />
 
-      {  predicting ? 
-          <ThreeDotsWave/> :
+      <div className="predict-random">
+
+        {  predicting ? 
+            <ThreeDotsWave/> :
+            <>
+            <motion.button
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.95 }}
+            className="add-button"
+            onClick={validateUrl}>
+              Predict
+            </motion.button>
           <motion.button
-          whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.95 }}
-          className="add-button"
-          onClick={validateUrl}>
-            Predict
-          </motion.button>
-      }
-// ! RANDOM IMAGE BUTTON
-        <motion.button
-          whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.9 }}
-          className="random-button"
-          onClick={()=>{
-            var url=randomImages(style)
-            setText(url)
-            setImgUrl(url)}}>
-          Random Image
-        </motion.button> 
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.9 }}
+            className="random-button"
+            onClick={()=>{
+              var url=randomImages(style)
+              setText(url)
+              setImgUrl(url)}}>
+            Random Image
+          </motion.button> 
+          </>
+        }
+      </div>
 
         
     </motion.main>
