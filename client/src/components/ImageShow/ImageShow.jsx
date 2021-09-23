@@ -9,6 +9,7 @@ const ImageShow = ({img}) => {
         <div>
             <div className="">
         <img
+        style={{borderRadius: "6px"}}
           src={img ? img :  image}
         //   width="400"
           crossOrigin="anonymous"
