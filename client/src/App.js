@@ -17,7 +17,14 @@ import ThreeDotsWave from "./components/Loading/ThreeDotsWave";
 import {randomImages} from "./helper/randomImages";
 
 function App() {
-
+// TODO: USE THE OPENCV ALT VERSION OF FACE CLASSIFICATION
+// TODO: ADD RANDOM IMAGES FOR THE MASK CLASSIFICATION
+// TODO: MAKE A NEW INPUT IN WHICH THE ALL THE MODALS WILL PREDICT THE OUTCOME
+// TODO: ADD A BUTTON TO COPY URL FROM THE CLIPBOARD
+// TODO: FIX THE BASE64 ROUTES AND METHODS
+// TODO: TRY TO ADD A DOG BREED CLASSIFICATION MODAL
+// TODO: MAKE A READ ME WITH IMAGES
+// TODO: FIND A NEW MODAL FOR CATORDOG CLASSIFICATION
   const [image, setImage] = useState(null)    // for image file
   const [imgUrl, setImgUrl] = useState('')    // for image URL
   // Modal state
@@ -105,7 +112,7 @@ function App() {
           <option value="genderClassification">♂️ or ♀️ Classification</option>
           <option value="emotionClassification">👨‍🦰 Emotion Detection</option>
           <option value="catvsDog">🐱or🐶</option>
-          {/* <option value="">🌙 Dark</option> */}
+          <option value="everything">🔥 Classify Everything</option>
         </motion.select>
 
         <br />
