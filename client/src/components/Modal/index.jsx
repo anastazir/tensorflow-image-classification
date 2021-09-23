@@ -3,6 +3,14 @@ import { motion } from "framer-motion";
 import { stateLogger } from "../../stateLogger";
 import Backdrop from "../Backdrop/index";
 
+const liStyle = {
+  margin: 'auto',
+  width: '50%',
+  color: 'var(--dark)',
+  fontWeight: '500',
+  fontSize: '130%',
+}
+
 const dropIn = {
   hidden: {
     y: "-100vh",
@@ -48,7 +56,31 @@ const flip = {
   },
 };
 
-const Modal = ({ handleClose, text, type }) => {
+const result = {
+  hidden: {
+    transform: "scale(0) rotate(720deg)",
+    opacity: 0,
+    transition: {
+      delay: 0.3,
+    },
+  },
+  visible: {
+    transform: " scale(1) rotate(0deg)",
+    opacity: 1,
+    transition: {
+      duration: 0.5,
+    },
+  },
+  exit: {
+    transform: "scale(0) rotate(-720deg)",
+    opacity: 0,
+    transition: {
+      duration: 0.3,
+    },
+  },
+};
+
+const Modal = ({ handleClose, text, type, data }) => {
   // Log state
   useEffect(() => {
     stateLogger("Modal", true);
@@ -85,6 +117,18 @@ const Modal = ({ handleClose, text, type }) => {
           <ModalButton onClick={handleClose} label="Close" />
         </motion.div>
       )}
+      {type === "result" && (
+        <motion.div
+          onClick={(e) => e.stopPropagation()}   
+          className="result  orange-gradient"
+          variants={result}
+          initial="hidden"
+          animate="visible"
+          exit="exit"
+        >
+          <ResultText data={data} />
+        </motion.div>
+      )}
     </Backdrop>
   );
 };
@@ -108,6 +152,18 @@ const ModalText = ({type}) => (
     }
   </div>
 );
+
+
+const ResultText = ({data}) =>(
+  <div className="modal-text">
+    <h3>Results</h3>
+    <div >
+    {data.map((object, i)=>{
+        return <li key={i} style={liStyle}> {object} </li>;
+    })}
+    </div>
+    </div>
+)
 
 const ModalButton = ({ onClick, label }) => (
   <motion.button
