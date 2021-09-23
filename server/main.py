@@ -228,7 +228,9 @@ def decodeAnimal(base64_string):
         print ('Dog')
         return {'data':'Dog'}
 
-# -------------------------------------Cat or Dog CLASSIFICATION ------------------------------
+# -------------------------------------END OF Cat or Dog CLASSIFICATION ------------------------------
+
+# -------------------------------------EMOTION CLASSIFICATION ------------------------------
 
 @app.route('/emotionClassification/urlRoute/<path:url>')
 def urlEmotionClassification(url):
@@ -245,6 +247,7 @@ def urlEmotionClassification(url):
     # if len(faces)==0:
     #     print('no faces were found')
     #     return  urlPredSecondOption(new_img, shape=128)
+    print("lenght of faces is----",len(faces))
     for i in range(len(faces)):
         print('------------------found face')
         (x,y,w,h) = faces[i]
@@ -256,6 +259,66 @@ def urlEmotionClassification(url):
         return {"data":  f"{emotion_labels[pred.argmax()]}"}
     return {"data": 'Face not found'}
 
+# -------------------------------------END OF EMOTION CLASSIFICATION ------------------------------
+
+# -------------------------------------Everything CLASSIFICATION ------------------------------
+
+@app.route('/predictEverything/urlRoute/<path:url>')
+def urlEverything(url):
+    ans=[]
+    emotion_labels = ['Angry','Disgust','Fear','Happy','Neutral', 'Sad', 'Surprise']
+    if "https://images.unsplash.com/" in url:
+        url= url+ add 
+    print(url)
+    img = io.imread(url)    
+    img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+
+    faces = face_model.detectMultiScale(img,scaleFactor=1.1, minNeighbors=4) #returns a list of (x,y,w,h) tuples
+
+    for i in range(len(faces)):  # for emotion classification'
+        print('------------------found face')
+        (x,y,w,h) = faces[i]
+        crop = img[y:y+h,x:x+w]
+        crop = cv2.resize(crop,(48,48))
+        crop = np.reshape(crop,[1,48,48,1])/255.0
+        pred = emotionClassification.predict(crop)
+        print('---------------------pred[0]',pred)
+        ans.append(emotion_labels[pred.argmax()])
+        break
+        
+    img = cv2.cvtColor(img, cv2.COLOR_RGB2BGR)
+
+    faces = face_model.detectMultiScale(img,scaleFactor=1.1, minNeighbors=4) #returns a list of (x,y,w,h) tuples
+
+    for i in range(len(faces)):
+        (x,y,w,h) = faces[i]
+        crop = img[y:y+h,x:x+w]
+        crop = cv2.resize(crop,(150,150))
+        crop = np.reshape(crop,[1,150,150,3])/255.0
+        pred = genderModel.predict(crop)
+        break
+    if pred[0][1]<0.5:
+        ans.append('Female')
+    else:
+        ans.append('Male')
+
+    for i in range(len(faces)):
+        print('------------------found face')
+        (x,y,w,h) = faces[i]
+        crop = img[y:y+h,x:x+w]
+        crop = cv2.resize(crop,(128,128))
+        crop = np.reshape(crop,[1,128,128,3])/255.0
+        pred = masknet.predict(crop)
+        break                   # only predict for the first face
+    if pred[0][1]<0.5:
+        ans.append('Mask')
+    else:
+        ans.append("No Mask")
+
+
+    return {"data":  ans}
+    
+# -------------------------------------END OF Everything CLASSIFICATION ------------------------------
 
 if __name__ == '__main__':
     app.run(debug=True)
