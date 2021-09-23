@@ -1,6 +1,6 @@
 import { switchAns } from "../helper/helperFunctions";
 
-export const handleUrl = (text, setNotifications, add, style, notifications, setPredicting) =>{
+export const handleUrl = (text, setNotifications, add, style, notifications, setPredicting, openResultdModal) =>{
   setPredicting(true)
   fetch(`${style}/urlRoute/${text}`).then((response) =>{ //make predictions
     if(response.ok){
@@ -14,6 +14,7 @@ export const handleUrl = (text, setNotifications, add, style, notifications, set
       console.log("data----------",data);
       if (Array.isArray(data)){
         console.log('array found');
+        openResultdModal(data)
       }else{
         const ans = switchAns(data);  // save the predictions in ans 
         setNotifications(add(notifications, text, style, ans))

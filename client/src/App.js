@@ -27,6 +27,9 @@ function App() {
 // TODO: FIND A NEW MODAL FOR CATORDOG CLASSIFICATION
   const [image, setImage] = useState(null)    // for image file
   const [imgUrl, setImgUrl] = useState('')    // for image URL
+  // Result Data
+  const [resultData, setResultData] = useState(["No faces found"])
+
   // Modal state
   const { modalOpen, close, open } = useModal();
   // Modal type
@@ -56,6 +59,12 @@ function App() {
     }
   }
 
+  const openResultdModal = (data) =>{
+    setModalType('result')
+    setResultData(data)
+    open()
+  }
+
 
   const validateUrl = () =>{
     if(text){
@@ -63,7 +72,7 @@ function App() {
         setImage(null)
         setImgUrl(text)
         if(!predicting){
-          handleUrl(text, setNotifications, add, style, notifications, setPredicting);
+          handleUrl(text, setNotifications, add, style, notifications, setPredicting, openResultdModal);
         }
       }
       else{
@@ -144,7 +153,7 @@ function App() {
 
       <ModalContainer>
         {modalOpen && (
-          <Modal modalOpen={modalOpen} text={modalType} type={modalType} handleClose={close} />
+          <Modal modalOpen={modalOpen} text={modalType} type={modalType} handleClose={close} data={resultData} />
         )}
       </ModalContainer>
 
