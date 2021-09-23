@@ -263,8 +263,8 @@ def urlEmotionClassification(url):
 
 # -------------------------------------Everything CLASSIFICATION ------------------------------
 
-@app.route('/predictEverything/urlRoute/<path:url>')
-def urlEverything(url):
+@app.route('/everything/urlRoute/<path:url>')
+def everything(url):
     ans=[]
     emotion_labels = ['Angry','Disgust','Fear','Happy','Neutral', 'Sad', 'Surprise']
     if "https://images.unsplash.com/" in url:
