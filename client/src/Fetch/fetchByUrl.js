@@ -12,8 +12,12 @@ export const handleUrl = (text, setNotifications, add, style, notifications, set
       return data.data
     }).then(data =>{
       console.log("data----------",data);
-      const ans = switchAns(data);  // save the predictions in ans 
-      setNotifications(add(notifications, text, style, ans))
+      if (Array.isArray(data)){
+        console.log('array found');
+      }else{
+        const ans = switchAns(data);  // save the predictions in ans 
+        setNotifications(add(notifications, text, style, ans))
+      }
       setPredicting(false)
     })
 }
