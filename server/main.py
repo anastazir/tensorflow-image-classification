@@ -14,7 +14,7 @@ import cv2
 from skimage import io
 from faceMaskClassification import maskClassification, baseMaskClassification
 from genderClassification import genderClassification, baseGenderClassification
-
+from catOrDog import catOrDogClassification, baseCatOrDogClassification
 app = Flask(__name__)
 
 masknet = tf.keras.models.load_model('masknet.h5') # input shape of (128, 128, 3)
@@ -88,21 +88,7 @@ def urlPredCatORDog(url):
         url= url+ add 
     print(url)
     img = io.imread(url)    
-    img = cv2.cvtColor(img, cv2.COLOR_RGB2BGR)
-
-
-    new_img = cv2.cvtColor(img, cv2.COLOR_RGB2BGR) #colored output image
-    
-    new_img = cv2.resize(new_img,(150,150))
-    new_img = np.reshape(new_img,[1,150,150,3])/255.0
-    pred = catVsDogModel.predict(new_img)
-    print('---------------------pred[0]',pred[0])
-    if pred[0]<0.5:
-        print ('Cat')
-        return {'data':"Cat"}
-    else:
-        print ('Dog')
-        return {'data':'Dog'}
+    return catOrDogClassification(img)
 
 @app.route("/genderClassification/base64/<path:base64_string>")
 def decodeAnimal(base64_string): 
@@ -117,19 +103,7 @@ def decodeAnimal(base64_string):
 
     imgdata = base64.b64decode(base64_string)
     img = io.imread(imgdata, plugin='imageio')
-    img = cv2.cvtColor(img, cv2.COLOR_RGB2BGR)
-
-    new_img = cv2.cvtColor(img, cv2.COLOR_RGB2BGR) #colored output image
-    new_img = cv2.resize(new_img,(150,150))
-    new_img = np.reshape(new_img,[1,150,150,3])/255.0
-    pred = genderModel.predict(new_img)
-    print('-----------------------pred[0]',pred[0])
-    if pred[0]<0.5:
-        print ('Cat')
-        return {'data':"Cat"}
-    else:
-        print ('Dog')
-        return {'data':'Dog'}
+    return baseCatOrDogClassification(img)
 
 # -------------------------------------END OF Cat or Dog CLASSIFICATION ------------------------------
 
