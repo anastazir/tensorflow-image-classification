@@ -12,7 +12,7 @@ from io import BytesIO
 import requests
 import cv2
 from skimage import io
-from faceMaskClassification import find_face
+from faceMaskClassification import maskClassification, baseMaskClassification
 
 
 app = Flask(__name__)
@@ -29,22 +29,6 @@ face_model = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
 
 # -------------------------------------- MASK CLASSIFICATION ------------------------------
 
-
-def urlPredSecondOption(new_img, shape):  # IF NO FACES ARE FOUND
-    sample_mask_img = cv2.resize(new_img,(shape,shape))
-    sample_mask_img = np.reshape(sample_mask_img,[1,shape,shape,3])
-    sample_mask_img = sample_mask_img/255.0
-    pred= masknet.predict(sample_mask_img)
-    print('NO FACE PRED---------------',pred)
-    if pred[0][1]<0.5:
-        print ('Mask')
-        return {'data':"Mask"}
-    else:
-        print ('No Mask')
-        return {'data':'No Mask'}
-
-
-
 @app.route("/faceMaskClassification/base64/<path:base64_string>")
 def decodeFace(base64_string): 
     if "data:image/jpeg;base64," in base64_string:
@@ -58,27 +42,7 @@ def decodeFace(base64_string):
 
     imgdata = base64.b64decode(base64_string)
     img = io.imread(imgdata, plugin='imageio')
-    img = cv2.cvtColor(img, cv2.COLOR_RGB2BGR)
-
-    faces = face_model.detectMultiScale(img,scaleFactor=1.1, minNeighbors=1) #returns a list of (x,y,w,h) tuples
-
-    new_img = cv2.cvtColor(img, cv2.COLOR_RGB2BGR) #colored output image
-    if len(faces)==0:
-        print('----------------------no faces were found')
-    for i in range(len(faces)):
-        (x,y,w,h) = faces[i]
-        crop = new_img[y:y+h,x:x+w]
-        crop = cv2.resize(crop,(128,128))
-        crop = np.reshape(crop,[1,128,128,3])/255.0
-        pred = masknet.predict(crop)
-        break
-    print('-----------------------pred[0]',pred[0])
-    if pred[0][1]<0.5:
-        print ('Mask')
-        return {'data':"Mask"}
-    else:
-        print ('No Mask')
-        return {'data':'No Mask'}
+    return baseMaskClassification(img)
 
 
 @app.route('/faceMaskClassification/urlRoute/<path:url>')
@@ -87,7 +51,7 @@ def urlPred(url):
         url= url+ add 
     print(url)
     img = io.imread(url)    
-    return find_face(img)
+    return maskClassification(img)
 
 # -------------------------------------END OF MASK CLASSIFICATION ------------------------------
 
