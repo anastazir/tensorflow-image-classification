@@ -13,7 +13,7 @@ import requests
 import cv2
 from skimage import io
 from faceMaskClassification import maskClassification, baseMaskClassification
-
+from genderClassification import genderClassification, baseGenderClassification
 
 app = Flask(__name__)
 
@@ -63,28 +63,7 @@ def urlPredGenderClassification(url):
         url= url+ add 
     print(url)
     img = io.imread(url)    
-    img = cv2.cvtColor(img, cv2.COLOR_RGB2BGR)
-
-    faces = face_model.detectMultiScale(img,scaleFactor=1.1, minNeighbors=4) #returns a list of (x,y,w,h) tuples
-
-    new_img = cv2.cvtColor(img, cv2.COLOR_RGB2BGR) #colored output image
-    # if len(faces)==0:
-    #     print('no faces were found')
-    #     return  urlPredSecondOption(url)
-    for i in range(len(faces)):
-        print('------------------found face')
-        (x,y,w,h) = faces[i]
-        crop = new_img[y:y+h,x:x+w]
-        crop = cv2.resize(crop,(150,150))
-        crop = np.reshape(crop,[1,150,150,3])/255.0
-        pred = genderModel.predict(crop)
-        print('---------------------pred[0]',pred[0])
-        if pred[0][1]<0.5:
-            print ('Female')
-            return {'data':"Female"}
-        else:
-            print ('Male')
-            return {'data':'Male'}
+    return genderClassification(img)
 
 @app.route("/genderClassification/base64/<path:base64_string>")
 def decodeGender(base64_string): 
@@ -99,27 +78,7 @@ def decodeGender(base64_string):
 
     imgdata = base64.b64decode(base64_string)
     img = io.imread(imgdata, plugin='imageio')
-    img = cv2.cvtColor(img, cv2.COLOR_RGB2BGR)
-
-    faces = face_model.detectMultiScale(img,scaleFactor=1.1, minNeighbors=4) #returns a list of (x,y,w,h) tuples
-
-    new_img = cv2.cvtColor(img, cv2.COLOR_RGB2BGR) #colored output image
-    if len(faces)==0:
-        print('----------------------no faces were found')
-    for i in range(len(faces)):
-        (x,y,w,h) = faces[i]
-        crop = new_img[y:y+h,x:x+w]
-        crop = cv2.resize(crop,(150,150))
-        crop = np.reshape(crop,[1,150,150,3])/255.0
-        pred = genderModel.predict(crop)
-        break
-    print('-----------------------pred[0]',pred[0])
-    if pred[0][1]<0.5:
-        print ('Female')
-        return {'data':"Female"}
-    else:
-        print ('Male')
-        return {'data':'Male'}
+    return baseGenderClassification(img)
 # -------------------------------------END OF GENDER CLASSIFICATION ------------------------------
 
 # -------------------------------------Cat or Dog CLASSIFICATION ------------------------------
