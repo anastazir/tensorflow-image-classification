@@ -15,6 +15,7 @@ from skimage import io
 from faceMaskClassification import maskClassification, baseMaskClassification
 from genderClassification import genderClassification, baseGenderClassification
 from catOrDog import catOrDogClassification, baseCatOrDogClassification
+from emotionClassification import emotionClassificationURL
 app = Flask(__name__)
 
 masknet = tf.keras.models.load_model('masknet.h5') # input shape of (128, 128, 3)
@@ -116,25 +117,7 @@ def urlEmotionClassification(url):
         url= url+ add
     print(url)
     img = io.imread(url)    
-    img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-
-    faces = face_model.detectMultiScale(img,scaleFactor=1.1, minNeighbors=4) #returns a list of (x,y,w,h) tuples
-
-    # new_img = cv2.cvtColor(img, cv2.COLOR_RGB2BGR) #colored output image
-    # if len(faces)==0:
-    #     print('no faces were found')
-    #     return  urlPredSecondOption(new_img, shape=128)
-    print("lenght of faces is----",len(faces))
-    for i in range(len(faces)):
-        print('------------------found face')
-        (x,y,w,h) = faces[i]
-        crop = img[y:y+h,x:x+w]
-        crop = cv2.resize(crop,(48,48))
-        crop = np.reshape(crop,[1,48,48,1])/255.0
-        pred = emotionClassification.predict(crop)
-        print('---------------------pred[0]',pred)
-        return {"data":  f"{emotion_labels[pred.argmax()]}"}
-    return {"data": 'Face not found'}
+    return emotionClassificationURL(img)
 
 # -------------------------------------END OF EMOTION CLASSIFICATION ------------------------------
 
