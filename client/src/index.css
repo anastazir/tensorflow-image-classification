@@ -138,13 +138,17 @@ button {
 .result {
   width: clamp(50%, 700px, 90%);
   height: min(90%, 800px);
-
+  justify-content: space-evenly;
   margin: auto;
   padding: 0 2rem;
   border-radius: 12px;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
+}
+
+.result-text{
+  
 }
 
 .orange-gradient {

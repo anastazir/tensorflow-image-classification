@@ -158,8 +158,8 @@ const ModalText = ({type}) => (
 
 
 const ResultText = ({data}) =>(
-  <div className="modal-text">
-    <h3>Results</h3>
+  <div >
+    <h3 className="result-text">Results</h3>
     <div >
     {data.map((object, i)=>{
         return <li key={i} style={liStyle}> {object} </li>;
