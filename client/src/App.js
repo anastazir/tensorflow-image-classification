@@ -58,7 +58,8 @@ function App() {
   const openResultdModal = (data) =>{
     setModalType('result')
     setResultData(data)
-    open()
+    // open()
+    console.log(data);
   }
 
 
@@ -83,11 +84,11 @@ function App() {
 
   return (
     <>
-    {/* <Sidebar>
+    <Sidebar>
       <h3>
         This is a side bar
       </h3>
-    </Sidebar> */}
+    </Sidebar>
     <Header />
     <div id="left">
       <motion.main>
@@ -175,6 +176,7 @@ function App() {
               notification={notification}
               notifications={notifications}
               setNotifications={setNotifications}
+              openResultdModal={openResultdModal}
             />
           ))}
       </NotificationContainer>
