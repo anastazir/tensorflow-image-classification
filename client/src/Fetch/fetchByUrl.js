@@ -7,10 +7,19 @@ export const handleUrl = (text, setNotifications, add, style, notifications, set
       console.log('Ok');
       return response.json()
     }
-  }).then(data =>{ 
+  })
+  .catch((error) =>{
+    console.log("error-->", error);
+    setPredicting(false)
+  })
+  .then(data =>{ 
       console.log("data---",data.data); 
       return data.data
-    }).then(data =>{
+    })
+    .catch((error) =>{
+      console.log("error in second catch is-->", error);
+    })
+    .then(data =>{
       console.log("data----------",data);
       if (Array.isArray(data)){
         console.log('array found');
