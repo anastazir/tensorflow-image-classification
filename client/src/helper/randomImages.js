@@ -31,7 +31,12 @@ const emotionClassification=[
     "https://images.unsplash.com/photo-1609852234838-147db6815968?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyMTYyOTB8MHwxfHNlYXJjaHw3fHxhbmdyeXxlbnwwfHx8fDE2MzIzMjgwODQ&ixlib=rb-1.2.1&q=80&w=400", 
     "https://images.unsplash.com/photo-1612896488082-7271dc0ed30c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyMTYyOTB8MHwxfHNlYXJjaHwzOHx8ZmFjZXxlbnwwfHx8fDE2MzIzMjgwMTk&ixlib=rb-1.2.1&q=80&w=400",
     "https://images.unsplash.com/photo-1596215143922-eedeaba0d91c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyMTYyOTB8MHwxfHNlYXJjaHwzM3x8ZmFjZXxlbnwwfHx8fDE2MzIzMjgwMTk&ixlib=rb-1.2.1&q=80&w=400",
-    "https://images.unsplash.com/photo-1542909168-82c3e7fdca5c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyMTYyOTB8MHwxfHNlYXJjaHw5fHxmYWNlfGVufDB8fHx8MTYzMjMyNzkwNA&ixlib=rb-1.2.1&q=80&w=400"
+    "https://images.unsplash.com/photo-1542909168-82c3e7fdca5c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyMTYyOTB8MHwxfHNlYXJjaHw5fHxmYWNlfGVufDB8fHx8MTYzMjMyNzkwNA&ixlib=rb-1.2.1&q=80&w=400",
+    "https://images.unsplash.com/photo-1610642434201-6cfd5cda24b9?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyMTYyOTB8MHwxfHNlYXJjaHwxMzR8fGVtb3Rpb25zfGVufDB8fHx8MTYzMjQ3ODc2Mg&ixlib=rb-1.2.1&q=80&w=400",
+    "https://images.unsplash.com/photo-1610441995419-a673724a8224?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyMTYyOTB8MHwxfHNlYXJjaHw4N3x8ZW1vdGlvbnN8ZW58MHx8fHwxNjMyNDc4NjI3&ixlib=rb-1.2.1&q=80&w=400",
+    "https://images.unsplash.com/photo-1610642434561-956cd4111f42?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyMTYyOTB8MHwxfHNlYXJjaHwxMDR8fGVtb3Rpb25zfGVufDB8fHx8MTYzMjQ3ODY2OA&ixlib=rb-1.2.1&q=80&w=400",
+    "https://images.unsplash.com/photo-1610642434250-392436bd9fba?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyMTYyOTB8MHwxfHNlYXJjaHwxMTV8fGVtb3Rpb25zfGVufDB8fHx8MTYzMjQ3ODcxMA&ixlib=rb-1.2.1&q=80&w=400",
+    "https://images.unsplash.com/photo-1610642434685-c2d73045f4c7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyMTYyOTB8MHwxfHNlYXJjaHwxMjZ8fGVtb3Rpb25zfGVufDB8fHx8MTYzMjQ3ODcyNA&ixlib=rb-1.2.1&q=80&w=400",
 
 ]
 
@@ -48,7 +53,7 @@ export const randomImages=(style)=>{
     }
     else if(style==='catvsDog'){
         return catvsDog[randomIntFromInterval(0 ,8)]
-    }else if(style==='emotionClassification'){
+    }else if(style==='emotionClassification' || style==='everything'){
         return emotionClassification[randomIntFromInterval(0 ,11)] 
     }
 };
