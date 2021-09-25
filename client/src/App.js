@@ -15,13 +15,11 @@ import {encodeFileBase64} from "./helper/helperFunctions"
 import NotificationContainer from "./hooks/NotificationContainer";
 import ThreeDotsWave from "./components/Loading/ThreeDotsWave";
 import {randomImages} from "./helper/randomImages";
+import Sidebar from "./components/Sidebar/index"
 
 function App() {
-// TODO: USE THE OPENCV ALT VERSION OF FACE CLASSIFICATION
-// TODO: ADD RANDOM IMAGES FOR THE MASK CLASSIFICATION
 // TODO: ADD A BUTTON TO COPY URL FROM THE CLIPBOARD
 // TODO: FIX THE BASE64 ROUTES AND METHODS
-// TODO: TRY TO ADD A DOG BREED CLASSIFICATION MODAL
 // TODO: MAKE A READ ME WITH IMAGES
   const [image, setImage] = useState(null)    // for image file
   const [imgUrl, setImgUrl] = useState('')    // for image URL
@@ -85,6 +83,11 @@ function App() {
 
   return (
     <>
+    {/* <Sidebar>
+      <h3>
+        This is a side bar
+      </h3>
+    </Sidebar> */}
     <Header />
     <div id="left">
       <motion.main>
