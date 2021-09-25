@@ -12,10 +12,13 @@ from io import BytesIO
 import requests
 import cv2
 from skimage import io
+
+# IMPORT FUNCTIONS
 from faceMaskClassification import maskClassification, baseMaskClassification
 from genderClassification import genderClassification, baseGenderClassification
 from catOrDog import catOrDogClassification, baseCatOrDogClassification
 from emotionClassification import emotionClassificationURL
+
 app = Flask(__name__)
 
 masknet = tf.keras.models.load_model('masknet.h5') # input shape of (128, 128, 3)
@@ -28,10 +31,7 @@ add='?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyMTYyOTB8MHwxfHNlYXJjaHw5f
 face_model = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
 
 
-# -------------------------------------- MASK CLASSIFICATION ------------------------------
-
-@app.route("/faceMaskClassification/base64/<path:base64_string>")
-def decodeFace(base64_string): 
+def trimString(base64_string):
     if "data:image/jpeg;base64," in base64_string:
         base64_string = base64_string.replace("data:image/jpeg;base64,", "")
     elif "data:image/png;base64," in base64_string:
@@ -40,8 +40,14 @@ def decodeFace(base64_string):
         base64_string = base64_string.replace("data:image/jpg;base64,", "")
     if isinstance(base64_string, bytes):
         base64_string = base64_string.decode("utf-8")
+    return base64_string
 
-    imgdata = base64.b64decode(base64_string)
+
+# -------------------------------------- MASK CLASSIFICATION ------------------------------
+
+@app.route("/faceMaskClassification/base64/<path:base64_string>")
+def decodeFace(base64_string): 
+    imgdata = base64.b64decode(trimString(base64_string))
     img = io.imread(imgdata, plugin='imageio')
     return baseMaskClassification(img)
 
@@ -68,16 +74,8 @@ def urlPredGenderClassification(url):
 
 @app.route("/genderClassification/base64/<path:base64_string>")
 def decodeGender(base64_string): 
-    if "data:image/jpeg;base64," in base64_string:
-        base64_string = base64_string.replace("data:image/jpeg;base64,", "")
-    elif "data:image/png;base64," in base64_string:
-        base64_string = base64_string.replace("data:image/png;base64,", "")
-    elif "data:image/jpeg;base64," in base64_string:
-        base64_string = base64_string.replace("data:image/jpg;base64,", "")
-    if isinstance(base64_string, bytes):
-        base64_string = base64_string.decode("utf-8")
 
-    imgdata = base64.b64decode(base64_string)
+    imgdata = base64.b64decode(trimString(base64_string))
     img = io.imread(imgdata, plugin='imageio')
     return baseGenderClassification(img)
 # -------------------------------------END OF GENDER CLASSIFICATION ------------------------------
@@ -93,16 +91,8 @@ def urlPredCatORDog(url):
 
 @app.route("/genderClassification/base64/<path:base64_string>")
 def decodeAnimal(base64_string): 
-    if "data:image/jpeg;base64," in base64_string:
-        base64_string = base64_string.replace("data:image/jpeg;base64,", "")
-    elif "data:image/png;base64," in base64_string:
-        base64_string = base64_string.replace("data:image/png;base64,", "")
-    elif "data:image/jpeg;base64," in base64_string:
-        base64_string = base64_string.replace("data:image/jpg;base64,", "")
-    if isinstance(base64_string, bytes):
-        base64_string = base64_string.decode("utf-8")
-
-    imgdata = base64.b64decode(base64_string)
+    imgdata = base64.b64decode(trimString(base64_string))
+    
     img = io.imread(imgdata, plugin='imageio')
     return baseCatOrDogClassification(img)
 
@@ -112,7 +102,6 @@ def decodeAnimal(base64_string):
 
 @app.route('/emotionClassification/urlRoute/<path:url>')
 def urlEmotionClassification(url):
-    emotion_labels = ['Angry','Disgust','Fear','Happy','Neutral', 'Sad', 'Surprise']
     if "https://images.unsplash.com/" in url:
         url= url+ add
     print(url)
