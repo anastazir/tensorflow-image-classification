@@ -38,5 +38,11 @@ export const switchAns = (data) =>{
   }else if (data==='Neutral'){
     data= data+' 😐'
   }
+  else if (data==='No Glasses'){
+    data=data+' 🙄'
+  }
+  else if (data==='Glasses'){
+    data= data+' 🤓'
+  }
   return data;
 }
