@@ -26,6 +26,7 @@ masknet = tf.keras.models.load_model('masknet.h5') # input shape of (128, 128, 3
 genderModel = tf.keras.models.load_model('GenderModal.h5') # input shape of (150, 150, 3)
 catVsDogModel = tf.keras.models.load_model('catVsDogModel.h5') # input shape of (150, 150, 3)   
 emotionClassification = tf.keras.models.load_model('emotionDetection.h5') # input shape of (48, 48, 1)   
+glassesModel = tf.keras.models.load_model('glassesDetection.h5') # input shape of (160, 160, 3)
 
 
 add='?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyMTYyOTB8MHwxfHNlYXJjaHw5fHxmYWNlfGVufDB8fHx8MTYzMjA1MDM4MQ&ixlib=rb-1.2.1&q=80&w=300'
@@ -163,6 +164,20 @@ def everything(url):
         ans.append('Mask')
     else:
         ans.append("No Mask")
+
+    for i in range(len(faces)):
+        print('------------------found face')
+        (x,y,w,h) = faces[i]
+        crop = img[y:y+h,x:x+w]
+        crop = cv2.resize(crop,(160,160))
+        crop = np.reshape(crop,[1,160,160,3])
+        pred = glassesModel.predict(crop)
+        print('---------------------pred[0]',pred[0])
+        # break                   # only predict for the first face
+        if pred[0][0]>0:
+            ans.append("No Glasses")
+        else:
+            ans.append('Glasses')
 
     return{'data': ans}
     
