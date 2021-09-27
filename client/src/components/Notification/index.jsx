@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { useEffect } from "react";
 import { remove } from "../../arr-utils";
 
 const notificationVariants = {
@@ -21,9 +22,9 @@ const notificationVariants = {
   hover: { scale: 1.05, transition: { duration: 0.1 } },
 };
 
-const Notification = ({ notifications, setNotifications, notification }) => {
+const Notification = ({ notifications, setNotifications, notification, openResultdModal }) => {
   const { text, style, ans } = notification;
-  console.log("ans---",ans)
+  // console.log("ans---",([text]))
   const handleClose = () => setNotifications(remove(notifications, notification));
   console.log(notifications)
   const styleType = () => {
@@ -31,23 +32,23 @@ const Notification = ({ notifications, setNotifications, notification }) => {
     console.log(style);
     switch (style) {
       case "faceMaskClassification":
-        return { background: "linear-gradient(15deg, #6adb00, #04e800)" };
+        return { background: "linear-gradient(15deg, #6adb00, #04e800)", cursor: "pointer"};
       case "catvsDog":
-        return { background: "linear-gradient(15deg, #ff596d, #d72c2c)" };
+        return { background: "linear-gradient(15deg, #ff596d, #d72c2c)", cursor: "pointer"};
       case "emotionClassification":
-        return { background: "linear-gradient(15deg, #ffac37, #ff9238)" };
+        return { background: "linear-gradient(15deg, #ffac37, #ff9238)", cursor: "pointer" };
       case "genderClassification":
-        return { background: "linear-gradient(15deg, #e7e7e7, #f4f4f4)" };
+        return { background: "linear-gradient(15deg, #e7e7e7, #f4f4f4)", cursor: "pointer" };
+      case "glassesClassification":
+        return { background: "linear-gradient(to right, red , yellow)", cursor: "pointer"};
       default:
-        return { background: "linear-gradient(15deg, #202121, #292a2d)" };
+        return { background: "linear-gradient(15deg, #202121, #292a2d)", cursor: "pointer" };
     }
   };
 
-  
-
-
   return  (
     <motion.li
+    onClick={()=> console.log('clicking')}
       style={styleType()} // Change the style based on style selection
       variants={notificationVariants} // Defined animation states
       whileHover="hover" // Animation on hover gesture
