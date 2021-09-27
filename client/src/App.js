@@ -83,11 +83,11 @@ function App() {
 
   return (
     <>
-    {/* <Sidebar>
+    <Sidebar>
       <h3>
         This is a side bar
       </h3>
-    </Sidebar> */}
+    </Sidebar>
     <Header />
     <div id="left">
       <motion.main>
@@ -127,6 +127,7 @@ function App() {
           <option value="genderClassification">♂️ or ♀️ Classification</option>
           <option value="emotionClassification">👨‍🦰 Emotion Detection</option>
           <option value="everything">🔥 Classify Everything</option>
+          <option value="glassesClassification">👓or👀</option>
           <option value="catvsDog">🐱or🐶</option>
         </motion.select>
 
