@@ -37,10 +37,15 @@ const emotionClassification=[
     "https://images.unsplash.com/photo-1610642434561-956cd4111f42?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyMTYyOTB8MHwxfHNlYXJjaHwxMDR8fGVtb3Rpb25zfGVufDB8fHx8MTYzMjQ3ODY2OA&ixlib=rb-1.2.1&q=80&w=400",
     "https://images.unsplash.com/photo-1610642434250-392436bd9fba?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyMTYyOTB8MHwxfHNlYXJjaHwxMTV8fGVtb3Rpb25zfGVufDB8fHx8MTYzMjQ3ODcxMA&ixlib=rb-1.2.1&q=80&w=400",
     "https://images.unsplash.com/photo-1610642434685-c2d73045f4c7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyMTYyOTB8MHwxfHNlYXJjaHwxMjZ8fGVtb3Rpb25zfGVufDB8fHx8MTYzMjQ3ODcyNA&ixlib=rb-1.2.1&q=80&w=400",
-
 ]
 
-
+const glassesClassification=[
+    "https://images.unsplash.com/photo-1525782795125-0668803f3e28?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyMTYyOTB8MHwxfHNlYXJjaHwyNHx8cGVvcGxlJTIwd2l0aCUyMGdsYXNzZXN8ZW58MHx8fHwxNjMyNzU5NTU3&ixlib=rb-1.2.1&q=80&w=400",
+    "https://images.unsplash.com/photo-1512485694743-9c9538b4e6e0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyMTYyOTB8MHwxfHNlYXJjaHwxN3x8cGVvcGxlJTIwd2l0aCUyMGdsYXNzZXN8ZW58MHx8fHwxNjMyNjc5ODEz&ixlib=rb-1.2.1&q=80&w=400",
+    "https://images.unsplash.com/photo-1575096611627-a9906523ae71?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyMTYyOTB8MHwxfHNlYXJjaHwxOXx8cGVvcGxlJTIwd2l0aCUyMGdsYXNzZXN8ZW58MHx8fHwxNjMyNjc5ODEz&ixlib=rb-1.2.1&q=80&w=400",
+    "https://images.unsplash.com/photo-1524255684952-d7185b509571?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyMTYyOTB8MHwxfHNlYXJjaHwyfHxwZW9wbGUlMjB3aXRoJTIwZ2xhc3Nlc3xlbnwwfHx8fDE2MzI2Nzk3NzU&ixlib=rb-1.2.1&q=80&w=400",
+    "https://images.unsplash.com/photo-1509783236416-c9ad59bae472?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyMTYyOTB8MHwxfHNlYXJjaHwzfHxwZW9wbGUlMjB3aXRoJTIwZ2xhc3Nlc3xlbnwwfHx8fDE2MzI2Nzk3NzU&ixlib=rb-1.2.1&q=80&w=400",
+]
 
 
 
@@ -53,7 +58,9 @@ export const randomImages=(style)=>{
     }
     else if(style==='catvsDog'){
         return catvsDog[randomIntFromInterval(0 ,8)]
-    }else if(style==='emotionClassification' || style==='everything'){
-        return emotionClassification[randomIntFromInterval(0 ,11)] 
+    }
+    else if(style==='emotionClassification' || style==='everything' || style==='glassesClassification'){
+        const concat= [...emotionClassification, ...genderClassification, ...glassesClassification]
+        return concat[randomIntFromInterval(0 ,30)] 
     }
 };
