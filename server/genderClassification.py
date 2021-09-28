@@ -2,7 +2,7 @@ import cv2
 import tensorflow as tf
 import numpy as np
 
-genderModel = tf.keras.models.load_model('GenderModal.h5') # input shape of (150, 150, 3)
+genderModel = tf.keras.models.load_model('./models/GenderModal.h5') # input shape of (150, 150, 3)
 
 face_model = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
 

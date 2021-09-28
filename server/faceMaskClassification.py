@@ -2,7 +2,7 @@ import cv2
 import tensorflow as tf
 import numpy as np
 
-masknet = tf.keras.models.load_model('masknet.h5') # input shape of (128, 128, 3)
+masknet = tf.keras.models.load_model('./models/masknet.h5') # input shape of (128, 128, 3)
 
 face_model = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
 
