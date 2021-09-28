@@ -19,6 +19,8 @@ from genderClassification import genderClassification, baseGenderClassification
 from catOrDog import catOrDogClassification, baseCatOrDogClassification
 from emotionClassification import emotionClassificationURL
 from glassesClassification import glassesClassificationURL
+from foodClassification import foodClassificationURL
+
 
 app = Flask(__name__)
 
@@ -191,6 +193,16 @@ def urlGlassesClassification(url):
     print(url)
     img = io.imread(url)    
     return glassesClassificationURL(img)
+
+
+#--------------------------------------Food Classification---------------------------------
+@app.route('/foodClassification/urlRoute/<path:url>')
+def urlFoodClassification(url):
+    if "https://images.unsplash.com/" in url:
+        url= url+ add
+    print(url)
+    img = io.imread(url)    
+    return foodClassificationURL(img)
 
 
 if __name__ == '__main__':
