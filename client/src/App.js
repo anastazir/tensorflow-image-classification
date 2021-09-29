@@ -130,6 +130,7 @@ function App() {
           <option value="glassesClassification">👓or👀</option>
           <option value="catvsDog">🐱or🐶</option>
           <option value="foodClassification">🍲 Food Classification</option>
+          <option value="dogClassification">🐕‍🦺 Dog Classification</option>
         </motion.select>
 
         <br />
