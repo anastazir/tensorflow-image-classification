@@ -23,8 +23,6 @@ def catOrDogClassification(img):
         return {'data':'Dog'}
 
 def baseCatOrDogClassification(img):
-    img = cv2.cvtColor(img, cv2.COLOR_RGB2BGR)
-
     new_img = cv2.cvtColor(img, cv2.COLOR_RGB2BGR) #colored output image
     new_img = cv2.resize(new_img,(150,150))
     new_img = np.reshape(new_img,[1,150,150,3])/255.0
