@@ -13,8 +13,8 @@ def foodClassificationURL(img):
     pred = foodClassification.predict(new_img)
     # print('---------------------pred[0]',pred[0])
     arr= pred[0]
-    arr1=arr.argsort()[-3:][::-1]
+    arr1=arr.argsort()[-3:][::-1]  #get the top three results
     for i in arr1:
-        ans.append(f"{food_labels[i]}: {arr[i]}")
+        ans.append(f'{food_labels[i].title()}: {float("{0:.2f}".format(arr[i]))*100}%') # show upto 2 decimal palces
     print(ans)
     return {'data': ans}
