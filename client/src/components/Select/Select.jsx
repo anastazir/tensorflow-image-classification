@@ -13,6 +13,7 @@ const Select = ({handleStyle}) => {
           <option value="catvsDog">🐱or🐶</option>
           <option value="foodClassification">🍲 Food Classification</option>
           <option value="dogClassification">🐕‍🦺 Dog Classification</option>
+          <option value="birdsClassification">🦅 Birds Classification</option>
         </motion.select>  
         </>
     )
