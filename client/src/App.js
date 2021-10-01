@@ -1,5 +1,5 @@
 /* eslint-disable react/jsx-no-comment-textnodes */
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import useModal from "./hooks/useModal";
 import validator from 'validator' // to check if URL is valid
@@ -81,6 +81,12 @@ function App() {
       open();
     }
   }
+
+  useEffect(() =>{  // if the no. of notifications is more than 10 then remove the oldest notification
+    if(notifications.length > 10){
+      notifications.shift()
+    }
+  }, [notifications])
 
   return (
     <>
