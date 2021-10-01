@@ -62,6 +62,10 @@ function App() {
     open()
   }
 
+  const readFromClipboard =async ()=>{
+    const clipboardText = await navigator.clipboard.readText();
+    setText(clipboardText);
+  }
 
   const validateUrl = () =>{
     if(text){
@@ -137,7 +141,7 @@ function App() {
 
         {  predicting ? 
             <ThreeDotsWave/> :
-            <>
+          <>
             <motion.button
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.95 }}
@@ -154,6 +158,13 @@ function App() {
                 setText(url)
                 setImgUrl(url)}}>
               Random Image
+            </motion.button> 
+            <motion.button
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
+              className="copy-button"
+              onClick={readFromClipboard}>
+              Copy From Clipboard
             </motion.button> 
           </>
         }
