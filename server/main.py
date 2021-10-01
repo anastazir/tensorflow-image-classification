@@ -12,6 +12,8 @@ from io import BytesIO
 import requests
 import cv2
 from skimage import io
+import matplotlib.image as mpimg
+
 
 # IMPORT FUNCTIONS
 from faceMaskClassification import maskClassification, baseMaskClassification
@@ -93,12 +95,18 @@ def urlPredCatORDog(url):
     img = io.imread(url)    
     return catOrDogClassification(img)
 
-@app.route("/genderClassification/base64/<path:base64_string>")
+@app.route("/catvsDog/base64/<path:base64_string>")
 def decodeAnimal(base64_string): 
-    imgdata = base64.b64decode(trimString(base64_string))
-    
-    img = io.imread(imgdata, plugin='imageio')
-    return baseCatOrDogClassification(img)
+    base64_string = base64.b64decode(trimString(base64_string))
+    # base64_string= '/' + base64_string
+    print('first 10 elements------', base64_string[0:23])
+    # img = io.imread(imgdata, plugin='imageio')
+    # return baseCatOrDogClassification(img)
+    i = base64.b64decode(base64_string)
+    i = io.BytesIO(i)
+    i = mpimg.imread(i, format='JPG')
+    print("type of i is ----",type(i))
+    return baseCatOrDogClassification(i)
 
 # -------------------------------------END OF Cat or Dog CLASSIFICATION ------------------------------
 
