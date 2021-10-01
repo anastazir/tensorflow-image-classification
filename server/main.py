@@ -23,6 +23,7 @@ from emotionClassification import emotionClassificationURL
 from glassesClassification import glassesClassificationURL
 from foodClassification import foodClassificationURL
 from dogClassification import dogClassificationURL
+from birdsClassification import birdsClassificationURL
 
 app = Flask(__name__)
 
@@ -220,6 +221,15 @@ def urlDogClassification(url):
     print(url)
     img = io.imread(url)    
     return dogClassificationURL(img)
+
+#--------------------------------------Birds Classification---------------------------------
+@app.route('/birdsClassification/urlRoute/<path:url>')
+def urlBirdsClassification(url):
+    if "https://images.unsplash.com/" in url:
+        url= url+ add
+    print(url)
+    img = io.imread(url)    
+    return birdsClassificationURL(img)
 
 
 if __name__ == '__main__':
