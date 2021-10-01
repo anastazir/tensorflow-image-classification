@@ -287,6 +287,13 @@ li {
   color: var(--dark);
 }
 
+.copy-button{
+  padding: 0 1rem;
+  margin: 2rem auto auto 0;
+  background: #5921c2;
+  color: var(--dark);
+}
+
 .loading {
   padding: 0 1rem;
   margin: 2rem auto auto 0;
