@@ -47,7 +47,32 @@ const glassesClassification=[
     "https://images.unsplash.com/photo-1509783236416-c9ad59bae472?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyMTYyOTB8MHwxfHNlYXJjaHwzfHxwZW9wbGUlMjB3aXRoJTIwZ2xhc3Nlc3xlbnwwfHx8fDE2MzI2Nzk3NzU&ixlib=rb-1.2.1&q=80&w=400",
 ]
 
-
+const birdsClassification=[
+    "https://images.unsplash.com/photo-1470114716159-e389f8712fda?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyMTYyOTB8MHwxfHNlYXJjaHw5fHxiaXJkc3xlbnwwfHx8fDE2MzMxMDc4MzI&ixlib=rb-1.2.1&q=80&w=400",
+    "https://images.unsplash.com/photo-1452570053594-1b985d6ea890?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyMTYyOTB8MHwxfHNlYXJjaHwzfHxiaXJkc3xlbnwwfHx8fDE2MzMxMDc4MzI&ixlib=rb-1.2.1&q=80&w=400",
+    "https://images.unsplash.com/photo-1591608971362-f08b2a75731a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyMTYyOTB8MHwxfHNlYXJjaHw2fHxiaXJkc3xlbnwwfHx8fDE2MzMxMDc4MzI&ixlib=rb-1.2.1&q=80&w=400",
+    "https://images.unsplash.com/photo-1550741442-4c6d93cc55d8?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyMTYyOTB8MHwxfHNlYXJjaHwxOHx8c21hbGwlMjBiaXJkc3xlbnwwfHx8fDE2MzMxMDgwOTE&ixlib=rb-1.2.1&q=80&w=400",
+    "https://images.unsplash.com/photo-1551147823-7e172fc2c3d7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyMTYyOTB8MHwxfHNlYXJjaHw5fHxzZWElMjBiaXJkc3xlbnwwfHx8fDE2MzMxMTA2Nzk&ixlib=rb-1.2.1&q=80&w=400",
+    "https://images.unsplash.com/photo-1566524370065-754aab613f6a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyMTYyOTB8MHwxfHNlYXJjaHwxMnx8c2VhJTIwYmlyZHN8ZW58MHx8fHwxNjMzMTEwNzE2&ixlib=rb-1.2.1&q=80&w=400",
+    "https://images.unsplash.com/photo-1467811884194-ae868cd3f090?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyMTYyOTB8MHwxfHNlYXJjaHw3fHxvd2xzfGVufDB8fHx8MTYzMzExMDc2NA&ixlib=rb-1.2.1&q=80&w=400",
+    "https://images.unsplash.com/photo-1579264688258-c0ebf8c7942a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyMTYyOTB8MHwxfHNlYXJjaHwxMHx8b3dsc3xlbnwwfHx8fDE2MzMxMTA3NjQ&ixlib=rb-1.2.1&q=80&w=400",
+    "https://images.unsplash.com/photo-1574085975030-5f26d9af6c74?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyMTYyOTB8MHwxfHNlYXJjaHwyN3x8b3dsc3xlbnwwfHx8fDE2MzMxMTA4ODk&ixlib=rb-1.2.1&q=80&w=400",
+    "https://images.unsplash.com/photo-1609828435263-e9dc691d630b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyMTYyOTB8MHwxfHNlYXJjaHw0fHxjcm93c3xlbnwwfHx8fDE2MzMxMTA5NjQ&ixlib=rb-1.2.1&q=80&w=400",
+    "https://images.unsplash.com/photo-1580837891788-fef93e237445?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyMTYyOTB8MHwxfHNlYXJjaHwyMHx8Y3Jvd3N8ZW58MHx8fHwxNjMzMTEwOTkx&ixlib=rb-1.2.1&q=80&w=400",
+    "https://images.unsplash.com/photo-1584498324218-27d9b43f5cf0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyMTYyOTB8MHwxfHNlYXJjaHw5fHxDQU5BUll8ZW58MHx8fHwxNjMzMTExMDUy&ixlib=rb-1.2.1&q=80&w=400",
+    "https://images.unsplash.com/photo-1585696831151-eb3f7abe4a15?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyMTYyOTB8MHwxfHNlYXJjaHwzfHxFTVV8ZW58MHx8fHwxNjMzMTExMTI3&ixlib=rb-1.2.1&q=80&w=400",
+    "https://images.unsplash.com/photo-1614679300434-bc6abe424a54?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1174&q=80",
+    "https://images.unsplash.com/photo-1573048036322-f2aea734a8a1?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1106&q=80",
+    "https://images.unsplash.com/photo-1583667127237-4661a24be4fa?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=687&q=80",
+    "https://images.unsplash.com/photo-1470619549108-b85c56fe5be8?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=749&q=80",
+    "https://images.unsplash.com/photo-1606081165491-3384c9156db9?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=994&q=80",
+    // "",
+    // "",
+    // "",
+    // "",
+    // "",
+    // "",
+]
 
 const randomIntFromInterval=(min=0, max=8)=> { // min and max included 
     return Math.floor(Math.random() * (max - min + 1) + min)
@@ -62,5 +87,7 @@ export const randomImages=(style)=>{
     else if(style==='emotionClassification' || style==='everything' || style==='glassesClassification'){
         const concat= [...emotionClassification, ...genderClassification, ...glassesClassification]
         return concat[randomIntFromInterval(0 ,30)] 
+    }else if (style==='birdsClassification'){
+        return birdsClassification[randomIntFromInterval(0, birdsClassification.length)]
     }
 };
