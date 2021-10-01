@@ -16,6 +16,7 @@ import NotificationContainer from "./hooks/NotificationContainer";
 import ThreeDotsWave from "./components/Loading/ThreeDotsWave";
 import {randomImages} from "./helper/randomImages";
 import Sidebar from "./components/Sidebar/index"
+import Select from "./components/Select/Select"
 
 function App() {
 // TODO: ADD A BUTTON TO COPY URL FROM THE CLIPBOARD
@@ -122,16 +123,7 @@ function App() {
         
         <br />
 
-        <motion.select className="input" onChange={handleStyle}>
-          <option value="everything">🔥 Classify Everything</option>
-          <option value="faceMaskClassification">🤿 Mask Classification</option>
-          <option value="genderClassification">♂️ or ♀️ Classification</option>
-          <option value="emotionClassification">👨‍🦰 Emotion Detection</option>
-          <option value="glassesClassification">👓or👀</option>
-          <option value="catvsDog">🐱or🐶</option>
-          <option value="foodClassification">🍲 Food Classification</option>
-          <option value="dogClassification">🐕‍🦺 Dog Classification</option>
-        </motion.select>
+        <Select handleStyle={handleStyle}/>
 
         <br />
 
@@ -141,22 +133,22 @@ function App() {
             <ThreeDotsWave/> :
             <>
             <motion.button
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.95 }}
-            className="add-button"
-            onClick={validateUrl}>
-              Predict
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.95 }}
+              className="add-button"
+              onClick={validateUrl}>
+                Predict
             </motion.button>
-          <motion.button
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.9 }}
-            className="random-button"
-            onClick={()=>{
-              var url=randomImages(style)
-              setText(url)
-              setImgUrl(url)}}>
-            Random Image
-          </motion.button> 
+            <motion.button
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
+              className="random-button"
+              onClick={()=>{
+                var url=randomImages(style)
+                setText(url)
+                setImgUrl(url)}}>
+              Random Image
+            </motion.button> 
           </>
         }
       </div>
