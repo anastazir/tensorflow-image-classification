@@ -10,7 +10,7 @@ import Input from "./components/Input";
 import Modal from "./components/Modal";
 import { add } from "./arr-utils";
 import ImageShow from "./components/ImageShow/ImageShow";
-import { handleUrl, handleBase64 } from "./Fetch/fetchByUrl";
+import { handleUrl, handleBase6, handleUpload } from "./Fetch/fetchByUrl";
 import {encodeFileBase64} from "./helper/helperFunctions"
 import NotificationContainer from "./hooks/NotificationContainer";
 import ThreeDotsWave from "./components/Loading/ThreeDotsWave";
@@ -19,9 +19,9 @@ import Sidebar from "./components/Sidebar/index"
 import Select from "./components/Select/Select"
 
 function App() {
-// TODO: ADD A BUTTON TO COPY URL FROM THE CLIPBOARD
-// TODO: FIX THE BASE64 ROUTES AND METHODS
 // TODO: MAKE A READ ME WITH IMAGES
+  let uploadedImage= null
+  console.log('upload image');
   const [image, setImage] = useState(null)    // for image file
   const [imgUrl, setImgUrl] = useState('')    // for image URL
   // Result Data
@@ -49,12 +49,17 @@ function App() {
   const [predicting, setPredicting] = useState(false)
 
   const onImageFileChange= (e) =>{
+    
     if (e.target.files && e.target.files[0]) {
+      uploadedImage= e.target.files[0]
       setImage(URL.createObjectURL(e.target.files[0]))
-      encodeFileBase64(e.target.files[0], setFileBase64String)
-      
-    }
+        console.log(uploadedImage)
+      }
+      console.log("uploadedImage--",uploadedImage);
+      handleUpload(uploadedImage)
   }
+
+
 
   const openResultdModal = (data) =>{
     setModalType('result')
@@ -103,15 +108,13 @@ function App() {
     <div id="left">
       <motion.main>
         <SubHeader text="Select File from local directory" />
-        <input type="file" accept="image/*" className="input" onChange={onImageFileChange} /> 
+
+        <input type="file" name="file" accept="image/*" className="input" onChange={onImageFileChange} /> 
         <motion.button
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.9 }}
           className="save-button"
-          onClick={()=>
-          {if (!predicting){
-            handleBase64(fileBase64String, setNotifications, add, style, notifications, text)}
-          }}>
+          onClick={onImageFileChange}>
           Predict Local Image
         </motion.button>  
 
