@@ -3,6 +3,7 @@ import io
 import string
 import os
 import numpy as np
+from numpy import asarray
 from PIL import Image
 from flask import Flask, jsonify, request
 import tensorflow as tf
@@ -49,6 +50,22 @@ def trimString(base64_string):
         base64_string = base64_string.decode("utf-8")
     return base64_string
 
+# ---------------- uploading files ----------------
+@app.route('/upload-image', methods=['GET', 'POST'])
+def upload_image():
+    if request.method == "POST":
+        if request.files:
+            image = request.files["file"]
+            if image:
+                img= Image.open(image)
+                # print(img)
+                numpydata = asarray(img)
+                print(numpydata)
+                return 'image found'
+            return {'data': 'image not found'}
+        else:
+            return {'data': 'no files'}
+            
 
 # -------------------------------------- MASK CLASSIFICATION ------------------------------
 
