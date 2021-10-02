@@ -17,9 +17,9 @@ import matplotlib.image as mpimg
 
 
 # IMPORT FUNCTIONS
-from faceMaskClassification import maskClassification, baseMaskClassification
-from genderClassification import genderClassification, baseGenderClassification
-from catOrDog import catOrDogClassification, baseCatOrDogClassification
+from faceMaskClassification import maskClassification
+from genderClassification import genderClassification
+from catOrDog import catOrDogClassification
 from emotionClassification import emotionClassificationURL
 from glassesClassification import glassesClassificationURL
 from foodClassification import foodClassificationURL
@@ -39,41 +39,9 @@ add='?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyMTYyOTB8MHwxfHNlYXJjaHw5f
 face_model = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
 
 
-def trimString(base64_string):
-    if "data:image/jpeg;base64," in base64_string:
-        base64_string = base64_string.replace("data:image/jpeg;base64,", "")
-    elif "data:image/png;base64," in base64_string:
-        base64_string = base64_string.replace("data:image/png;base64,", "")
-    elif "data:image/jpeg;base64," in base64_string:
-        base64_string = base64_string.replace("data:image/jpg;base64,", "")
-    if isinstance(base64_string, bytes):
-        base64_string = base64_string.decode("utf-8")
-    return base64_string
-
-# ---------------- uploading files ----------------
-@app.route('/upload-image', methods=['GET', 'POST'])
-def upload_image():
-    if request.method == "POST":
-        if request.files:
-            image = request.files["file"]
-            if image:
-                img= Image.open(image)
-                # print(img)
-                numpydata = asarray(img)
-                print(numpydata)
-                return 'image found'
-            return {'data': 'image not found'}
-        else:
-            return {'data': 'no files'}
             
 
 # -------------------------------------- MASK CLASSIFICATION ------------------------------
-
-@app.route("/faceMaskClassification/base64/<path:base64_string>")
-def decodeFace(base64_string): 
-    imgdata = base64.b64decode(trimString(base64_string))
-    img = io.imread(imgdata, plugin='imageio')
-    return baseMaskClassification(img)
 
 
 @app.route('/faceMaskClassification/urlRoute/<path:url>')
@@ -84,6 +52,18 @@ def urlPred(url):
     img = io.imread(url)    
     return maskClassification(img)
 
+
+@app.route('/faceMaskClassification/upload-image', methods=['GET', 'POST'])
+def uploadImageMaskClassification():
+    if request.method == "POST":
+        if request.files:
+            image = request.files["file"]
+            if image:
+                img= Image.open(image)
+                numpydata = asarray(img)
+                return maskClassification(numpydata)
+        else:
+            return {'data': 'no files'}
 # -------------------------------------END OF MASK CLASSIFICATION ------------------------------
 
 
@@ -96,35 +76,39 @@ def urlPredGenderClassification(url):
     img = io.imread(url)    
     return genderClassification(img)
 
-@app.route("/genderClassification/base64/<path:base64_string>")
-def decodeGender(base64_string): 
-
-    imgdata = base64.b64decode(trimString(base64_string))
-    img = io.imread(imgdata, plugin='imageio')
-    return baseGenderClassification(img)
+@app.route('/genderClassification/upload-image', methods=['GET', 'POST'])
+def uploadImageGenderClassification(): 
+    if request.method == "POST":
+        if request.files:
+            image = request.files["file"]
+            if image:
+                img= Image.open(image)
+                numpydata = asarray(img)
+                return genderClassification(numpydata)
+        else:
+            return {'data': 'no files'}
 # -------------------------------------END OF GENDER CLASSIFICATION ------------------------------
 
 # -------------------------------------Cat or Dog CLASSIFICATION ------------------------------
 @app.route('/catvsDog/urlRoute/<path:url>')
-def urlPredCatORDog(url):
+def CatORDog(url):
     if "https://images.unsplash.com/photo" in url:
         url= url+ add 
     print(url)
     img = io.imread(url)    
     return catOrDogClassification(img)
 
-@app.route("/catvsDog/base64/<path:base64_string>")
-def decodeAnimal(base64_string): 
-    base64_string = base64.b64decode(trimString(base64_string))
-    # base64_string= '/' + base64_string
-    print('first 10 elements------', base64_string[0:23])
-    # img = io.imread(imgdata, plugin='imageio')
-    # return baseCatOrDogClassification(img)
-    i = base64.b64decode(base64_string)
-    i = io.BytesIO(i)
-    i = mpimg.imread(i, format='JPG')
-    print("type of i is ----",type(i))
-    return baseCatOrDogClassification(i)
+@app.route('/catvsDog/upload-image', methods=['GET', 'POST'])
+def uploadImageCatORDog(): 
+    if request.method == "POST":
+        if request.files:
+            image = request.files["file"]
+            if image:
+                img= Image.open(image)
+                numpydata = asarray(img)
+                return catOrDogClassification(numpydata)
+        else:
+            return {'data': 'no files'}
 
 # -------------------------------------END OF Cat or Dog CLASSIFICATION ------------------------------
 
