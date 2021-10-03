@@ -223,6 +223,17 @@ def urlDogClassification(url):
     img = io.imread(url)    
     return dogClassificationURL(img)
 
+@app.route('/dogClassification/upload-image', methods=['GET', 'POST'])
+def uploadImageDogClassification():
+    if request.method == "POST":
+        if request.files:
+            image = request.files["file"]
+            if image:
+                img= Image.open(image)
+                numpydata = asarray(img)
+                return dogClassificationURL(numpydata)
+    else:
+        return {'data': 'no files'}
 #--------------------------------------Birds Classification---------------------------------
 @app.route('/birdsClassification/urlRoute/<path:url>')
 def urlBirdsClassification(url):
