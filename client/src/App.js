@@ -56,7 +56,7 @@ function App() {
         console.log(uploadedImage)
       }
       console.log("uploadedImage--",uploadedImage);
-      handleUpload(uploadedImage)
+      handleUpload(uploadedImage, style, add, notifications, setPredicting, openResultdModal, setNotifications)
   }
 
 
