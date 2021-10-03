@@ -32,34 +32,46 @@ export const handleUrl = (text, setNotifications, add, style, notifications, set
     })
 }
 
-export const handleBase64= (fileBase64String, setNotifications, add, style, notifications, text) =>{
-  fetch(`${style}/base64/${fileBase64String}`).then((response) =>{
-    console.log(fileBase64String);
-    console.log('imageSent');
-    return response.json()
-  }).then(data =>{
-    console.log('data---',data.data);
-    return data.data
-  }).then (data =>{
-    console.log(data);
-    const ans = switchAns(data);  // save the predictions in ans 
-    setNotifications(add(notifications, text, style, ans))
-  })
-}
 
 
-export const handleUpload=(uploadedImage) =>{
+
+export const handleUpload=(uploadedImage, style, add, notifications, setPredicting, openResultdModal, setNotifications) =>{
+  setPredicting(true)
   const formData = new FormData();
   newImage= uploadedImage ? uploadedImage : newImage
   formData.append('file', newImage);
   const Upload = async() => {
-    await fetch('/faceMaskClassification/upload-image', {
+    await fetch(`${style}/upload-image`, {
       method: 'POST',
       body: formData
-    }).then(resp => {
-      resp.json().then(data => {console.log(data)})
+    }).then(response => {
+      response.json().then(data => {
+        if (Array.isArray(data)){
+          console.log('array found');
+          openResultdModal(data)
+        }else{
+        const ans = switchAns(data.data);
+        let text=''
+        setNotifications(add(notifications,text, style, ans))
+        }
+      })
     })
   }
   Upload();
-  console.log("new image is ",newImage);
+  setPredicting(false)
 }
+
+// export const handleBase64= (fileBase64String, setNotifications, add, style, notifications, text) =>{
+//   fetch(`${style}/base64/${fileBase64String}`).then((response) =>{
+//     console.log(fileBase64String);
+//     console.log('imageSent');
+//     return response.json()
+//   }).then(data =>{
+//     console.log('data---',data.data);
+//     return data.data
+//   }).then (data =>{
+//     console.log(data);
+//     const ans = switchAns(data);  // save the predictions in ans 
+//     setNotifications(add(notifications, text, style, ans))
+//   })
+// }
