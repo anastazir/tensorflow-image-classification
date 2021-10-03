@@ -25,6 +25,7 @@ from glassesClassification import glassesClassificationURL
 from foodClassification import foodClassificationURL
 from dogClassification import dogClassificationURL
 from birdsClassification import birdsClassificationURL
+from helperFunctions.returnArray import returnArray
 
 app = Flask(__name__)
 
@@ -57,11 +58,7 @@ def urlPred(url):
 def uploadImageMaskClassification():
     if request.method == "POST":
         if request.files:
-            image = request.files["file"]
-            if image:
-                img= Image.open(image)
-                numpydata = asarray(img)
-                return maskClassification(numpydata)
+                return maskClassification(returnArray(request))
         else:
             return {'data': 'no files'}
 # -------------------------------------END OF MASK CLASSIFICATION ------------------------------
@@ -80,11 +77,7 @@ def urlPredGenderClassification(url):
 def uploadImageGenderClassification(): 
     if request.method == "POST":
         if request.files:
-            image = request.files["file"]
-            if image:
-                img= Image.open(image)
-                numpydata = asarray(img)
-                return genderClassification(numpydata)
+            return genderClassification(returnArray(request))
         else:
             return {'data': 'no files'}
 # -------------------------------------END OF GENDER CLASSIFICATION ------------------------------
@@ -102,11 +95,7 @@ def CatORDog(url):
 def uploadImageCatORDog(): 
     if request.method == "POST":
         if request.files:
-            image = request.files["file"]
-            if image:
-                img= Image.open(image)
-                numpydata = asarray(img)
-                return catOrDogClassification(numpydata)
+            return catOrDogClassification(returnArray(request))
         else:
             return {'data': 'no files'}
 
