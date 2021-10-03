@@ -46,9 +46,9 @@ export const handleUpload=(uploadedImage, style, add, notifications, setPredicti
       body: formData
     }).then(response => {
       response.json().then(data => {
-        if (Array.isArray(data)){
+        if (Array.isArray(data.data)){
           console.log('array found');
-          openResultdModal(data)
+          openResultdModal(data.data)
         }else{
         const ans = switchAns(data.data);
         let text=''
