@@ -10,8 +10,7 @@ import Input from "./components/Input";
 import Modal from "./components/Modal";
 import { add } from "./arr-utils";
 import ImageShow from "./components/ImageShow/ImageShow";
-import { handleUrl, handleBase6, handleUpload } from "./Fetch/fetchByUrl";
-import {encodeFileBase64} from "./helper/helperFunctions"
+import { handleUrl, handleUpload } from "./Fetch/fetchByUrl";
 import NotificationContainer from "./hooks/NotificationContainer";
 import ThreeDotsWave from "./components/Loading/ThreeDotsWave";
 import {randomImages} from "./helper/randomImages";
@@ -178,7 +177,7 @@ function App() {
 
       <ModalContainer>
         {modalOpen && (
-          <Modal modalOpen={modalOpen} text={modalType} type={modalType} handleClose={close} data={resultData} url={text} />
+          <Modal modalOpen={modalOpen} text={modalType} type={modalType} handleClose={close} data={resultData} url={text} localImage={image}/>
         )}
       </ModalContainer>
 
