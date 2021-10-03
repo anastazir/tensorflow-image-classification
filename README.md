@@ -18,7 +18,7 @@ Cat or Dog Classification
 Dog Breed Multiclass Classification
 ![App Screenshot](https://github.com/anastazir/images/blob/master/tensorflow-mern-3.png?raw=true)
 
-Face Classification(Gender, Emotion, Glasses, Masses Classification)
+Face Classification(Gender, Emotion, Glasses, Masks Classification)
 ![App Screenshot](https://github.com/anastazir/images/blob/master/tensorflow-mern-4.png?raw=true?raw=true)
 
 ![App Screenshot](https://github.com/anastazir/images/blob/master/tensorflow-mern-5.png?raw=true)
@@ -28,4 +28,8 @@ Food Multiclass Classification
 
 ![App Screenshot](https://github.com/anastazir/images/blob/master/tensorflow-mern-8.png?raw=true)
 
-  
+Bird Multiclass Classification
+
+![App Screenshot](https://github.com/anastazir/images/blob/master/tensorflow-mern-9.png?raw=true)
+
+![App Screenshot](https://github.com/anastazir/images/blob/master/tensorflow-mern-10.png?raw=true)
