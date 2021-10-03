@@ -82,14 +82,13 @@ const result = {
   },
 };
 
-const Modal = ({ handleClose, text, type, data, url }) => {
+const Modal = ({ handleClose, text, type, data, url, localImage }) => {
   // Log state
   useEffect(() => {
     stateLogger("Modal", true);
     return () => stateLogger("Modal", false);
   }, []);
-  console.log(type==='invalid');
-  console.log(url);
+  // console.log(url);
   return (
     <Backdrop onClick={handleClose}>
       {type === "emptyInput" && (
@@ -128,7 +127,7 @@ const Modal = ({ handleClose, text, type, data, url }) => {
           animate="visible"
           exit="exit"
         >
-          <ImageShow img={url}/>
+          <ImageShow img={url ? url : localImage}/>
           <ResultText data={data} />
         </motion.div>
       )}
