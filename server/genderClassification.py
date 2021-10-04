@@ -8,6 +8,11 @@ face_model = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
 
 
 def genderClassification(img):
+    """
+    Keyword arguments:
+    img(numpy array) -- The array of the image to predict on.
+    Return:The predictions in a JSON fromat.
+    """
     img = cv2.cvtColor(img, cv2.COLOR_RGB2BGR)
 
     faces = face_model.detectMultiScale(img,scaleFactor=1.1, minNeighbors=4) #returns a list of (x,y,w,h) tuples

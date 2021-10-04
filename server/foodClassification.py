@@ -7,6 +7,11 @@ from constants import food_labels
 foodClassification = tf.keras.models.load_model('./models/foodClassification.h5') # input shape of (224, 224, 3)
 
 def foodClassificationURL(img):
+    """
+    Keyword arguments:
+    img(numpy array) -- The array of the image to predict on.
+    Return:The top three predictions in a JSON fromat.
+    """
     ans= []
     new_img = cv2.resize(img,(224, 224))
     new_img = np.reshape(new_img,[1, 224, 224, 3])

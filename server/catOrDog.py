@@ -7,6 +7,11 @@ catVsDogModel = tf.keras.models.load_model('./models/catVsDogModel.h5') # input 
 face_model = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
 
 def catOrDogClassification(img):
+    """
+    Keyword arguments:
+    img(numpy array) -- The array of the image to predict on.
+    Return:The predictions in a JSON fromat.
+    """
     img = cv2.cvtColor(img, cv2.COLOR_RGB2BGR)
 
     new_img = cv2.cvtColor(img, cv2.COLOR_RGB2BGR) #colored output image
