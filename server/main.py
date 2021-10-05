@@ -26,12 +26,11 @@ from foodClassification import foodClassificationURL
 from dogClassification import dogClassificationURL
 from birdsClassification import birdsClassificationURL
 from helperFunctions.returnArray import returnArray
-
+from fetchLabels import getLabels
 app = Flask(__name__)
 
 masknet = tf.keras.models.load_model('./models/masknet.h5') # input shape of (128, 128, 3)
 genderModel = tf.keras.models.load_model('./models/GenderModal.h5') # input shape of (150, 150, 3)
-# catVsDogModel = tf.keras.models.load_model('catVsDogModel.h5') # input shape of (150, 150, 3)   
 emotionClassification = tf.keras.models.load_model('./models/emotionDetection.h5') # input shape of (48, 48, 1)   
 glassesModel = tf.keras.models.load_model('./models/glassesDetection.h5') # input shape of (160, 160, 3)
 
@@ -39,7 +38,12 @@ glassesModel = tf.keras.models.load_model('./models/glassesDetection.h5') # inpu
 add='?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyMTYyOTB8MHwxfHNlYXJjaHw5fHxmYWNlfGVufDB8fHx8MTYzMjA1MDM4MQ&ixlib=rb-1.2.1&q=80&w=300'
 face_model = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
 
-
+@app.route('/fetchLabels', methods=['GET', 'POST'])
+def sendLabels():
+    labelType= request.args['labelsType']
+    print('Labeltype is ---------', labelType)
+    result= getLabels(labelType)
+    return {'data': result}
             
 
 # -------------------------------------- MASK CLASSIFICATION ------------------------------
@@ -231,6 +235,9 @@ def urlBirdsClassification(url):
     print(url)
     img = io.imread(url)    
     return birdsClassificationURL(img)
+
+#----------------------------------------END OF BIRD CLASSIFICATION---------------------------------
+
 
 
 if __name__ == '__main__':
