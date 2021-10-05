@@ -18,9 +18,7 @@ import Sidebar from "./components/Sidebar/index"
 import Select from "./components/Select/Select"
 
 function App() {
-// TODO: MAKE A READ ME WITH IMAGES
   let uploadedImage= null
-  console.log('upload image');
   const [image, setImage] = useState(null)    // for image file
   const [imgUrl, setImgUrl] = useState('')    // for image URL
   // Result Data
@@ -30,8 +28,7 @@ function App() {
   const { modalOpen, close, open } = useModal();
   // Modal type
   const [modalType, setModalType] = useState("dropIn");
-  // For base64 images
-  const [fileBase64String, setFileBase64String] = useState("");
+
   // Notifications state
   const [notifications, setNotifications] = useState([]);
 
@@ -48,17 +45,13 @@ function App() {
   const [predicting, setPredicting] = useState(false)
 
   const onImageFileChange= (e) =>{
-    
     if (e.target.files && e.target.files[0]) {
       uploadedImage= e.target.files[0]
       setImage(URL.createObjectURL(e.target.files[0]))
         console.log(uploadedImage)
       }
-      console.log("uploadedImage--",uploadedImage);
-      handleUpload(uploadedImage, style, add, notifications, setPredicting, openResultdModal, setNotifications)
+    handleUpload(uploadedImage, style, add, notifications, setPredicting, openResultdModal, setNotifications)
   }
-
-
 
   const openResultdModal = (data) =>{
     setModalType('result')
@@ -100,7 +93,7 @@ function App() {
     <>
     <Sidebar>
       <h3>
-        This is a side bar
+        Labels
       </h3>
     </Sidebar>
     <Header />
@@ -170,7 +163,7 @@ function App() {
             </motion.button> 
           </>
         }
-      </div>
+    </div>
 
         
     </motion.main>
@@ -197,7 +190,7 @@ function App() {
     <div id='right'>
           <ImageShow img={image ? image: imgUrl}  />
     </div>
-      </>
+    </>
   );
 }
 
