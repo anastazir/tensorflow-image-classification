@@ -1,16 +1,20 @@
 import React, { useState, Children } from "react"
 import styled from "styled-components"
-import { motion, useSpring } from "framer-motion"
+import { AnimatePresence, motion, useSpring } from "framer-motion"
 
 
 const SidebarContainer = styled(motion.div)`
   position: fixed;
   background-color: ${({ color }) => `${color}`};
-  width: ${({ width }) => `${width}px`};
+  width: 15%;
   height: 100%;
   box-sizing: border-box;
   box-shadow: 16px 0 32px -16px #000;
   padding: 64px;
+  ::-webkit-scrollbar {
+    width: 0;  /* Remove scrollbar space */
+    background: transparent;  /* Optional: just make scrollbar invisible */
+}
 `
 
 const HamburgerContainer = styled(motion.div)`
@@ -58,20 +62,20 @@ const Sidebar = ({ width = 320, color = "#1c2022", children }) => {
   return (
     <>
       <HamburgerButton x={x} width={width} isOpen={isOpen} setOpen={setOpen} />
-      <SidebarContainer
-        color={color}
-        width={width}
-        transition={{
-          type: "spring",
-          stiffness: 400,
-          damping: 40
-        }}
-        initial={{ x: -width }}
-        style={{ x }}
-      >
-        {children}
-      </SidebarContainer>
-      </>
+      <AnimatePresence>
+        {isOpen && (
+          <SidebarContainer
+            color={color}
+            initial={{ x: 300, opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            exit={{ x: -300, opacity: 0 }}
+            style={{overflowY: 'scroll' }}
+            >
+            {children}
+          </SidebarContainer>
+        )}
+      </AnimatePresence>
+    </>
   )
 }
 
