@@ -43,7 +43,7 @@ def sendLabels():
     labelType= request.args['labelsType']
     print('Labeltype is ---------', labelType)
     result= getLabels(labelType)
-    return {'data': result}
+    return {'labels': result}
             
 
 # -------------------------------------- MASK CLASSIFICATION ------------------------------
