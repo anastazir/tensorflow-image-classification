@@ -151,6 +151,13 @@ button {
   
 }
 
+.lables-li{
+  text-transform: capitalize;
+  width: 70%;
+  text-align: center;
+  box-shadow: 1px 1px 15px #03030399;
+}
+
 .orange-gradient {
   background: var(--gradient);
 }
