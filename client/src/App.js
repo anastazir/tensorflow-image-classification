@@ -91,11 +91,7 @@ function App() {
 
   return (
     <>
-    <Sidebar>
-      <h3>
-        Labels
-      </h3>
-    </Sidebar>
+    <Sidebar style= {style} />
     <Header />
     <div id="left">
       <motion.main>
