@@ -1,12 +1,13 @@
-import React, { useState, Children } from "react"
+import React, { useState, useEffect } from "react"
 import styled from "styled-components"
 import { AnimatePresence, motion, useSpring } from "framer-motion"
+import { getLabel } from "../../Fetch/fetchLabels"
 
 
 const SidebarContainer = styled(motion.div)`
   position: fixed;
   background-color: ${({ color }) => `${color}`};
-  width: 15%;
+  width: 25%;
   height: 100%;
   box-sizing: border-box;
   box-shadow: 16px 0 32px -16px #000;
@@ -55,9 +56,15 @@ const HamburgerButton = ({ x, width, isOpen, setOpen }) => {
   )
 }
 
-const Sidebar = ({ width = 320, color = "#1c2022", children }) => {
+
+const Sidebar = ({ width = 320, color = "#1c2022", style }) => {
+  const [labels, setLabels] = useState([])
   const [isOpen, setOpen] = useState(false)
   const x = useSpring(0, { stiffness: 400, damping: 40 })
+  console.log('style is ', style);
+  useEffect(() => {
+    (getLabel(style, setLabels))
+  }, [style])
 
   return (
     <>
@@ -65,13 +72,19 @@ const Sidebar = ({ width = 320, color = "#1c2022", children }) => {
       <AnimatePresence>
         {isOpen && (
           <SidebarContainer
-            color={color}
+            color={"white"}
             initial={{ x: 300, opacity: 0 }}
             animate={{ x: 0, opacity: 1 }}
             exit={{ x: -300, opacity: 0 }}
             style={{overflowY: 'scroll' }}
             >
-            {children}
+            <h3 style={{textColor: 'white'}}>
+              {style}
+            </h3>
+            {labels && labels.map((lable, i) => {
+             return <li key={i}>{lable}</li>
+            })
+            }
           </SidebarContainer>
         )}
       </AnimatePresence>
