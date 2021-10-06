@@ -191,15 +191,18 @@ function App() {
 }
 
 const Header = () => (
+  <div style={{textAlign: 'center'}}>
+
   <motion.h1 className="pink">
     Tensorflow
     <span className="light-blue"> Project</span>
   </motion.h1>
+  </div>
 );
 
 const SubHeader = ({ text }) => <motion.h2 className="sub-header">{text}</motion.h2>;
 
-const   ModalContainer = ({ children, label }) => (
+const ModalContainer = ({ children, label }) => (
   <AnimatePresence
     initial={false}
     exitBeforeEnter={true}
