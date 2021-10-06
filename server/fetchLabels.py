@@ -7,4 +7,8 @@ def getLabels(labelsType):
         return birds_names_labels
     elif labelsType == 'foodClassification':
         return food_labels
-    return 'notFound'
+    elif labelsType == 'catvsDog':
+        return ['Images of cats', 'Images of dogs']
+    elif labelsType == 'emotionClassification':
+        return ['Angry','Disgust','Fear','Happy','Neutral', 'Sad', 'Surprise']
+    return ['Lables not avialable']
