@@ -27,8 +27,8 @@ const HamburgerContainer = styled(motion.div)`
   justify-content: center;
   position: fixed;
   top:0;
-  right:0;
-  margin: 24px;
+  left:0;
+  // margin: 24px;
   cursor: pointer;
   z-index: 2;
   /* -webkit-tap-highlight-color: transparent; */
@@ -57,7 +57,7 @@ const HamburgerButton = ({ x, width, isOpen, setOpen }) => {
 }
 
 
-const Sidebar = ({ width = 320, color = "#1c2022", style }) => {
+const Sidebar = ({ width = 320, style }) => {
   const [labels, setLabels] = useState([])
   const [isOpen, setOpen] = useState(false)
   const x = useSpring(0, { stiffness: 400, damping: 40 })
@@ -72,17 +72,17 @@ const Sidebar = ({ width = 320, color = "#1c2022", style }) => {
       <AnimatePresence>
         {isOpen && (
           <SidebarContainer
-            color={"white"}
+            color={"#ff9d00"}
             initial={{ x: 300, opacity: 0 }}
             animate={{ x: 0, opacity: 1 }}
             exit={{ x: -300, opacity: 0 }}
-            style={{overflowY: 'scroll' }}
+            style={{overflowY: 'scroll'}}
             >
             <h3 style={{textColor: 'white'}}>
               {style}
             </h3>
             {labels && labels.map((lable, i) => {
-             return <li key={i}>{lable}</li>
+             return <li className='lables-li' key={i}>{lable}</li>
             })
             }
           </SidebarContainer>
