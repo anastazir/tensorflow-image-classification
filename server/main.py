@@ -25,6 +25,7 @@ from glassesClassification import glassesClassificationURL
 from foodClassification import foodClassificationURL
 from dogClassification import dogClassificationURL
 from birdsClassification import birdsClassificationURL
+from wildlifeClassification import wildlifeClassificationURL
 from helperFunctions.returnArray import returnArray
 from fetchLabels import getLabels
 app = Flask(__name__)
@@ -238,7 +239,16 @@ def urlBirdsClassification(url):
 
 #----------------------------------------END OF BIRD CLASSIFICATION---------------------------------
 
+#--------------------------------------WILDLIFE Classification---------------------------------
+@app.route('/wildlifeClassification/urlRoute/<path:url>')
+def wildlifeClassification(url):
+    if "https://images.unsplash.com/" in url:
+        url= url+ add
+    print(url)
+    img = io.imread(url)    
+    return wildlifeClassificationURL(img)
 
+#----------------------------------------END OFWILDLIFE CLASSIFICATION---------------------------------
 
 if __name__ == '__main__':
     app.run(debug=True)
