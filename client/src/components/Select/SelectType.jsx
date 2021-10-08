@@ -8,6 +8,7 @@ const SelectType = ({handleType}) => {
           <option value="showAll">Show All</option>
           <option value="binaryClassification">Binary Classification</option>
           <option value="multiclassClassification">Multiclass Classification</option>
+          <option value="faceClassification">Face Classification</option>
         </motion.select>  
         </>
     )
