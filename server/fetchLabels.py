@@ -1,4 +1,4 @@
-from constants import dog_breeds_labels, birds_names_labels, food_labels
+from constants import dog_breeds_labels, birds_names_labels, food_labels, wildlife_labels
 
 def getLabels(labelsType):
     if labelsType == 'dogClassification':
@@ -11,4 +11,6 @@ def getLabels(labelsType):
         return ['Images of cats', 'Images of dogs']
     elif labelsType == 'emotionClassification':
         return ['Angry','Disgust','Fear','Happy','Neutral', 'Sad', 'Surprise']
+    elif labelsType == 'wildlifeClassification':
+        return wildlife_labels
     return ['Lables not avialable']
