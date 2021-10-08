@@ -5,6 +5,7 @@ import { getLabel } from "../../Fetch/fetchLabels"
 
 
 const SidebarContainer = styled(motion.div)`
+  border-radius: 5px;
   position: fixed;
   background-color: ${({ color }) => `${color}`};
   width: 25%;
@@ -56,9 +57,8 @@ const HamburgerButton = ({ x, width, isOpen, setOpen }) => {
   )
 }
 
-
 const Sidebar = ({ width = 320, style }) => {
-  const [labels, setLabels] = useState([])
+  const [labels, setLabels] = useState(['no labels'])
   const [isOpen, setOpen] = useState(false)
   const x = useSpring(0, { stiffness: 400, damping: 40 })
   console.log('style is ', style);
