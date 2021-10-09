@@ -33,6 +33,8 @@ const HamburgerContainer = styled(motion.div)`
   cursor: pointer;
   z-index: 2;
   /* -webkit-tap-highlight-color: transparent; */
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */ 
 `
 const Line = styled(motion.div)`
   background-color: #fff;
