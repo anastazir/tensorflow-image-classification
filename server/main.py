@@ -47,17 +47,45 @@ def sendLabels():
     return {'labels': result}
             
 
-# -------------------------------------- MASK CLASSIFICATION ------------------------------
-
-
-@app.route('/faceMaskClassification/urlRoute/<path:url>')
-def urlPred(url):
-    if "https://images.unsplash.com/" in url:
+@app.route('/<classificationType>/urlRoute/<path:url>')
+def dynamicRoute(classificationType, url):
+    print('------------------------', classificationType)
+    if "https://images.unsplash.com/photo" in url:
         url= url+ add 
-    print(url)
     img = io.imread(url)    
-    return maskClassification(img)
+    if classificationType == "catvsDog":
+        return catOrDogClassification(img)
+    elif classificationType == "faceMaskClassification":
+        print('------------------------', url)
+        return maskClassification(img)
+    elif classificationType == "genderClassification":
+        print('------------------------', url)
+        return genderClassification(img)
+    elif classificationType == "emotionClassification":
+        print('------------------------', url)
+        return emotionClassificationURL(img)
+    elif classificationType == "glassesClassification":
+        print('------------------------', url)
+        return glassesClassificationURL(img)
+    elif classificationType == "foodClassification":
+        print('------------------------', url)
+        return foodClassificationURL(img)
+    elif classificationType == "dogClassification":
+        print('------------------------', url)
+        return dogClassificationURL(img)
+    elif classificationType == "birdsClassification":
+        print('------------------------', url)
+        return birdsClassificationURL(img)
+    elif classificationType == "wildlifeClassification":
+        print('------------------------', url)
+        return wildlifeClassificationURL(img)
+    elif classificationType == "everything":
+        return everything(url)
+    else:
+        return {'data': 'no route found'}
 
+
+# -------------------------------------- MASK CLASSIFICATION ------------------------------
 
 @app.route('/faceMaskClassification/upload-image', methods=['GET', 'POST'])
 def uploadImageMaskClassification():
@@ -70,14 +98,6 @@ def uploadImageMaskClassification():
 
 
 # -------------------------------------GENDER CLASSIFICATION ------------------------------
-@app.route('/genderClassification/urlRoute/<path:url>')
-def urlPredGenderClassification(url):
-    if "https://images.unsplash.com/photo" in url:
-        url= url+ add 
-    print(url)
-    img = io.imread(url)    
-    return genderClassification(img)
-
 @app.route('/genderClassification/upload-image', methods=['GET', 'POST'])
 def uploadImageGenderClassification(): 
     if request.method == "POST":
@@ -88,13 +108,6 @@ def uploadImageGenderClassification():
 # -------------------------------------END OF GENDER CLASSIFICATION ------------------------------
 
 # -------------------------------------Cat or Dog CLASSIFICATION ------------------------------
-@app.route('/catvsDog/urlRoute/<path:url>')
-def CatORDog(url):
-    if "https://images.unsplash.com/photo" in url:
-        url= url+ add 
-    print(url)
-    img = io.imread(url)    
-    return catOrDogClassification(img)
 
 @app.route('/catvsDog/upload-image', methods=['GET', 'POST'])
 def uploadImageCatORDog(): 
@@ -106,21 +119,8 @@ def uploadImageCatORDog():
 
 # -------------------------------------END OF Cat or Dog CLASSIFICATION ------------------------------
 
-# -------------------------------------EMOTION CLASSIFICATION ------------------------------
-
-@app.route('/emotionClassification/urlRoute/<path:url>')
-def urlEmotionClassification(url):
-    if "https://images.unsplash.com/" in url:
-        url= url+ add
-    print(url)
-    img = io.imread(url)    
-    return emotionClassificationURL(img)
-
-# -------------------------------------END OF EMOTION CLASSIFICATION ------------------------------
-
 # -------------------------------------Everything CLASSIFICATION ------------------------------
 
-@app.route('/everything/urlRoute/<path:url>')
 def everything(url):
     ans=[]
     emotion_labels = ['Angry','Disgust','Fear','Happy','Neutral', 'Sad', 'Surprise']
@@ -131,6 +131,7 @@ def everything(url):
     img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 
     faces = face_model.detectMultiScale(img,scaleFactor=1.1, minNeighbors=4) #returns a list of (x,y,w,h) tuples
+    print('------------------no of face', len(faces))
 
     if len(faces)==0:return{'data': ['No face found']}
 
@@ -142,11 +143,11 @@ def everything(url):
         pred = emotionClassification.predict(crop)
         print('---------------------pred[0]',pred)
         ans.append(emotion_labels[pred.argmax()])
+        break
         
     img = cv2.cvtColor(img, cv2.COLOR_RGB2BGR)
 
-    faces = face_model.detectMultiScale(img,scaleFactor=1.06, minNeighbors=3) #returns a list of (x,y,w,h) tuples
-    print('------------------no of face', len(faces))
+    # faces = face_model.detectMultiScale(img,scaleFactor=1.06, minNeighbors=3) #returns a list of (x,y,w,h) tuples
     for i in range(len(faces)):
         (x,y,w,h) = faces[i]
         crop = img[y:y+h,x:x+w]
@@ -189,34 +190,7 @@ def everything(url):
     
 # -------------------------------------END OF Everything CLASSIFICATION ------------------------------
 
-#--------------------------------------Glasses Classification---------------------------------
-@app.route('/glassesClassification/urlRoute/<path:url>')
-def urlGlassesClassification(url):
-    if "https://images.unsplash.com/" in url:
-        url= url+ add
-    print(url)
-    img = io.imread(url)    
-    return glassesClassificationURL(img)
-
-
-#--------------------------------------Food Classification---------------------------------
-@app.route('/foodClassification/urlRoute/<path:url>')
-def urlFoodClassification(url):
-    if "https://images.unsplash.com/" in url:
-        url= url+ add
-    print(url)
-    img = io.imread(url)    
-    return foodClassificationURL(img)
-
 #--------------------------------------Dog Breed Classification---------------------------------
-@app.route('/dogClassification/urlRoute/<path:url>')
-def urlDogClassification(url):
-    if "https://images.unsplash.com/" in url:
-        url= url+ add
-    print(url)
-    img = io.imread(url)    
-    return dogClassificationURL(img)
-
 @app.route('/dogClassification/upload-image', methods=['GET', 'POST'])
 def uploadImageDogClassification():
     if request.method == "POST":
@@ -228,27 +202,6 @@ def uploadImageDogClassification():
                 return dogClassificationURL(numpydata)
     else:
         return {'data': 'no files'}
-#--------------------------------------Birds Classification---------------------------------
-@app.route('/birdsClassification/urlRoute/<path:url>')
-def urlBirdsClassification(url):
-    if "https://images.unsplash.com/" in url:
-        url= url+ add
-    print(url)
-    img = io.imread(url)    
-    return birdsClassificationURL(img)
-
-#----------------------------------------END OF BIRD CLASSIFICATION---------------------------------
-
-#--------------------------------------WILDLIFE Classification---------------------------------
-@app.route('/wildlifeClassification/urlRoute/<path:url>')
-def wildlifeClassification(url):
-    if "https://images.unsplash.com/" in url:
-        url= url+ add
-    print(url)
-    img = io.imread(url)    
-    return wildlifeClassificationURL(img)
-
-#----------------------------------------END OFWILDLIFE CLASSIFICATION---------------------------------
 
 if __name__ == '__main__':
     app.run(debug=True)
