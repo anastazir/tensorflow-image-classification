@@ -1,16 +1,16 @@
-import flask
+# import flask
 import io
-import string
-import os
+# import string
+# import os
 import numpy as np
 from numpy import asarray
 from PIL import Image
 from flask import Flask, jsonify, request
 import tensorflow as tf
 from PIL import Image
-import base64
+# import base64
 from io import BytesIO
-import requests
+# import requests
 import cv2
 from skimage import io
 import matplotlib.image as mpimg
@@ -52,74 +52,60 @@ def dynamicRoute(classificationType, url):
     print('------------------------', classificationType)
     if "https://images.unsplash.com/photo" in url:
         url= url+ add 
-    img = io.imread(url)    
+
+    img = io.imread(url)  
+
     if classificationType == "catvsDog":
         return catOrDogClassification(img)
+
     elif classificationType == "faceMaskClassification":
-        print('------------------------', url)
         return maskClassification(img)
+
     elif classificationType == "genderClassification":
-        print('------------------------', url)
         return genderClassification(img)
+
     elif classificationType == "emotionClassification":
-        print('------------------------', url)
         return emotionClassificationURL(img)
+
     elif classificationType == "glassesClassification":
-        print('------------------------', url)
         return glassesClassificationURL(img)
+
     elif classificationType == "foodClassification":
-        print('------------------------', url)
         return foodClassificationURL(img)
+
     elif classificationType == "dogClassification":
-        print('------------------------', url)
         return dogClassificationURL(img)
+
     elif classificationType == "birdsClassification":
-        print('------------------------', url)
         return birdsClassificationURL(img)
+
     elif classificationType == "wildlifeClassification":
-        print('------------------------', url)
         return wildlifeClassificationURL(img)
+
     elif classificationType == "everything":
         return everything(url)
+
     else:
-        return {'data': 'no route found'}
+        return {'data': 'this route does not exist'}
+
+@app.route('/upload-image/<classificationType>', methods=['GET', 'POST'])
+def uploadImageAndClassify(classificationType):
+    if request.method != "POST" or not request.files:
+        return {'data': 'no files were found'}
+    
+    if classificationType == "faceMaskClassification":
+        return  maskClassification(returnArray(request))  
+
+    elif classificationType == "genderClassification":
+        return  genderClassification(returnArray(request))
+
+    elif classificationType == "catvsDog":
+        return  catOrDogClassification(returnArray(request))   
+
+    else:
+        return {'data': 'this route does not exist'}
 
 
-# -------------------------------------- MASK CLASSIFICATION ------------------------------
-
-@app.route('/faceMaskClassification/upload-image', methods=['GET', 'POST'])
-def uploadImageMaskClassification():
-    if request.method == "POST":
-        if request.files:
-                return maskClassification(returnArray(request))
-        else:
-            return {'data': 'no files'}
-# -------------------------------------END OF MASK CLASSIFICATION ------------------------------
-
-
-# -------------------------------------GENDER CLASSIFICATION ------------------------------
-@app.route('/genderClassification/upload-image', methods=['GET', 'POST'])
-def uploadImageGenderClassification(): 
-    if request.method == "POST":
-        if request.files:
-            return genderClassification(returnArray(request))
-        else:
-            return {'data': 'no files'}
-# -------------------------------------END OF GENDER CLASSIFICATION ------------------------------
-
-# -------------------------------------Cat or Dog CLASSIFICATION ------------------------------
-
-@app.route('/catvsDog/upload-image', methods=['GET', 'POST'])
-def uploadImageCatORDog(): 
-    if request.method == "POST":
-        if request.files:
-            return catOrDogClassification(returnArray(request))
-        else:
-            return {'data': 'no files'}
-
-# -------------------------------------END OF Cat or Dog CLASSIFICATION ------------------------------
-
-# -------------------------------------Everything CLASSIFICATION ------------------------------
 
 def everything(url):
     ans=[]
@@ -188,20 +174,7 @@ def everything(url):
         break
     return{'data': ans}
     
-# -------------------------------------END OF Everything CLASSIFICATION ------------------------------
 
-#--------------------------------------Dog Breed Classification---------------------------------
-@app.route('/dogClassification/upload-image', methods=['GET', 'POST'])
-def uploadImageDogClassification():
-    if request.method == "POST":
-        if request.files:
-            image = request.files["file"]
-            if image:
-                img= Image.open(image)
-                numpydata = asarray(img)
-                return dogClassificationURL(numpydata)
-    else:
-        return {'data': 'no files'}
 
 if __name__ == '__main__':
     app.run(debug=True)
