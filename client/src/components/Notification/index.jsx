@@ -41,6 +41,8 @@ const Notification = ({ notifications, setNotifications, notification, openResul
         return { background: "linear-gradient(15deg, #e7e7e7, #f4f4f4)", cursor: "pointer" };
       case "glassesClassification":
         return { background: "linear-gradient(to right, red , yellow)", cursor: "pointer"};
+      case "ageClassification":
+        return { background: "linear-gradient(45deg, red 0 50%, blue 50% 100%)", cursor: "pointer"};
       default:
         return { background: "linear-gradient(15deg, #202121, #292a2d)", cursor: "pointer" };
     }
