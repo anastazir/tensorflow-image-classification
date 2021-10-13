@@ -13,4 +13,6 @@ def getLabels(labelsType):
         return ['Angry','Disgust','Fear','Happy','Neutral', 'Sad', 'Surprise']
     elif labelsType == 'wildlifeClassification':
         return wildlife_labels
+    elif labelsType == 'ageClassification':
+        return ['25-30','42-48','60-98','6-20']
     return ['Lables not avialable']
