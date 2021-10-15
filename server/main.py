@@ -50,8 +50,12 @@ def dynamicRoute(classificationType, url):
     if "https://images.unsplash.com/photo" in url:
         url= url+ add 
 
-    img = io.imread(url)  
+    try:
+        img = io.imread(url)  
 
+    except:
+        return {'data': 'ERROR: unable to read image'}
+    
     if classificationType == "catvsDog":
         return catOrDogClassification(img)
 
@@ -100,11 +104,14 @@ def uploadImageAndClassify(classificationType):
         return  genderClassification(returnArray(request))
 
     elif classificationType == "catvsDog":
-        return  catOrDogClassification(returnArray(request))   
+        return  catOrDogClassification(returnArray(request))  
+
+    elif classificationType == "foodClassification":
+        return  foodClassificationURL(returnArray(request))   
 
     else:
         return {'data': 'this route does not exist'}
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=False)
