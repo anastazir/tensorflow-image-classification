@@ -41,7 +41,7 @@ export const handleUpload=(uploadedImage, style, add, notifications, setPredicti
   newImage= uploadedImage ? uploadedImage : newImage
   formData.append('file', newImage);
   const Upload = async() => {
-    await fetch(`${style}/upload-image`, {
+    await fetch(`upload-image/${style}`, {
       method: 'POST',
       body: formData
     }).then(response => {
