@@ -301,9 +301,15 @@ li {
   color: var(--dark);
 }
 
+.refresh-button{
+  margin: 2rem auto auto 0;
+  background: #ee08cfe7;
+  color: var(--dark);
+}
+
 .loading {
   padding: 0 1rem;
-  margin: 2rem auto auto 0;
+  margin: 2rem 6rem 0rem 5rem;
   color: var(--dark);
 }
 

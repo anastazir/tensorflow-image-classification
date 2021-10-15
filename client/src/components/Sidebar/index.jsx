@@ -78,7 +78,7 @@ const Sidebar = ({ width = 320, style }) => {
             initial={{ x: 300, opacity: 0 }}
             animate={{ x: 0, opacity: 1 }}
             exit={{ x: -300, opacity: 0 }}
-            style={{overflowY: 'scroll'}}
+            style={{overflowY: 'scroll', alignItems: 'center'}}
             >
             <h3 style={{textColor: 'white'}}>
               {style}
@@ -87,6 +87,13 @@ const Sidebar = ({ width = 320, style }) => {
              return <li className='lables-li' key={i}>{lable}</li>
             })
             }
+            <motion.button
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.95 }}
+              className="refresh-button"
+              onClick={() => console.log('clicking')}>
+                Refresh
+            </motion.button>
           </SidebarContainer>
         )}
       </AnimatePresence>
