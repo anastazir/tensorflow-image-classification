@@ -9,7 +9,7 @@ ageClassifier = tf.keras.models.load_model('./models/ageXception80.h5') # input 
 
 
 def ageClassificationURL(img):
-    age_labels = ['25-30','42-48','60-98','6-20']
+    age_labels = ['18-30','40-60','60-98','6-18']
 
     imgGray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 

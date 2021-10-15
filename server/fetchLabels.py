@@ -14,5 +14,5 @@ def getLabels(labelsType):
     elif labelsType == 'wildlifeClassification':
         return wildlife_labels
     elif labelsType == 'ageClassification':
-        return ['25-30','42-48','60-98','6-20']
+        return ['18-30','40-60','60-98','6-18']
     return ['Lables not avialable']

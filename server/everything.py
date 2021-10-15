@@ -16,7 +16,7 @@ ageClassifier = tf.keras.models.load_model('./models/ageXception80.h5') # input 
 def everythingURL(img):
     ans=[]
     emotion_labels = ['Angry','Disgust','Fear','Happy','Neutral', 'Sad', 'Surprise']
-    age_labels = ['25-30','42-48','60-98','6-20']
+    age_labels = ['18-30','40-60','60-98','6-18']
 
     imgGray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 
@@ -61,7 +61,6 @@ def everythingURL(img):
         ans.append("No Mask")
 
     for i in range(len(faces)):
-        print('------------------found face')
         (x,y,w,h) = faces[i]
         crop = img[y:y+h,x:x+w]
         crop = cv2.resize(crop,(160,160))
@@ -75,7 +74,6 @@ def everythingURL(img):
             ans.append('Glasses')
         break
     for i in range(len(faces)):
-        print('------------------found face')
         (x,y,w,h) = faces[i]
         crop = img[y:y+h,x:x+w]
         crop = cv2.resize(crop,(80,80))
