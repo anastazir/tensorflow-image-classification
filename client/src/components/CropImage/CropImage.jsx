@@ -15,6 +15,10 @@ export default function CropImage({url}) {
   }, []);
 
   useEffect(() => {
+    setUpImg(url)
+  },[url])
+
+  useEffect(() => {
     if (!completedCrop || !previewCanvasRef.current || !imgRef.current) {
       return;
     }
@@ -53,7 +57,12 @@ export default function CropImage({url}) {
 
   return (
     <>
-        <div>
+        <div style={{
+            maxHidth: '250px',
+            justifyContent: 'space-between',
+            marginLeft: '4em',
+            marginTop: '2rem'
+        }}>
           <ReactCrop
             src={upImg}
             onImageLoaded={onLoad}
@@ -67,6 +76,8 @@ export default function CropImage({url}) {
             <canvas
             ref={previewCanvasRef}
             style={{
+                marginLeft: '4em',
+                marginBottom: '2rem',
                 width: Math.round(completedCrop?.width ?? 0),
                 height: Math.round(completedCrop?.height ?? 0)
             }}
