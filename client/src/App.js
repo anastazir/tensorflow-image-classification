@@ -16,6 +16,7 @@ import ThreeDotsWave from "./components/Loading/ThreeDotsWave";
 import {randomImages} from "./helper/randomImages";
 import Sidebar from "./components/Sidebar/index"
 import Select from "./components/Select/Select"
+import CropImage from "./components/CropImage/CropImage"
 
 function App() {
   let uploadedImage= null
@@ -23,7 +24,8 @@ function App() {
   const [imgUrl, setImgUrl] = useState('')    // for image URL
   // Result Data
   const [resultData, setResultData] = useState(["No faces found"])
-
+  //Toggle Crop 
+  const [isCrop, setIsCrop] = useState(false)
   // Modal state
   const { modalOpen, close, open } = useModal();
   // Modal type
@@ -159,6 +161,13 @@ function App() {
             </motion.button> 
           </>
         }
+        <motion.button
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.9 }}
+          className="crop-button"
+          onClick={()=>{setIsCrop(!isCrop)}}>
+          Toggle Crop
+        </motion.button> 
     </div>
 
         
@@ -184,7 +193,8 @@ function App() {
       </NotificationContainer>
     </div>
     <div id='right'>
-          <ImageShow img={image ? image: imgUrl}  />
+          {!isCrop && <ImageShow img={image ? image: imgUrl}  />}
+          {isCrop && <CropImage url= {image ? image: imgUrl} />}
     </div>
     </>
   );
