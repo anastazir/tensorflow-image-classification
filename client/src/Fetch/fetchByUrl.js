@@ -4,7 +4,6 @@ export const handleUrl = (text, setNotifications, add, style, notifications, set
   setPredicting(true)
   fetch(`${style}/urlRoute/${text}`).then((response) =>{ //make predictions
     if(response.ok){
-      console.log('Ok');
       return response.json()
     }
   })
@@ -20,7 +19,6 @@ export const handleUrl = (text, setNotifications, add, style, notifications, set
       console.log("error in second catch is-->", error);
     })
     .then(data =>{
-      console.log("data----------",data);
       if (Array.isArray(data)){
         console.log('array found');
         openResultdModal(data)
@@ -47,7 +45,6 @@ export const handleUpload=(uploadedImage, style, add, notifications, setPredicti
     }).then(response => {
       response.json().then(data => {
         if (Array.isArray(data.data)){
-          console.log('array found');
           openResultdModal(data.data)
         }else{
         const ans = switchAns(data.data);
@@ -61,17 +58,33 @@ export const handleUpload=(uploadedImage, style, add, notifications, setPredicti
   setPredicting(false)
 }
 
-// export const handleBase64= (fileBase64String, setNotifications, add, style, notifications, text) =>{
-//   fetch(`${style}/base64/${fileBase64String}`).then((response) =>{
-//     console.log(fileBase64String);
-//     console.log('imageSent');
-//     return response.json()
-//   }).then(data =>{
-//     console.log('data---',data.data);
-//     return data.data
-//   }).then (data =>{
-//     console.log(data);
-//     const ans = switchAns(data);  // save the predictions in ans 
-//     setNotifications(add(notifications, text, style, ans))
-//   })
-// }
+export const handleCroppedImage =(text, coordinates, style, add, notifications, setPredicting, openResultdModal, setNotifications) =>{
+  setPredicting(true)
+  var dx, dy, dHeight, dWidth;
+  [dx, dy, dHeight, dWidth]= coordinates
+  console.log('coordinates in fetch are', coordinates);
+  const formData = new FormData();
+  formData.append('dx', Math.floor(dx));
+  formData.append('dy', Math.floor(dy));
+  formData.append('dHeight', Math.floor(dHeight));
+  formData.append('dWidth', Math.floor(dWidth));
+  formData.append('url', text)
+  const Upload = async() => {
+    await fetch(`/testing/cropped-image`, {
+      method: 'POST',
+      body: formData
+    }).then(response => {
+      response.json().then(data => {
+        if (Array.isArray(data.data)){
+          openResultdModal(data.data)
+        }else{
+        const ans = switchAns(data.data);
+        let text=''
+        setNotifications(add(notifications,text, style, ans))
+        }
+      })
+    })
+  }
+  Upload();
+  setPredicting(false)
+}
