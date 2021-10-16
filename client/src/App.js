@@ -10,7 +10,7 @@ import Input from "./components/Input";
 import Modal from "./components/Modal";
 import { add } from "./arr-utils";
 import ImageShow from "./components/ImageShow/ImageShow";
-import { handleUrl, handleUpload } from "./Fetch/fetchByUrl";
+import { handleUrl, handleUpload, handleCroppedImage } from "./Fetch/fetchByUrl";
 import NotificationContainer from "./hooks/NotificationContainer";
 import ThreeDotsWave from "./components/Loading/ThreeDotsWave";
 import {randomImages} from "./helper/randomImages";
@@ -25,12 +25,13 @@ function App() {
   // Result Data
   const [resultData, setResultData] = useState(["No faces found"])
   //Toggle Crop 
-  const [isCrop, setIsCrop] = useState(false)
+  const [isCrop, setIsCrop] = useState(true)
   // Modal state
   const { modalOpen, close, open } = useModal();
   // Modal type
   const [modalType, setModalType] = useState("dropIn");
-
+  // Set Coordinates
+  const [coordinates, setCoordinates] = useState([])
   // Notifications state
   const [notifications, setNotifications] = useState([]);
 
@@ -72,7 +73,11 @@ function App() {
         setImage(null)
         setImgUrl(text)
         if(!predicting){
-          handleUrl(text, setNotifications, add, style, notifications, setPredicting, openResultdModal);
+          if (isCrop){
+            handleUrl(text, setNotifications, add, style, notifications, setPredicting, openResultdModal);
+          }else{
+            handleCroppedImage(text, coordinates, style, add, notifications, setPredicting, openResultdModal, setNotifications)
+          }
         }
       }
       else{
@@ -90,6 +95,8 @@ function App() {
       notifications.shift()
     }
   }, [notifications])
+
+  console.log('coordinates are:', coordinates);
 
   return (
     <>
@@ -193,8 +200,8 @@ function App() {
       </NotificationContainer>
     </div>
     <div id='right'>
-          {!isCrop && <ImageShow img={image ? image: imgUrl}  />}
-          {isCrop && <CropImage url= {image ? image: imgUrl} />}
+          {isCrop && <ImageShow img={image ? image: imgUrl}  />}
+          {!isCrop && <CropImage url= {image ? image: imgUrl} setCoordinates={setCoordinates} />}
     </div>
     </>
   );
