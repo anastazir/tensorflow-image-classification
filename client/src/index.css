@@ -301,6 +301,14 @@ li {
   color: var(--dark);
 }
 
+.crop-button{
+  padding: 0 1rem;
+  margin: 2rem auto auto 0;
+  background: #0056e0;
+  color: var(--dark);
+}
+
+
 .refresh-button{
   margin: 2rem auto auto 0;
   background: #ee08cfe7;
