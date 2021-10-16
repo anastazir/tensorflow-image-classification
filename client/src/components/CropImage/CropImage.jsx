@@ -2,14 +2,14 @@ import React, { useState, useCallback, useRef, useEffect } from "react";
 import ReactCrop from "react-image-crop";
 import "react-image-crop/dist/ReactCrop.css";
 
-export default function CropImage({url}) {
+export default function CropImage({url, setCoordinates}) {
   console.log(url);
   const [upImg, setUpImg] = useState(`${url}`);
   const imgRef = useRef(null);
   const previewCanvasRef = useRef(null);
   const [crop, setCrop] = useState({ unit: "%", width: 30 });
   const [completedCrop, setCompletedCrop] = useState(null);
-
+  var coordinates = []
   const onLoad = useCallback((img) => {
     imgRef.current = img;
   }, []);
@@ -53,6 +53,7 @@ export default function CropImage({url}) {
     console.log("dy is --", crop.y * scaleY);
     console.log("dWidth is --", crop.width * scaleX);
     console.log("dHeight is --", crop.height * scaleY);
+    setCoordinates([crop.x * scaleX, crop.y * scaleY, crop.width * scaleX, crop.height * scaleY])
   }, [completedCrop]);
 
   return (
