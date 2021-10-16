@@ -112,6 +112,23 @@ def uploadImageAndClassify(classificationType):
     else:
         return {'data': 'this route does not exist'}
 
+@app.route('/testing/cropped-image', methods=['GET', 'POST'])
+def testing():
+    if request.method != "POST":
+        return {'data': 'only POST method is supported'}
+    
+    dx= int(request.form['dx'])
+    dy= int(request.form['dy'])
+    dHeight= int(request.form['dHeight'])
+    dWidth= int(request.form['dWidth'])
+    url= request.form['url']
+
+    img = io.imread(url)  
+
+    croppedImage= img[dy:dy+dHeight, dx:dx+dWidth]
+
+    return foodClassificationURL(croppedImage)
+
 
 if __name__ == '__main__':
-    app.run(debug=False)
+    app.run(debug=True)
