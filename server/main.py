@@ -92,7 +92,7 @@ def dynamicRoute(classificationType, url):
     else:
         return {'data': 'this route does not exist'}
 
-@app.route('/upload-image/<classificationType>', methods=['GET', 'POST'])
+@app.route('/upload-image/<classificationType>', methods=['POST'])
 def uploadImageAndClassify(classificationType):
     if request.method != "POST" or not request.files:
         return {'data': 'no files were found'}
@@ -112,8 +112,8 @@ def uploadImageAndClassify(classificationType):
     else:
         return {'data': 'this route does not exist'}
 
-@app.route('/testing/cropped-image', methods=['GET', 'POST'])
-def testing():
+@app.route('/cropped-image/<classificationType>', methods=['POST'])
+def testing(classificationType):
     if request.method != "POST":
         return {'data': 'only POST method is supported'}
     
@@ -127,7 +127,41 @@ def testing():
 
     croppedImage= img[dy:dy+dHeight, dx:dx+dWidth]
 
-    return foodClassificationURL(croppedImage)
+    if classificationType == "catvsDog":
+        return catOrDogClassification(croppedImage)
+
+    elif classificationType == "faceMaskClassification":
+        return maskClassification(croppedImage)
+
+    elif classificationType == "genderClassification":
+        return genderClassification(croppedImage)
+
+    elif classificationType == "emotionClassification":
+        return emotionClassificationURL(croppedImage)
+
+    elif classificationType == "glassesClassification":
+        return glassesClassificationURL(croppedImage)
+
+    elif classificationType == "foodClassification":
+        return foodClassificationURL(croppedImage)
+
+    elif classificationType == "dogClassification":
+        return dogClassificationURL(croppedImage)
+
+    elif classificationType == "birdsClassification":
+        return birdsClassificationURL(croppedImage)
+
+    elif classificationType == "wildlifeClassification":
+        return wildlifeClassificationURL(croppedImage)
+
+    elif classificationType == "everything":
+        return everythingURL(croppedImage)
+
+    elif classificationType == "ageClassification":
+        return ageClassificationURL(croppedImage)
+
+    else:
+        return {'data': 'this route does not exist'}
 
 
 if __name__ == '__main__':
