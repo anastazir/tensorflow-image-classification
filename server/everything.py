@@ -13,73 +13,67 @@ glassesModel = tf.keras.models.load_model('./models/glassesDetection.h5') # inpu
 ageClassifier = tf.keras.models.load_model('./models/ageXception80.h5') # input shape of (80, 80, 1)   
 
 
-def everythingURL(img):
+def everythingURL(img, isCropped=False):
     ans=[]
     emotion_labels = ['Angry','Disgust','Fear','Happy','Neutral', 'Sad', 'Surprise']
     age_labels = ['18-30','40-60','60-98','6-18']
-
+    
     imgGray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+    if not isCropped:
 
-    faces = face_model.detectMultiScale(imgGray,scaleFactor=1.1, minNeighbors=4) #returns a list of (x,y,w,h) tuples
-    print('------------------no of face', len(faces))
+        faces = face_model.detectMultiScale(imgGray,scaleFactor=1.1, minNeighbors=4) #returns a list of (x,y,w,h) tuples
+        print('------------------no of face', len(faces))
 
-    if len(faces)==0:return{'data': ['No face found']}
+        if len(faces)==0:return{'data': ['No face found']}
 
-    for i in range(len(faces)):  # for emotion classification'
-        (x,y,w,h) = faces[i]
-        crop = imgGray[y:y+h,x:x+w]
-        crop = cv2.resize(crop,(48,48))
-        crop = np.reshape(crop,[1,48,48,1])/255.0
-        pred = emotionClassification.predict(crop)
-        print('---------------------pred[0]',pred)
-        ans.append(emotion_labels[pred.argmax()])
-        break
+    
+        (x,y,w,h) = faces[0]
+        cropGray = imgGray[y:y+h,x:x+w] # cropped image in one color channel
+        crop = img[y:y+h,x:x+w] # cropped image in 3 color channels
+    
+    else:
+        height, width, _ = img.shape
+        cropGray = imgGray[0:height, 0:width]    
+        crop = img[0:height, 0:width]  
         
+    predImage = cv2.resize(cropGray,(48,48))
+    predImage = np.reshape(predImage,[1,48,48,1])/255.0
+    pred = emotionClassification.predict(predImage)
+    print('---------------------pred[0]',pred)
+    ans.append(emotion_labels[pred.argmax()])
+    
 
-    for i in range(len(faces)):
-        (x,y,w,h) = faces[i]
-        crop = img[y:y+h,x:x+w]
-        crop = cv2.resize(crop,(150,150))
-        crop = np.reshape(crop,[1,150,150,3])/255.0
-        pred = genderModel.predict(crop)
-        break
+
+    predImage = cv2.resize(crop,(150,150))
+    predImage = np.reshape(predImage,[1,150,150,3])/255.0
+    pred = genderModel.predict(predImage)
+
     if pred[0][1]<0.5:
         ans.append('Female')
     else:
         ans.append('Male')
 
-    for i in range(len(faces)):
-        (x,y,w,h) = faces[i]
-        crop = img[y:y+h,x:x+w]
-        crop = cv2.resize(crop,(128,128))
-        crop = np.reshape(crop,[1,128,128,3])/255.0
-        pred = masknet.predict(crop)
-        break                   # only predict for the first face
+
+    predImage = cv2.resize(crop,(128,128))
+    predImage = np.reshape(predImage,[1,128,128,3])/255.0
+    pred = masknet.predict(predImage)
     if pred[0][1]<0.5:
         ans.append('Mask')
     else:
         ans.append("No Mask")
 
-    for i in range(len(faces)):
-        (x,y,w,h) = faces[i]
-        crop = img[y:y+h,x:x+w]
-        crop = cv2.resize(crop,(160,160))
-        crop = np.reshape(crop,[1,160,160,3])
-        pred = glassesModel.predict(crop)
-        print('---------------------pred[0]',pred[0])
-        # break                   # only predict for the first face
-        if pred[0][0]>0:
-            ans.append("No Glasses")
-        else:
-            ans.append('Glasses')
-        break
-    for i in range(len(faces)):
-        (x,y,w,h) = faces[i]
-        crop = img[y:y+h,x:x+w]
-        crop = cv2.resize(crop,(80,80))
-        crop = np.reshape(crop,[1,80,80,3])/255.0
-        pred = ageClassifier.predict(crop)
-        print('---------------------pred[0]',pred)
-        ans.append(age_labels[pred.argmax()])
-        break
+    predImage = cv2.resize(crop,(160,160))
+    predImage = np.reshape(predImage,[1,160,160,3])
+    pred = glassesModel.predict(predImage)
+    print('---------------------pred[0]',pred[0])
+    if pred[0][0]>0:
+        ans.append("No Glasses")
+    else:
+        ans.append('Glasses')
+
+    predImage = cv2.resize(crop,(80,80))
+    predImage = np.reshape(predImage,[1,80,80,3])/255.0
+    pred = ageClassifier.predict(predImage)
+    print('---------------------pred[0]',pred)
+    ans.append(age_labels[pred.argmax()])
     return{'data': ans}
