@@ -360,7 +360,12 @@ li {
     color: #ff9d00;
     font-size: 250%;
   }
+  
 }
+
+@media screen and (max-width: 960px) {
+#left, #middle, #right {display: block; *display: inline; zoom: 1; vertical-align: top; font-size: 12px;}
+}  
 
 .predict-random{
   margin: 1rem auto 1rem 0;
