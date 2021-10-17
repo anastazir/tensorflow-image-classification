@@ -70,7 +70,7 @@ export const handleCroppedImage =(text, coordinates, style, add, notifications, 
   formData.append('dWidth', Math.floor(dWidth));
   formData.append('url', text)
   const Upload = async() => {
-    await fetch(`/testing/cropped-image`, {
+    await fetch(`/cropped-image/${style}`, {
       method: 'POST',
       body: formData
     }).then(response => {
