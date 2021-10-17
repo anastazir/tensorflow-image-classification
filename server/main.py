@@ -155,7 +155,7 @@ def testing(classificationType):
         return wildlifeClassificationURL(croppedImage)
 
     elif classificationType == "everything":
-        return everythingURL(croppedImage)
+        return everythingURL(croppedImage, isCropped=True)
 
     elif classificationType == "ageClassification":
         return ageClassificationURL(croppedImage)
