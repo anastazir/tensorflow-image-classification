@@ -202,7 +202,7 @@ function App() {
     </div>
     <div id='right'>
           {isCrop && <ImageShow img={image ? image: imgUrl}  />}
-          {!isCrop && <CropImage url= {image ? image: imgUrl} setCoordinates={setCoordinates} />}
+          {!isCrop && !modalOpen && <CropImage url= {image ? image: imgUrl} setCoordinates={setCoordinates} />}
     </div>
     </>
   );
