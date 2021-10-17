@@ -10,13 +10,12 @@ const Select = ({handleStyle}) => {
           <option value="genderClassification">♂️ or ♀️ Classification</option>
           <option value="emotionClassification">👨‍🦰 Emotion Detection</option>
           <option value="glassesClassification">👓or👀</option>
+          <option value="ageClassification">🧔 Age Classification</option>
           <option value="catvsDog">🐱or🐶</option>
           <option value="foodClassification">🍲 Food Classification</option>
           <option value="dogClassification">🐕‍🦺 Dog Classification</option>
           <option value="birdsClassification">🦅 Birds Classification</option>
           <option value="wildlifeClassification">🦙 Wildlife Classification</option>
-          <option value="ageClassification">🧔 Age Classification</option>
-
         </motion.select>  
         </>
     )
