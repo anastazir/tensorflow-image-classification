@@ -59,7 +59,7 @@ export const handleUpload=(uploadedImage, style, add, notifications, setPredicti
 }
 
 export const handleCroppedImage =(text, coordinates, style, add, notifications, setPredicting, openResultdModal, setNotifications) =>{
-  setPredicting(true)
+  
   var dx, dy, dHeight, dWidth;
   [dx, dy, dHeight, dWidth]= coordinates
   console.log('coordinates in fetch are', coordinates);
@@ -70,6 +70,7 @@ export const handleCroppedImage =(text, coordinates, style, add, notifications, 
   formData.append('dWidth', Math.floor(dWidth));
   formData.append('url', text)
   const Upload = async() => {
+    setPredicting(true)
     await fetch(`/cropped-image/${style}`, {
       method: 'POST',
       body: formData
@@ -77,14 +78,16 @@ export const handleCroppedImage =(text, coordinates, style, add, notifications, 
       response.json().then(data => {
         if (Array.isArray(data.data)){
           openResultdModal(data.data)
+          setPredicting(false)
         }else{
         const ans = switchAns(data.data);
         let text=''
         setNotifications(add(notifications,text, style, ans))
+        setPredicting(false)
         }
       })
     })
   }
   Upload();
-  setPredicting(false)
+  
 }
