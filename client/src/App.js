@@ -65,6 +65,7 @@ function App() {
   const readFromClipboard =async ()=>{
     const clipboardText = await navigator.clipboard.readText();
     setText(clipboardText);
+    setImgUrl(clipboardText);
   }
 
   const validateUrl = () =>{
