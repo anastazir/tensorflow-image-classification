@@ -365,6 +365,10 @@ li {
 
 @media screen and (max-width: 960px) {
 #left, #middle, #right {display: block; *display: inline; zoom: 1; vertical-align: top; font-size: 12px;}
+.result{
+  flex-direction: column;
+  max-width: 75%;
+}
 }  
 
 .predict-random{
