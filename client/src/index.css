@@ -13,7 +13,7 @@
 #left, #middle, #right {display: inline-block; *display: inline; zoom: 1; vertical-align: top; font-size: 12px;}
 #left {width: 35%;}
 #middle {width: 100%; }
-#right {width: 50%;
+#right {width: 65%;
   align-items: center;
 }
 
@@ -112,7 +112,7 @@ button {
 }
 
 .backdrop {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   height: 100%;
@@ -145,10 +145,6 @@ button {
   display: flex;
   flex-direction: row;
   align-items: center;
-}
-
-.result-text{
-  
 }
 
 .lables-li{
@@ -365,10 +361,37 @@ li {
 
 @media screen and (max-width: 960px) {
 #left, #middle, #right {display: block; *display: inline; zoom: 1; vertical-align: top; font-size: 12px;}
-.result{
-  flex-direction: column;
-  max-width: 75%;
-}
+  .result{
+    display: flex;
+    flex-direction: row;
+    max-width: 100%;
+    align-items: center;
+  }
+  .backdrop{
+    height: inherit;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+  }
+  .image-shown{
+    margin-left: 100rem;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    max-width:400px;
+    max-height:400px;
+  }
+  .main{
+    flex-direction: row;
+  }
+  #right {
+    align-items: center;
+  }
+  #left{
+    width: 100%;
+  }
 }  
 
 .predict-random{
