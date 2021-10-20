@@ -76,6 +76,7 @@ export const handleCroppedImage =(text, coordinates, style, add, notifications, 
       body: formData
     }).then(response => {
       response.json().then(data => {
+        setPredicting(false)
         if (Array.isArray(data.data)){
           openResultdModal(data.data)
           setPredicting(false)
@@ -83,7 +84,6 @@ export const handleCroppedImage =(text, coordinates, style, add, notifications, 
         const ans = switchAns(data.data);
         let text=''
         setNotifications(add(notifications,text, style, ans))
-        setPredicting(false)
         }
       })
     })
