@@ -2,33 +2,32 @@
 import io
 # import string
 # import os
-import numpy as np
-from numpy import asarray
+# import numpy as np
+# from numpy import asarray
 from PIL import Image
 from flask import Flask, jsonify, request
-import tensorflow as tf
+# import tensorflow as tf
 from PIL import Image
 # import base64
-from io import BytesIO
+# from io import BytesIO
 # import requests
 import cv2
 from skimage import io
-import matplotlib.image as mpimg
 
 
 # IMPORT FUNCTIONS
-from faceMaskClassification import maskClassification
-from genderClassification import genderClassification
-from catOrDog import catOrDogClassification
-from emotionClassification import emotionClassificationURL
-from glassesClassification import glassesClassificationURL
-from foodClassification import foodClassificationURL
-from dogClassification import dogClassificationURL
-from birdsClassification import birdsClassificationURL
-from wildlifeClassification import wildlifeClassificationURL
-from ageClassification import ageClassificationURL
-from everything import everythingURL
-from flowerClassification import flowerClassificationURL
+from classifications.faceMaskClassification import maskClassification
+from classifications.genderClassification import genderClassification
+from classifications.catOrDog import catOrDogClassification
+from classifications.emotionClassification import emotionClassificationURL
+from classifications.glassesClassification import glassesClassificationURL
+from classifications.foodClassification import foodClassificationURL
+from classifications.dogClassification import dogClassificationURL
+from classifications.birdsClassification import birdsClassificationURL
+from classifications.wildlifeClassification import wildlifeClassificationURL
+from classifications.ageClassification import ageClassificationURL
+from classifications.everything import everythingURL
+from classifications.flowerClassification import flowerClassificationURL
 from helperFunctions.returnArray import returnArray
 from fetchLabels import getLabels
 app = Flask(__name__)
