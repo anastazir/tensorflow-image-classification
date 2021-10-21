@@ -2,7 +2,7 @@ import cv2
 import tensorflow as tf
 import numpy as np
 
-masknet = tf.keras.models.load_model('./models/masknet.h5') # input shape of (128, 128, 3)
+masknet = tf.keras.models.load_model('./models/faceMaskClassificationNasNetModel224.h5') # input shape of (128, 128, 3)
 
 face_model = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
 
@@ -25,8 +25,8 @@ def maskClassification(img):
         print('------------------found face')
         (x,y,w,h) = faces[i]
         crop = new_img[y:y+h,x:x+w]
-        crop = cv2.resize(crop,(128,128))
-        crop = np.reshape(crop,[1,128,128,3])/255.0
+        crop = cv2.resize(crop,(224,224))
+        crop = np.reshape(crop,[1,224,224,3])/255.0
         pred = masknet.predict(crop)
         print('---------------------pred[0]',pred[0])
         # break                   # only predict for the first face

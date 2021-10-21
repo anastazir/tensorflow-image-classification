@@ -6,7 +6,7 @@ face_model = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
 
 
 
-masknet = tf.keras.models.load_model('./models/masknet.h5') # input shape of (128, 128, 3)
+masknet = tf.keras.models.load_model('./models/faceMaskClassificationNasNetModel224.h5') # input shape of (128, 128, 3)
 genderModel = tf.keras.models.load_model('./models/GenderModal.h5') # input shape of (150, 150, 3)
 emotionClassification = tf.keras.models.load_model('./models/emotionDetection.h5') # input shape of (48, 48, 1)   
 glassesModel = tf.keras.models.load_model('./models/glassesDetection.h5') # input shape of (160, 160, 3)
@@ -54,10 +54,10 @@ def everythingURL(img, isCropped=False):
         ans.append('Male')
 
 
-    predImage = cv2.resize(crop,(128,128))
-    predImage = np.reshape(predImage,[1,128,128,3])/255.0
+    predImage = cv2.resize(crop,(224,224))
+    predImage = np.reshape(predImage,[1,224,224,3])/255.0
     pred = masknet.predict(predImage)
-    if pred[0][1]<0.5:
+    if pred.argmax()==0:
         ans.append('Mask')
     else:
         ans.append("No Mask")
