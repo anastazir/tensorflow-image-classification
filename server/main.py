@@ -28,13 +28,13 @@ from birdsClassification import birdsClassificationURL
 from wildlifeClassification import wildlifeClassificationURL
 from ageClassification import ageClassificationURL
 from everything import everythingURL
-
+from flowerClassification import flowerClassificationURL
 from helperFunctions.returnArray import returnArray
 from fetchLabels import getLabels
 app = Flask(__name__)
 
 add='?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyMTYyOTB8MHwxfHNlYXJjaHw5fHxmYWNlfGVufDB8fHx8MTYzMjA1MDM4MQ&ixlib=rb-1.2.1&q=80&w=300'
-face_model = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
+# face_model = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
 
 @app.route('/fetchLabels', methods=['GET', 'POST'])
 def sendLabels():
@@ -89,6 +89,9 @@ def dynamicRoute(classificationType, url):
     elif classificationType == "ageClassification":
         return ageClassificationURL(img)
 
+    elif classificationType == "flowerClassification":
+        return flowerClassificationURL(img)
+
     else:
         return {'data': 'this route does not exist'}
 
@@ -108,6 +111,9 @@ def uploadImageAndClassify(classificationType):
 
     elif classificationType == "foodClassification":
         return  foodClassificationURL(returnArray(request))   
+
+    elif classificationType == "flowerClassification":
+        return  flowerClassificationURL(returnArray(request))
 
     else:
         return {'data': 'this route does not exist'}
@@ -160,9 +166,12 @@ def testing(classificationType):
     elif classificationType == "ageClassification":
         return ageClassificationURL(croppedImage)
 
+    elif classificationType == "flowerClassification":
+        return  flowerClassificationURL(croppedImage)
+
     else:
         return {'data': 'this route does not exist'}
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=False)
