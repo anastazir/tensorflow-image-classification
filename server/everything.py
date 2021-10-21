@@ -4,14 +4,7 @@ import numpy as np
 
 face_model = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
 
-
-
-masknet = tf.keras.models.load_model('./models/faceMaskClassificationNasNetModel224.h5') # input shape of (128, 128, 3)
-genderModel = tf.keras.models.load_model('./models/GenderModal.h5') # input shape of (150, 150, 3)
-emotionClassification = tf.keras.models.load_model('./models/emotionDetection.h5') # input shape of (48, 48, 1)   
-glassesModel = tf.keras.models.load_model('./models/glassesDetection.h5') # input shape of (160, 160, 3)
-ageClassifier = tf.keras.models.load_model('./models/ageXception80.h5') # input shape of (80, 80, 1)   
-
+from loadModels import emotionClassification, genderModel, glassesModel, ageClassifier, masknet
 
 def everythingURL(img, isCropped=False):
     ans=[]

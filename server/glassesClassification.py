@@ -1,8 +1,7 @@
 import cv2
-import tensorflow as tf
 import numpy as np
 
-glassesModel = tf.keras.models.load_model('./models/glassesDetection.h5') # input shape of (128, 128, 3)
+from loadModels import glassesModel
 
 face_model = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
 

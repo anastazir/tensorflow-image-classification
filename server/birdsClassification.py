@@ -3,8 +3,7 @@ import tensorflow as tf
 import numpy as np
 
 from constants import birds_names_labels
-
-birdsClassification = tf.keras.models.load_model('./models/birdClassificationNasNetModel224.h5') # input shape of (224, 224, 3)
+from loadModels import birdsClassification
 
 def birdsClassificationURL(img):
     """

@@ -5,8 +5,7 @@ import numpy as np
 
 face_model = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
 
-ageClassifier = tf.keras.models.load_model('./models/ageXception80.h5') # input shape of (80, 80, 1)   
-
+from loadModels import ageClassifier
 
 def ageClassificationURL(img):
     age_labels = ['18-30','40-60','60-98','6-18']

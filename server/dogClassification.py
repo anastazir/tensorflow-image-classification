@@ -4,7 +4,7 @@ import numpy as np
 
 from constants import dog_breeds_labels
 
-dogClassification = tf.keras.models.load_model('./models/dogClassificationNasNetModel224(78).h5') # input shape of (331, 331, 3)
+from loadModels import dogClassification
 
 
 def dogClassificationURL(img):

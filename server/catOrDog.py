@@ -2,9 +2,7 @@ import cv2
 import tensorflow as tf
 import numpy as np
 
-catVsDogModel = tf.keras.models.load_model('./models/catVsDogMobilenetv224.h5') # input shape of (150, 150, 3)   
-
-face_model = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
+from loadModels import catVsDogModel
 
 def catOrDogClassification(img):
     """

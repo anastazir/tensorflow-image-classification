@@ -1,11 +1,9 @@
 import cv2
-import tensorflow as tf
 import numpy as np
 
 from constants import wildlife_labels
 
-wildlifeClassification = tf.keras.models.load_model('./models/oregonWildlife224(92).h5') # input shape of (331, 331, 3)
-
+from loadModels import wildlifeClassification
 
 def wildlifeClassificationURL(img):
     """

@@ -2,7 +2,7 @@ import cv2
 import tensorflow as tf
 import numpy as np
 
-emotionClassification = tf.keras.models.load_model('./models/emotionDetection.h5') # input shape of (48, 48, 1)   
+from loadModels import emotionClassification
 
 face_model = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
 
