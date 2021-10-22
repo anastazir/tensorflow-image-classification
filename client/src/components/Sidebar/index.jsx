@@ -13,6 +13,9 @@ const SidebarContainer = styled(motion.div)`
   box-sizing: border-box;
   box-shadow: 16px 0 32px -16px #000;
   padding: 64px;
+  @media screen and (max-width: 960px) {
+    width: 50%;
+  }
   ::-webkit-scrollbar {
     width: 0;  /* Remove scrollbar space */
     background: transparent;  /* Optional: just make scrollbar invisible */
@@ -74,14 +77,15 @@ const Sidebar = ({ width = 320, style }) => {
       <AnimatePresence>
         {isOpen && (
           <SidebarContainer
+            className='sidebar-container'
             color={"#ff9d00"}
             initial={{ x: 300, opacity: 0 }}
             animate={{ x: 0, opacity: 1 }}
             exit={{ x: -300, opacity: 0 }}
             style={{overflowY: 'scroll', alignItems: 'center'}}
             >
-            <h3 style={{textColor: 'white'}}>
-              {style}
+            <h3 style={{textColor: 'white', alignSelf: 'centers'}}>
+              Labels
             </h3>
             {labels && labels.map((lable, i) => {
              return <li className='lables-li' key={i}>{lable}</li>
