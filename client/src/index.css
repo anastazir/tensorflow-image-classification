@@ -152,6 +152,9 @@ button {
   width: 70%;
   text-align: center;
   box-shadow: 1px 1px 15px #03030399;
+  margin-right: 2.5rem;
+  margin-bottom: 0.5rem;
+  margin-left: 2.5rem;
 }
 
 .orange-gradient {
