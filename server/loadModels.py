@@ -18,7 +18,7 @@ maskInterpreter         = tf.lite.Interpreter(model_path = './models_quantized/f
 catVsDogInterpreter     = tf.lite.Interpreter(model_path = './models_quantized/catVsDogMobilenetv224_quantized.tflite')
 glassesInterpreter      = tf.lite.Interpreter(model_path = './models_quantized/glassesDetection_quantized.tflite')
 birdsInterpreter        = tf.lite.Interpreter(model_path = './models_quantized/birdClassificationMobileNet224_quantized.tflite')
-flwersInterpreter       = tf.lite.Interpreter(model_path = './models_quantized/flower299MobileNet244(76)_quantized.tflite')
+flowersInterpreter       = tf.lite.Interpreter(model_path = './models_quantized/flower299MobileNet244(76)_quantized.tflite')
 wildlifeInterpreter     = tf.lite.Interpreter(model_path = './models_quantized/oregonWildlife224(92)_quantized.tflite')
 emotionInterpreter      = tf.lite.Interpreter(model_path = './models_quantized/emotionDetection_quantized.tflite')
 foodInterpreter         = tf.lite.Interpreter(model_path = './models_quantized/foodClassificationMobilenetv2_quantized.tflite')
