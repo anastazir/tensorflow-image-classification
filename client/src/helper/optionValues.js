@@ -2,56 +2,56 @@ export const optionValues=[
     {
         name: '🔥 Classify Everything',
         value: 'everything',
-        type: 'faceClassification'
+        type: ['faceClassification']
     },
     {
         name: '🤿 Mask Classification',
         value: 'faceMaskClassification',
-        type: 'binaryClassification'
+        type: ['binaryClassification', 'faceClassification']
     },
     {
         name: '♂️ or ♀️ Classification',
         value: 'genderClassification',
-        type: 'binaryClassification'
+        type: ['binaryClassification', 'faceClassification']
     },
     {
         name: '👨‍🦰 Emotion Detection',
         value: 'emotionClassification',
-        type: 'multiClassification'
+        type: ['multiClassification', 'faceClassification']
     },
     {
         name: '👓or👀',
         value: 'glassesClassification',
-        type: 'binaryClassification'
+        type: ['binaryClassification', 'faceClassification']
     },
     {
         name: '🧔 Age Classification',
         value: 'ageClassification',
-        type: 'multiClassification'
+        type: ['multiClassification', 'faceClassification']
     },
     {
         name: '🐱or🐶',
         value: 'catvsDog',
-        type: 'binaryClassification'
+        type: ['binaryClassification', 'animalClassification']
     },
     {
         name: '🐕‍🦺 Dog Classification',
         value: 'dogClassification',
-        type: 'multiClassification'
+        type: ['multiClassification', 'animalClassification']
     },
     {
         name: '🦅 Birds Classification',
         value: 'birdsClassification',
-        type: 'multiClassification'
+        type: ['multiClassification', 'animalClassification']
     },
     {
         name: '🦙 Wildlife Classification',
         value: 'wildlifeClassification',
-        type: 'multiClassification'
+        type: ['multiClassification', 'animalClassification']
     },
     {
         name: '🌻 Flower Classification',
         value: 'flowerClassification',
-        type: 'multiClassification'
+        type: ['multiClassification']
     },
 ]
