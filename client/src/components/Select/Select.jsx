@@ -1,22 +1,16 @@
 import { motion } from 'framer-motion'
 import React from 'react'
+import {optionValues} from '../../helper/optionValues'
+
+const InputList= optionValues.map((option, i)=>
+    (<option value={option.value} key={i}>{option.name}</option>)
+)
 
 const Select = ({handleStyle}) => {
-    return (
+    return (  
         <>
         <motion.select className="input" onChange={handleStyle}>
-          <option value="everything">🔥 Classify Everything</option>
-          <option value="faceMaskClassification">🤿 Mask Classification</option>
-          <option value="genderClassification">♂️ or ♀️ Classification</option>
-          <option value="emotionClassification">👨‍🦰 Emotion Detection</option>
-          <option value="glassesClassification">👓or👀</option>
-          <option value="ageClassification">🧔 Age Classification</option>
-          <option value="catvsDog">🐱or🐶</option>
-          <option value="foodClassification">🍲 Food Classification</option>
-          <option value="dogClassification">🐕‍🦺 Dog Classification</option>
-          <option value="birdsClassification">🦅 Birds Classification</option>
-          <option value="wildlifeClassification">🦙 Wildlife Classification</option>
-          <option value="flowerClassification">🌻 Flower Classification</option>
+          {InputList}
         </motion.select>  
         </>
     )
