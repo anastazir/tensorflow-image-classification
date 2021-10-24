@@ -366,9 +366,9 @@ li {
 #left, #middle, #right {display: block; *display: inline; zoom: 1; vertical-align: top; font-size: 12px;}
   .result{
     display: flex;
-    flex-direction: row;
-    max-width: 100%;
+    flex-direction: column;
     align-items: center;
+    max-width: 100%;
   }
   .backdrop{
     height: inherit;
