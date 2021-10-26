@@ -1,17 +1,5 @@
-# import flask
 import io
-# import string
-# import os
-# import numpy as np
-# from numpy import asarray
-from PIL import Image
 from flask import Flask, jsonify, request
-# import tensorflow as tf
-from PIL import Image
-# import base64
-# from io import BytesIO
-# import requests
-import cv2
 from skimage import io
 
 
@@ -98,6 +86,9 @@ def dynamicRoute(classificationType, url):
 def uploadImageAndClassify(classificationType):
     if request.method != "POST" or not request.files:
         return {'data': 'no files were found'}
+
+    if classificationType == "everything":
+        return  everythingURL(returnArray(request))
     
     if classificationType == "faceMaskClassification":
         return  maskClassification(returnArray(request))  
@@ -173,4 +164,4 @@ def testing(classificationType):
 
 
 if __name__ == '__main__':
-    app.run(debug=False)
+    app.run(debug=True)
