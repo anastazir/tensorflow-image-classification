@@ -17,6 +17,7 @@ import {randomImages} from "./helper/randomImages";
 import Sidebar from "./components/Sidebar/index"
 import Select from "./components/Select/Select"
 import CropImage from "./components/CropImage/CropImage"
+import SelectType from "./components/Select/SelectType"
 
 function App() {
   let uploadedImage= null
@@ -39,9 +40,12 @@ function App() {
   const [text, setText] = useState("");
   const handleText = (e) => setText(e.target.value);
 
-  // Notification style
+  // Option style
   const [style, setStyle] = useState("everything");
   const handleStyle = (e) => setStyle(e.target.value);
+  // Category style
+  const [category, setCategory] = useState("showAll");
+  const handleCategory = (e) => setCategory(e.target.value);
   // Notification position
   const position= 'bottom'
 
@@ -100,13 +104,15 @@ function App() {
   console.log('coordinates are:', coordinates);
 
   return (
-    <>
+  <>
     <Sidebar style= {style} />
     <Header />
     <div id="left">
       <motion.main>
+        <SubHeader text="Select Category" />
+        <SelectType handleCategory={handleCategory}/> 
+        <br />  
         <SubHeader text="Select File from local directory" />
-
         <input type="file" name="file" accept="image/*" className="input" onChange={onImageFileChange} /> 
         <motion.button
           whileHover={{ scale: 1.1 }}
@@ -114,72 +120,56 @@ function App() {
           className="save-button"
           onClick={onImageFileChange}>
           Predict Local Image
-        </motion.button>  
-
+        </motion.button> 
         <br />
-
         <SubHeader text="Enter image URL" />
-
-        <br />
-
         <Input
           placeHolder="Add image URL 🚀"
           value={text}
           onChange={handleText}
         />
-
         <br />
-        
         <SubHeader text="Select type of Classification" />
-        
-        <br />
-
         <Select handleStyle={handleStyle}/>
-
-        <br />
-
-      <div className="predict-random">
-
-        {  predicting ? 
-            <ThreeDotsWave/> :
-          <>
-            <motion.button
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.95 }}
-              className="add-button"
-              onClick={validateUrl}>
-                Predict
-            </motion.button>
-            <motion.button
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.9 }}
-              className="random-button"
-              onClick={()=>{
-                var url=randomImages(style)
-                setText(url)
-                setImgUrl(url)}}>
-              Random Image
-            </motion.button> 
-            <motion.button
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.9 }}
-              className="copy-button"
-              onClick={readFromClipboard}>
-              Copy From Clipboard
-            </motion.button> 
-          </>
-        }
-        <motion.button
-          whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.9 }}
-          className="crop-button"
-          onClick={()=>{setIsCrop(!isCrop)}}>
-          Toggle Crop
-        </motion.button> 
-    </div>
-
-        
-    </motion.main>
+        <div className="predict-random">
+          {  predicting ? 
+              <ThreeDotsWave/> :
+            <>
+              <motion.button
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.95 }}
+                className="add-button"
+                onClick={validateUrl}>
+                  Predict
+              </motion.button>
+              <motion.button
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+                className="random-button"
+                onClick={()=>{
+                  var url=randomImages(style)
+                  setText(url)
+                  setImgUrl(url)}}>
+                Random Image
+              </motion.button> 
+              <motion.button
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+                className="copy-button"
+                onClick={readFromClipboard}>
+                Copy From Clipboard
+              </motion.button> 
+            </>
+          }
+          <motion.button
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.9 }}
+            className="crop-button"
+            onClick={()=>{setIsCrop(!isCrop)}}>
+            Toggle Crop
+          </motion.button> 
+        </div>
+      </motion.main>
 
       <ModalContainer>
         {modalOpen && (
@@ -201,10 +191,10 @@ function App() {
       </NotificationContainer>
     </div>
     <div id='right'>
-          {isCrop && <ImageShow img={image ? image: imgUrl}  />}
-          {!isCrop && !modalOpen && <CropImage url= {image ? image: imgUrl} setCoordinates={setCoordinates} />}
+      {isCrop && <ImageShow img={image ? image: imgUrl}  />}
+      {!isCrop && !modalOpen && <CropImage url= {image ? image: imgUrl} setCoordinates={setCoordinates} />}
     </div>
-    </>
+  </>
   );
 }
 
