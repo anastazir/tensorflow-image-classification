@@ -130,17 +130,17 @@ function App() {
         />
         <br />
         <SubHeader text="Select type of Classification" />
-        <Select handleStyle={handleStyle}/>
+        <Select handleStyle={handleStyle} category={category}/>
         <div className="predict-random">
           {  predicting ? 
-              <ThreeDotsWave/> :
+            <ThreeDotsWave/> :
             <>
               <motion.button
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.95 }}
                 className="add-button"
                 onClick={validateUrl}>
-                  Predict
+                Predict
               </motion.button>
               <motion.button
                 whileHover={{ scale: 1.1 }}
@@ -159,15 +159,15 @@ function App() {
                 onClick={readFromClipboard}>
                 Copy From Clipboard
               </motion.button> 
+              <motion.button
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
+              className="crop-button"
+              onClick={()=>{setIsCrop(!isCrop)}}>
+              Toggle Crop
+              </motion.button> 
             </>
           }
-          <motion.button
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.9 }}
-            className="crop-button"
-            onClick={()=>{setIsCrop(!isCrop)}}>
-            Toggle Crop
-          </motion.button> 
         </div>
       </motion.main>
 
