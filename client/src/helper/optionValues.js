@@ -35,6 +35,11 @@ export const optionValues=[
         type: ['binaryClassification', 'animalClassification']
     },
     {
+        name: '🍲 Food Classification',
+        value: 'foodClassification',
+        type: ['multiClassification']
+    },
+    {
         name: '🐕‍🦺 Dog Classification',
         value: 'dogClassification',
         type: ['multiClassification', 'animalClassification']

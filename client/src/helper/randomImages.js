@@ -92,7 +92,7 @@ export const randomImages=(style)=>{
         return genderClassification[randomIntFromInterval(0 ,8)]  
     }else if(style==='catvsDog'){
         return catvsDog[randomIntFromInterval(0 ,8)]
-    }else if(style==='emotionClassification' || style==='everything' || style==='glassesClassification'){
+    }else if(style==='emotionClassification' || style==='everything' || style==='glassesClassification' || style==='ageClassification'){
         const concat= [...emotionClassification, ...genderClassification, ...glassesClassification]
         return concat[randomIntFromInterval(0 ,30)] 
     }else if (style==='birdsClassification'){
