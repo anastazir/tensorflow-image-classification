@@ -4,7 +4,6 @@ import { AnimatePresence, motion } from "framer-motion";
 import useModal from "./hooks/useModal";
 import validator from 'validator' // to check if URL is valid
 
-import { framerLogger } from "./stateLogger";
 import Notification from "./components/Notification";
 import Input from "./components/Input";
 import Modal from "./components/Modal";
@@ -210,11 +209,10 @@ const Header = () => (
 
 const SubHeader = ({ text }) => <motion.h2 className="sub-header">{text}</motion.h2>;
 
-const ModalContainer = ({ children, label }) => (
+const ModalContainer = ({ children }) => (
   <AnimatePresence
     initial={false}
     exitBeforeEnter={true}
-    onExitComplete={() => framerLogger(label)}
   >
     {children}
   </AnimatePresence>

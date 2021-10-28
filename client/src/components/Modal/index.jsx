@@ -1,6 +1,4 @@
-import { useEffect } from "react";
 import { motion } from "framer-motion";
-import { stateLogger } from "../../stateLogger";
 import Backdrop from "../Backdrop/index";
 import ImageShow from "../ImageShow/ImageShow";
 
@@ -83,12 +81,6 @@ const result = {
 };
 
 const Modal = ({ handleClose, text, type, data, url, localImage }) => {
-  // Log state
-  useEffect(() => {
-    stateLogger("Modal", true);
-    return () => stateLogger("Modal", false);
-  }, []);
-  // console.log(url);
   return (
     <Backdrop onClick={handleClose}>
       {type === "emptyInput" && (
