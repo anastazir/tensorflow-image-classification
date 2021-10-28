@@ -7,7 +7,7 @@ import validator from 'validator' // to check if URL is valid
 import Notification from "./components/Notification";
 import Input from "./components/Input";
 import Modal from "./components/Modal";
-import { add } from "./arr-utils";
+import { add } from "./helper/arr-utils";
 import ImageShow from "./components/ImageShow/ImageShow";
 import { handleUrl, handleUpload, handleCroppedImage } from "./Fetch/fetchByUrl";
 import NotificationContainer from "./hooks/NotificationContainer";
