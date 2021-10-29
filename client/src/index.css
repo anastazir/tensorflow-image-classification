@@ -11,9 +11,8 @@
 }
 
 #left, #middle, #right {display: inline-block; *display: inline; zoom: 1; vertical-align: top; font-size: 12px;}
-#left {width: 35%;}
-#middle {width: 100%; }
-#right {width: 65%;
+#left {width: 45%;}
+#right {width: 55%;
   align-items: center;
 }
 
