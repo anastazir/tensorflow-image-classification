@@ -1,6 +1,5 @@
 import { motion } from "framer-motion";
-import { useEffect } from "react";
-import { remove } from "../../arr-utils";
+import { remove } from "../../helper/arr-utils";
 
 const notificationVariants = {
   initial: {
