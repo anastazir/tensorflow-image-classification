@@ -1,23 +1,24 @@
 import io
-from flask import Flask, jsonify, request
+from flask import Flask, request
 from skimage import io
 
 
 # IMPORT FUNCTIONS
+from classifications.everything             import everythingURL
 from classifications.faceMaskClassification import maskClassification
-from classifications.genderClassification import genderClassification
-from classifications.catOrDog import catOrDogClassification
-from classifications.emotionClassification import emotionClassificationURL
-from classifications.glassesClassification import glassesClassificationURL
-from classifications.foodClassification import foodClassificationURL
-from classifications.dogClassification import dogClassificationURL
-from classifications.birdsClassification import birdsClassificationURL
+from classifications.genderClassification   import genderClassification
+from classifications.emotionClassification  import emotionClassificationURL
+from classifications.glassesClassification  import glassesClassificationURL
+from classifications.ageClassification      import ageClassificationURL
+from classifications.catOrDog               import catOrDogClassification
+from classifications.dogClassification      import dogClassificationURL
+from classifications.birdsClassification    import birdsClassificationURL
 from classifications.wildlifeClassification import wildlifeClassificationURL
-from classifications.ageClassification import ageClassificationURL
-from classifications.everything import everythingURL
-from classifications.flowerClassification import flowerClassificationURL
-from helperFunctions.returnArray import returnArray
-from fetchLabels import getLabels
+from classifications.foodClassification     import foodClassificationURL
+from classifications.flowerClassification   import flowerClassificationURL
+from helperFunctions.returnArray            import returnArray
+from fetchLabels                            import getLabels
+
 app = Flask(__name__)
 
 add='?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyMTYyOTB8MHwxfHNlYXJjaHw5fHxmYWNlfGVufDB8fHx8MTYzMjA1MDM4MQ&ixlib=rb-1.2.1&q=80&w=300'
@@ -87,20 +88,38 @@ def uploadImageAndClassify(classificationType):
     if request.method != "POST" or not request.files:
         return {'data': 'no files were found'}
 
-    if classificationType == "everything":
-        return  everythingURL(returnArray(request))
-    
-    if classificationType == "faceMaskClassification":
-        return  maskClassification(returnArray(request))  
+    if classificationType == "catvsDog":
+        return catOrDogClassification(returnArray(request))
+
+    elif classificationType == "faceMaskClassification":
+        return maskClassification(returnArray(request))
 
     elif classificationType == "genderClassification":
-        return  genderClassification(returnArray(request))
+        return genderClassification(returnArray(request))
 
-    elif classificationType == "catvsDog":
-        return  catOrDogClassification(returnArray(request))  
+    elif classificationType == "emotionClassification":
+        return emotionClassificationURL(returnArray(request))
+
+    elif classificationType == "glassesClassification":
+        return glassesClassificationURL(returnArray(request))
 
     elif classificationType == "foodClassification":
-        return  foodClassificationURL(returnArray(request))   
+        return foodClassificationURL(returnArray(request))
+
+    elif classificationType == "dogClassification":
+        return dogClassificationURL(returnArray(request))
+
+    elif classificationType == "birdsClassification":
+        return birdsClassificationURL(returnArray(request))
+
+    elif classificationType == "wildlifeClassification":
+        return wildlifeClassificationURL(returnArray(request))
+
+    elif classificationType == "everything":
+        return everythingURL(returnArray(request))
+
+    elif classificationType == "ageClassification":
+        return ageClassificationURL(returnArray(request))
 
     elif classificationType == "flowerClassification":
         return  flowerClassificationURL(returnArray(request))
@@ -127,16 +146,16 @@ def testing(classificationType):
         return catOrDogClassification(croppedImage)
 
     elif classificationType == "faceMaskClassification":
-        return maskClassification(croppedImage)
+        return maskClassification(croppedImage, isCropped=True)
 
     elif classificationType == "genderClassification":
-        return genderClassification(croppedImage)
+        return genderClassification(croppedImage, isCropped=True)
 
     elif classificationType == "emotionClassification":
-        return emotionClassificationURL(croppedImage)
+        return emotionClassificationURL(croppedImage, isCropped=True)
 
     elif classificationType == "glassesClassification":
-        return glassesClassificationURL(croppedImage)
+        return glassesClassificationURL(croppedImage, isCropped=True)
 
     elif classificationType == "foodClassification":
         return foodClassificationURL(croppedImage)
@@ -154,7 +173,7 @@ def testing(classificationType):
         return everythingURL(croppedImage, isCropped=True)
 
     elif classificationType == "ageClassification":
-        return ageClassificationURL(croppedImage)
+        return ageClassificationURL(croppedImage, isCropped=True)
 
     elif classificationType == "flowerClassification":
         return  flowerClassificationURL(croppedImage)

@@ -3,7 +3,7 @@ import numpy as np
 
 from constants import wildlife_labels
 
-from loadModels import wildlifeClassification, wildlifeInterpreter
+from loadModels import wildlifeInterpreter
 
 def wildlifeClassificationURL(img):
     """
@@ -16,7 +16,7 @@ def wildlifeClassificationURL(img):
     img_size= 224
     ans= []
     new_img = cv2.resize(img,(img_size, img_size)).astype("float32")
-    new_img = np.reshape(new_img,[1, img_size, img_size, 3])/225.0
+    new_img = np.reshape(new_img,[1, img_size, img_size, 3])
     wildlifeInterpreter.allocate_tensors()
     wildlifeInterpreter.set_tensor(input_details[0]['index'], new_img)
     wildlifeInterpreter.invoke()
