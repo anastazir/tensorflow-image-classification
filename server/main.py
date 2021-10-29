@@ -32,11 +32,12 @@ def sendLabels():
     return {'labels': result}
             
 
-@app.route('/<classificationType>/urlRoute/<path:url>')
-def dynamicRoute(classificationType, url):
-    print('------------------------', classificationType)
-    if "https://images.unsplash.com/photo" in url:
-        url= url+ add 
+@app.route('/urlRoute/<classificationType>', methods=['POST'])
+def dynamicRoute(classificationType):
+    if request.method != "POST":
+        return {'data': 'only POST method is supported'}
+
+    url= request.form['url']
 
     try:
         img = io.imread(url)  
