@@ -28,3 +28,5 @@
 /server/models
 /server/models_lite
 /server/models_quantized
+
+*.pyc
