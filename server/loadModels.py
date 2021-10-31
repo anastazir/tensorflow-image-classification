@@ -23,3 +23,4 @@ wildlifeInterpreter     = tf.lite.Interpreter(model_path = './models_quantized/o
 emotionInterpreter      = tf.lite.Interpreter(model_path = './models_quantized/emotionDetection_quantized.tflite')
 foodInterpreter         = tf.lite.Interpreter(model_path = './models_quantized/foodClassificationMobilenetv2_quantized.tflite')
 ageInterpreter          = tf.lite.Interpreter(model_path = './models_quantized/ageClassificationNasNetModel160_quantized.tflite')
+animalsInterpreter      = tf.lite.Interpreter(model_path = './models_quantized/animalClassification160_quantized.tflite')
