@@ -16,6 +16,7 @@ from classifications.birdsClassification    import birdsClassificationURL
 from classifications.wildlifeClassification import wildlifeClassificationURL
 from classifications.foodClassification     import foodClassificationURL
 from classifications.flowerClassification   import flowerClassificationURL
+from classifications.animalClassification   import animalsClassificationURL
 from helperFunctions.returnArray            import returnArray
 from fetchLabels                            import getLabels
 
@@ -81,6 +82,9 @@ def dynamicRoute(classificationType):
     elif classificationType == "flowerClassification":
         return flowerClassificationURL(img)
 
+    elif classificationType == "animalClassification":
+        return animalsClassificationURL(img)
+
     else:
         return {'data': 'this route does not exist'}
 
@@ -124,6 +128,9 @@ def uploadImageAndClassify(classificationType):
 
     elif classificationType == "flowerClassification":
         return  flowerClassificationURL(returnArray(request))
+
+    elif classificationType == "animalClassification":
+        return animalsClassificationURL(returnArray(request))
 
     else:
         return {'data': 'this route does not exist'}
@@ -182,6 +189,9 @@ def testing(classificationType):
 
     elif classificationType == "flowerClassification":
         return  flowerClassificationURL(croppedImage)
+
+    elif classificationType == "animalClassification":
+        return animalsClassificationURL(croppedImage)
 
     else:
         return {'data': 'this route does not exist'}
