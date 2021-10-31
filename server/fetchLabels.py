@@ -1,4 +1,4 @@
-from constants import dog_breeds_labels, birds_names_labels, food_labels, wildlife_labels, flowers_name_labels
+from constants import dog_breeds_labels, birds_names_labels, food_labels, wildlife_labels, flowers_name_labels, animal_labels
 
 def getLabels(labelsType):
     if labelsType == 'dogClassification':
@@ -17,4 +17,6 @@ def getLabels(labelsType):
         return ['18-30','40-60','60-98','6-18']
     elif labelsType == 'flowerClassification':
         return flowers_name_labels
+    elif labelsType == 'animalClassification':
+        return animal_labels
     return ['Lables not avialable']
