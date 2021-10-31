@@ -139,7 +139,11 @@ def testing(classificationType):
     dWidth= int(request.form['dWidth'])
     url= request.form['url']
 
-    img = io.imread(url)  
+    try:
+        img = io.imread(url)  
+
+    except:
+        return {'data': 'ERROR: unable to read image'} 
 
     croppedImage= img[dy:dy+dHeight, dx:dx+dWidth]
 
@@ -182,6 +186,6 @@ def testing(classificationType):
     else:
         return {'data': 'this route does not exist'}
 
-
-if __name__ == '__main__':
-    app.run(debug=True)
+@app.route('/')
+def ping():
+    return {'data': 'server is on and running.'}

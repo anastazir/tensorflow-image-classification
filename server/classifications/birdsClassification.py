@@ -1,9 +1,8 @@
 import cv2
-import tensorflow as tf
 import numpy as np
 
 from constants import birds_names_labels
-from loadModels import birdsClassification, birdsInterpreter
+from loadModels import birdsInterpreter
 
 def birdsClassificationURL(img):
     """

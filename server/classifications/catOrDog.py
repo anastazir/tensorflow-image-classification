@@ -1,8 +1,7 @@
 import cv2
-import tensorflow as tf
 import numpy as np
 
-from loadModels import catVsDogModel, catVsDogInterpreter
+from loadModels import catVsDogInterpreter
 
 def catOrDogClassification(img):
     """

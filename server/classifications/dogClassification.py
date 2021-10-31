@@ -1,10 +1,9 @@
 import cv2
-import tensorflow as tf
 import numpy as np
 
 from constants import dog_breeds_labels
 
-from loadModels import dogClassification, dogInterpreter, genderInterpreter ,maskInterpreter ,catVsDogInterpreter ,glassesInterpreter ,emotionInterpreter     
+from loadModels import dogInterpreter     
 
 
 def dogClassificationURL(img):

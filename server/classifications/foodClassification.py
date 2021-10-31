@@ -1,9 +1,8 @@
 import cv2
-import tensorflow as tf
 import numpy as np
 
 from constants import food_labels
-from loadModels import foodClassification101, foodInterpreter    
+from loadModels import foodInterpreter    
 
 def foodClassificationURL(img):
     """

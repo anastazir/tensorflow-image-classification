@@ -3,7 +3,7 @@ import numpy as np
 
 from constants import flowers_name_labels
 
-from loadModels import flowerClassification, flowersInterpreter
+from loadModels import flowersInterpreter
 
 def flowerClassificationURL(img):
     """

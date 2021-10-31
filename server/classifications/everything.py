@@ -1,5 +1,4 @@
 import cv2
-import tensorflow as tf
 import numpy as np
 
 face_model = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
