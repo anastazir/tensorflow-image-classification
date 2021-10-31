@@ -35,9 +35,9 @@ export const optionValues=[
         type: ['binaryClassification', 'animalClassification', 'showAll']
     },
     {
-        name: '🍲 Food Classification',
-        value: 'foodClassification',
-        type: ['multiClassification', 'showAll']
+        name: '🐇 Animal Classification',
+        value: 'animalClassification',
+        type: ['multiClassification', 'animalClassification', 'showAll']
     },
     {
         name: '🐕‍🦺 Dog Classification',
@@ -53,6 +53,11 @@ export const optionValues=[
         name: '🦙 Wildlife Classification',
         value: 'wildlifeClassification',
         type: ['multiClassification', 'animalClassification', 'showAll']
+    },
+    {
+        name: '🍲 Food Classification',
+        value: 'foodClassification',
+        type: ['multiClassification', 'showAll']
     },
     {
         name: '🌻 Flower Classification',
