@@ -3,7 +3,7 @@ import numpy as np
 
 from loadModels import glassesInterpreter
 
-face_model = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
+face_model = cv2.CascadeClassifier('./cascadeFiles/haarcascade_frontalface_default.xml')
 
 def glassesClassificationURL(img, isCropped=False):
     """

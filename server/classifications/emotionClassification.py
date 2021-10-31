@@ -3,7 +3,7 @@ import numpy as np
 
 from loadModels import emotionInterpreter
 
-face_model = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
+face_model = cv2.CascadeClassifier('./cascadeFiles/haarcascade_frontalface_default.xml')
 
 def emotionClassificationURL(img, isCropped=False):
     emotion_labels = ['Angry','Disgust','Fear','Happy','Neutral', 'Sad', 'Surprise']

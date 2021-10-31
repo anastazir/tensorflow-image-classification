@@ -1,7 +1,7 @@
 import cv2
 import numpy as np
 
-face_model = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
+face_model = cv2.CascadeClassifier('./cascadeFiles/haarcascade_frontalface_default.xml')
 
 from loadModels import emotionClassification, genderModel, glassesModel, ageClassifier, masknet
 
