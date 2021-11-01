@@ -152,6 +152,7 @@ button {
   display: flex;
   flex-direction: row;
   align-items: center;
+  overflow-y: auto;
 }
 
 .result-text{
@@ -210,7 +211,6 @@ button {
   height: 2.5rem;
   margin: 2rem auto 1rem 0;
   background: #101111;
-  /* border: 1px dashed #9a9a9a99; */
   color: #ffaa00;
   border-radius: 4px;
   transition: background ease 400ms;
