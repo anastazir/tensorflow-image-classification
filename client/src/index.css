@@ -154,6 +154,10 @@ button {
   align-items: center;
 }
 
+.result-text{
+  display: none;
+}
+
 .lables-li{
   text-transform: capitalize;
   width: 70%;
@@ -375,11 +379,15 @@ li {
     vertical-align: top; 
     font-size: 12px;
   }
+  .backdrop{
+    display: none;
+  }
   .result{
-    display: flex;
+    /* display: flex;
     flex-direction: column;
     align-items: center;
-    max-width: 100%;
+    max-width: 100%; */
+    display: none;
   }
   .backdrop{
     height: inherit;
@@ -389,9 +397,9 @@ li {
     height: 100%;
     width: 100%;
   }
-  .image-container{
+  /* .image-container{
     display:none;
-  }
+  } */
   .main{
     flex-direction: row;
   }
@@ -401,6 +409,21 @@ li {
   }
   #left{
     width: 100%;
+  }
+  .result-text{
+    text-align: center;
+    display: flex;
+   
+    flex-direction: column;
+    margin: auto;
+  }
+  .result-text-li{
+    width: 100%;
+    background-color: red;
+    margin: auto;
+    padding: 2rem;
+    z-index: 0;
+    position: none;
   }
 }  
 
