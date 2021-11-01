@@ -17,6 +17,7 @@ import Sidebar from "./components/Sidebar/index"
 import Select from "./components/Select/Select"
 import CropImage from "./components/CropImage/CropImage"
 import SelectType from "./components/Select/SelectType"
+import ResultDisplay from "./components/ResultDiv/index"
 
 function App() {
   let uploadedImage= null
@@ -186,24 +187,25 @@ function App() {
               setNotifications={setNotifications}
               openResultdModal={openResultdModal}
             />
-          ))}
+          ))
+        }
       </NotificationContainer>
     </div>
     <div id='right'>
       {isCrop && <ImageShow img={image ? image: imgUrl}  />}
       {!isCrop && !modalOpen && <CropImage url= {image ? image: imgUrl} setCoordinates={setCoordinates} />}
     </div>
+    <ResultDisplay data={resultData} handleClose={close} />
   </>
   );
 }
 
 const Header = () => (
   <div style={{textAlign: 'center'}}>
-
-  <motion.h1 className="pink">
-    Tensorflow
-    <span className="light-blue"> Project</span>
-  </motion.h1>
+    <motion.h1 className="pink">
+      Tensorflow
+      <span className="light-blue"> Project</span>
+    </motion.h1>
   </div>
 );
 
