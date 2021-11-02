@@ -9,7 +9,7 @@ import Input from "./components/Input";
 import Modal from "./components/Modal";
 import { add } from "./helper/arr-utils";
 import ImageShow from "./components/ImageShow/ImageShow";
-import { handleUrl, handleUpload, handleCroppedImage } from "./Fetch/fetchByUrl";
+import { handleUrl, handleUpload} from "./Fetch/fetchByUrl";
 import NotificationContainer from "./hooks/NotificationContainer";
 import ThreeDotsWave from "./components/Loading/ThreeDotsWave";
 import {randomImages} from "./helper/randomImages";
@@ -51,13 +51,16 @@ function App() {
 
   const [predicting, setPredicting] = useState(false)
 
+  const [imageShown, setImageShown] = useState(null)
+
   const onImageFileChange= (e) =>{
-    if (e.target.files && e.target.files[0]) {
+    if(e.target.files && e.target.files[0]) {
       uploadedImage= e.target.files[0]
       setImage(URL.createObjectURL(e.target.files[0]))
         console.log(uploadedImage)
+        setImageShown(uploadedImage)
       }
-    handleUpload(uploadedImage, style, add, notifications, setPredicting, openResultdModal, setNotifications)
+    handleUpload(uploadedImage, coordinates, style, add, notifications, setPredicting, openResultdModal, setNotifications, isCrop)
   }
 
   const openResultdModal = (data) =>{
@@ -75,14 +78,9 @@ function App() {
   const validateUrl = () =>{
     if(text){
       if (validator.isURL(text)){
-        setImage(null)
         setImgUrl(text)
         if(!predicting){
-          if (isCrop){
-            handleUrl(text, setNotifications, add, style, notifications, setPredicting, openResultdModal);
-          }else{
-            handleCroppedImage(text, coordinates, style, add, notifications, setPredicting, openResultdModal, setNotifications)
-          }
+          handleUrl(text, coordinates, setNotifications, add, style, notifications, setPredicting, openResultdModal, isCrop);
         }
       }
       else{
@@ -100,6 +98,14 @@ function App() {
       notifications.shift()
     }
   }, [notifications])
+
+  useEffect(() =>{
+    setImageShown(imgUrl)
+  }, [imgUrl])
+
+  useEffect(() =>{
+    setImageShown(image)
+  }, [image])
 
   console.log('coordinates are:', coordinates);
 
@@ -148,6 +154,7 @@ function App() {
                 className="random-button"
                 onClick={()=>{
                   var url=randomImages(style)
+                  setImage(url)
                   setText(url)
                   setImgUrl(url)}}>
                 Random Image
@@ -173,7 +180,7 @@ function App() {
 
       <ModalContainer>
         {modalOpen && (
-          <Modal modalOpen={modalOpen} text={modalType} type={modalType} handleClose={close} data={resultData} url={text} localImage={image}/>
+          <Modal modalOpen={modalOpen} text={modalType} type={modalType} handleClose={close} data={resultData} img={image}/>
         )}
       </ModalContainer>
 
@@ -192,8 +199,8 @@ function App() {
       </NotificationContainer>
     </div>
     <div id='right'>
-      {isCrop && <ImageShow img={image ? image: imgUrl}  />}
-      {!isCrop && !modalOpen && <CropImage url= {image ? image: imgUrl} setCoordinates={setCoordinates} />}
+      {isCrop && <ImageShow img={imageShown}  />}
+      {!isCrop && !modalOpen && <CropImage url= {imageShown ? imageShown: imgUrl} setCoordinates={setCoordinates} />}
     </div>
     <ResultDisplay data={resultData} handleClose={close} />
   </>
