@@ -80,7 +80,7 @@ const result = {
   },
 };
 
-const Modal = ({ handleClose, text, type, data, url, localImage }) => {
+const Modal = ({ handleClose, text, type, data, img }) => {
   return (
     <Backdrop onClick={handleClose}>
       {type === "emptyInput" && (
@@ -119,7 +119,7 @@ const Modal = ({ handleClose, text, type, data, url, localImage }) => {
           animate="visible"
           exit="exit"
         >
-          <ImageShow img={url ? url : localImage}/>
+          <ImageShow img={img}/>
           <ResultText data={data} />
         </motion.div>
       )}
@@ -150,13 +150,13 @@ const ModalText = ({type}) => (
 
 const ResultText = ({data}) =>(
   <div >
-    <h3 className="result-text">Results</h3>
+    <h3 >Results</h3>
     <div >
     {data.map((object, i)=>{
         return <li key={i} style={liStyle}> {object} </li>;
     })}
     </div>
-    </div>
+  </div>
 )
 
 const ModalButton = ({ onClick, label }) => (
