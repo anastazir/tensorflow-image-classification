@@ -22,9 +22,6 @@ from fetchLabels                            import getLabels
 
 app = Flask(__name__)
 
-add='?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyMTYyOTB8MHwxfHNlYXJjaHw5fHxmYWNlfGVufDB8fHx8MTYzMjA1MDM4MQ&ixlib=rb-1.2.1&q=80&w=300'
-# face_model = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
-
 @app.route('/fetchLabels', methods=['GET', 'POST'])
 def sendLabels():
     labelType= request.args['labelsType']
@@ -45,21 +42,32 @@ def dynamicRoute(classificationType):
 
     except:
         return {'data': 'ERROR: unable to read image'}
-    
+
+    if request.form["isCropped"] == 'true':
+        isCropped= True
+        dx= int(request.form['dx'])
+        dy= int(request.form['dy'])
+        dHeight= int(request.form['dHeight'])
+        dWidth= int(request.form['dWidth'])
+        img= img[dy:dy+dHeight, dx:dx+dWidth]
+        
+    else:
+        isCropped= False
+
     if classificationType == "catvsDog":
         return catOrDogClassification(img)
 
     elif classificationType == "faceMaskClassification":
-        return maskClassification(img)
+        return maskClassification(img, isCropped=isCropped)
 
     elif classificationType == "genderClassification":
-        return genderClassification(img)
+        return genderClassification(img, isCropped=isCropped)
 
     elif classificationType == "emotionClassification":
-        return emotionClassificationURL(img)
+        return emotionClassificationURL(img, isCropped=isCropped)
 
     elif classificationType == "glassesClassification":
-        return glassesClassificationURL(img)
+        return glassesClassificationURL(img, isCropped=isCropped)
 
     elif classificationType == "foodClassification":
         return foodClassificationURL(img)
@@ -74,10 +82,10 @@ def dynamicRoute(classificationType):
         return wildlifeClassificationURL(img)
 
     elif classificationType == "everything":
-        return everythingURL(img)
+        return everythingURL(img, isCropped=isCropped)
 
     elif classificationType == "ageClassification":
-        return ageClassificationURL(img)
+        return ageClassificationURL(img, isCropped=isCropped)
 
     elif classificationType == "flowerClassification":
         return flowerClassificationURL(img)
@@ -92,21 +100,25 @@ def dynamicRoute(classificationType):
 def uploadImageAndClassify(classificationType):
     if request.method != "POST" or not request.files:
         return {'data': 'no files were found'}
+        
+    if request.form["isCropped"] == 'true':
+        isCropped= True
+    else: isCropped= False
 
     if classificationType == "catvsDog":
         return catOrDogClassification(returnArray(request))
 
     elif classificationType == "faceMaskClassification":
-        return maskClassification(returnArray(request))
+        return maskClassification(returnArray(request), isCropped= isCropped)
 
     elif classificationType == "genderClassification":
-        return genderClassification(returnArray(request))
+        return genderClassification(returnArray(request), isCropped= isCropped)
 
     elif classificationType == "emotionClassification":
-        return emotionClassificationURL(returnArray(request))
+        return emotionClassificationURL(returnArray(request), isCropped= isCropped)
 
     elif classificationType == "glassesClassification":
-        return glassesClassificationURL(returnArray(request))
+        return glassesClassificationURL(returnArray(request), isCropped= isCropped)
 
     elif classificationType == "foodClassification":
         return foodClassificationURL(returnArray(request))
@@ -121,77 +133,16 @@ def uploadImageAndClassify(classificationType):
         return wildlifeClassificationURL(returnArray(request))
 
     elif classificationType == "everything":
-        return everythingURL(returnArray(request))
+        return everythingURL(returnArray(request), isCropped= isCropped)
 
     elif classificationType == "ageClassification":
-        return ageClassificationURL(returnArray(request))
+        return ageClassificationURL(returnArray(request), isCropped= isCropped)
 
     elif classificationType == "flowerClassification":
         return  flowerClassificationURL(returnArray(request))
 
     elif classificationType == "animalClassification":
         return animalsClassificationURL(returnArray(request))
-
-    else:
-        return {'data': 'this route does not exist'}
-
-@app.route('/cropped-image/<classificationType>', methods=['POST'])
-def testing(classificationType):
-    if request.method != "POST":
-        return {'data': 'only POST method is supported'}
-    
-    dx= int(request.form['dx'])
-    dy= int(request.form['dy'])
-    dHeight= int(request.form['dHeight'])
-    dWidth= int(request.form['dWidth'])
-    url= request.form['url']
-
-    try:
-        img = io.imread(url)  
-
-    except:
-        return {'data': 'ERROR: unable to read image'} 
-
-    croppedImage= img[dy:dy+dHeight, dx:dx+dWidth]
-
-    if classificationType == "catvsDog":
-        return catOrDogClassification(croppedImage)
-
-    elif classificationType == "faceMaskClassification":
-        return maskClassification(croppedImage, isCropped=True)
-
-    elif classificationType == "genderClassification":
-        return genderClassification(croppedImage, isCropped=True)
-
-    elif classificationType == "emotionClassification":
-        return emotionClassificationURL(croppedImage, isCropped=True)
-
-    elif classificationType == "glassesClassification":
-        return glassesClassificationURL(croppedImage, isCropped=True)
-
-    elif classificationType == "foodClassification":
-        return foodClassificationURL(croppedImage)
-
-    elif classificationType == "dogClassification":
-        return dogClassificationURL(croppedImage)
-
-    elif classificationType == "birdsClassification":
-        return birdsClassificationURL(croppedImage)
-
-    elif classificationType == "wildlifeClassification":
-        return wildlifeClassificationURL(croppedImage)
-
-    elif classificationType == "everything":
-        return everythingURL(croppedImage, isCropped=True)
-
-    elif classificationType == "ageClassification":
-        return ageClassificationURL(croppedImage, isCropped=True)
-
-    elif classificationType == "flowerClassification":
-        return  flowerClassificationURL(croppedImage)
-
-    elif classificationType == "animalClassification":
-        return animalsClassificationURL(croppedImage)
 
     else:
         return {'data': 'this route does not exist'}
