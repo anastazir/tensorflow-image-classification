@@ -98,8 +98,8 @@ def dynamicRoute(classificationType):
 
 @app.route('/upload-image/<classificationType>', methods=['POST'])
 def uploadImageAndClassify(classificationType):
-    if request.method != "POST" or not request.files:
-        return {'data': 'no files were found'}
+    if not request.form['base64']:
+        return  {'data': 'unable to  read file'}
         
     if request.form["isCropped"] == 'true':
         isCropped= True
