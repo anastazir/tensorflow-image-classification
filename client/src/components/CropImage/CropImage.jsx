@@ -1,6 +1,6 @@
 import React, { useState, useCallback, useRef, useEffect } from "react";
 import ReactCrop from "react-image-crop";
-import "react-image-crop/dist/ReactCrop.css";
+import "./CropImage.css";
 
 export default function CropImage({url, setCoordinates}) {
   console.log(url);
@@ -9,7 +9,6 @@ export default function CropImage({url, setCoordinates}) {
   const previewCanvasRef = useRef(null);
   const [crop, setCrop] = useState({ unit: "%", width: 30 });
   const [completedCrop, setCompletedCrop] = useState(null);
-  var coordinates = []
   const onLoad = useCallback((img) => {
     imgRef.current = img;
   }, []);
@@ -58,32 +57,28 @@ export default function CropImage({url, setCoordinates}) {
 
   return (
     <>
-        <div style={{
-            maxHidth: '250px',
-            justifyContent: 'space-between',
-            marginLeft: '4em',
-            marginTop: '2rem'
-        }}>
-          <ReactCrop
-            src={upImg}
-            onImageLoaded={onLoad}
-            crop={crop}
-            onChange={(c) => setCrop(c)}
-            onComplete={(c) => setCompletedCrop(c)}
-            crossOrigin="anonymous"
-          />
-        {/* </div>
-        <div> */}
-            <canvas
-            ref={previewCanvasRef}
-            style={{
-                marginLeft: '4em',
-                marginBottom: '2rem',
-                width: Math.round(completedCrop?.width ?? 0),
-                height: Math.round(completedCrop?.height ?? 0)
-            }}
-            />
-        </div>
+      <div style={{
+        maxHidth: '250px',
+        justifyContent: 'space-between',
+        marginLeft: '4em',
+        marginTop: '2rem'}}>
+        <ReactCrop
+          src={upImg}
+          onImageLoaded={onLoad}
+          crop={crop}
+          onChange={(c) => setCrop(c)}
+          onComplete={(c) => setCompletedCrop(c)}
+          crossOrigin="anonymous"
+        />
+        <canvas
+          ref={previewCanvasRef}
+          style={{
+          marginLeft: '4em',
+          marginBottom: '2rem',
+          width: Math.round(completedCrop?.width ?? 0),
+          height: Math.round(completedCrop?.height ?? 0)
+        }}/>
+      </div>
     </>
   );
 }
