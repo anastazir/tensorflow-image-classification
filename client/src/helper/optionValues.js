@@ -14,11 +14,11 @@ export const optionValues=[
         value: 'genderClassification',
         type: ['binaryClassification', 'faceClassification', 'showAll']
     },
-    {
-        name: '👨‍🦰 Emotion Detection',
-        value: 'emotionClassification',
-        type: ['multiClassification', 'faceClassification', 'showAll']
-    },
+    // {
+    //     name: '👨‍🦰 Emotion Detection',
+    //     value: 'emotionClassification',
+    //     type: ['multiClassification', 'faceClassification', 'showAll']
+    // },
     {
         name: '👓or👀',
         value: 'glassesClassification',
