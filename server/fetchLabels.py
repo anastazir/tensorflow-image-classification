@@ -8,13 +8,13 @@ def getLabels(labelsType):
     elif labelsType == 'foodClassification':
         return food_labels
     elif labelsType == 'catvsDog':
-        return ['Images of cats', 'Images of dogs']
+        return ['Cat', 'Dog']
     elif labelsType == 'emotionClassification':
         return ['Angry','Disgust','Fear','Happy','Neutral', 'Sad', 'Surprise']
     elif labelsType == 'wildlifeClassification':
         return wildlife_labels
     elif labelsType == 'ageClassification':
-        return ['18-30','40-60','60-98','6-18']
+        return ['0-5', '19-30', '31-50', '51-65', '6-18', '66-100']
     elif labelsType == 'flowerClassification':
         return flowers_name_labels
     elif labelsType == 'animalClassification':
