@@ -17,6 +17,7 @@ from classifications.wildlifeClassification import wildlifeClassificationURL
 from classifications.foodClassification     import foodClassificationURL
 from classifications.flowerClassification   import flowerClassificationURL
 from classifications.animalClassification   import animalsClassificationURL
+from classifications.landmarkClassification import landmarkClassificationURL
 from helperFunctions.returnArray            import returnArray
 from fetchLabels                            import getLabels
 
@@ -83,6 +84,9 @@ def dynamicRoute(classificationType):
     elif classificationType == "wildlifeClassification":
         return wildlifeClassificationURL(img)
 
+    elif classificationType == "landmarkClassification":
+        return landmarkClassificationURL(img)
+
     elif classificationType == "everything":
         return everythingURL(img, isCropped=isCropped)
 
@@ -115,6 +119,9 @@ def uploadImageAndClassify(classificationType):
 
     elif classificationType == "genderClassification":
         return genderClassification(returnArray(request), isCropped= isCropped)
+
+    elif classificationType == "landmarkClassification":
+        return landmarkClassificationURL(returnArray(request))
 
     elif classificationType == "emotionClassification":
         return emotionClassificationURL(returnArray(request), isCropped= isCropped)
