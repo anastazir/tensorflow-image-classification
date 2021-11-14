@@ -14,11 +14,11 @@ export const optionValues=[
         value: 'genderClassification',
         type: ['binaryClassification', 'faceClassification', 'showAll']
     },
-    // {
-    //     name: '👨‍🦰 Emotion Detection',
-    //     value: 'emotionClassification',
-    //     type: ['multiClassification', 'faceClassification', 'showAll']
-    // },
+    {
+        name: '👨‍🦰 Emotion Detection',
+        value: 'emotionClassification',
+        type: ['multiClassification', 'faceClassification', 'showAll']
+    },
     {
         name: '👓or👀',
         value: 'glassesClassification',
@@ -62,6 +62,11 @@ export const optionValues=[
     {
         name: '🌻 Flower Classification',
         value: 'flowerClassification',
+        type: ['multiClassification', 'showAll']
+    },
+    {
+        name: '🗼 Landmarks Classification',
+        value: 'landmarksClassification',
         type: ['multiClassification', 'showAll']
     },
 ]
