@@ -1,7 +1,7 @@
 import io
 from flask import Flask, request
 from skimage import io
-
+from flask_cors import CORS, cross_origin
 
 # IMPORT FUNCTIONS
 from classifications.everything             import everythingURL
@@ -21,6 +21,8 @@ from helperFunctions.returnArray            import returnArray
 from fetchLabels                            import getLabels
 
 app = Flask(__name__)
+cors = CORS(app)
+app.config['CORS_HEADERS'] = 'Content-Type'
 
 @app.route('/fetchLabels', methods=['GET', 'POST'])
 def sendLabels():
