@@ -180,6 +180,16 @@ forest_and_fileds_labels=['bamboo_forest', 'forest-broadleaf','forest_road', 'fo
 houses_labels=['beach_house', 'building_facade', 'campsite','castle', 'cottage', 'embassy','harbor', 'igloo', 'boathouse','house',
 'oast_house', 'schoolhouse','tree_house','motel']
 
+landmark_labels=['Hallgrimskirkja', 'Lotus Temple', 'The Gateway Arch', 
+'space needle', 'Cathedral of Brasбlia', 'Chichen Itza', 'sultan ahmed mosque',
+'Petra', 'Christ the Redeemer', 'Stone Chariot', 'Red Square', 
+'Marina Bay Sands', 'Acropolis of Athens', 'Atomium', 'Louvre', 'Big Ben', 
+'mt fuji', 'London Eye', 'Stonehenge', 'matrimandir', 'kaaba', 'mt rushmore',
+'The Gherkin', 'golden temple', 'Sydney Harbour Bridge', 'Statue of Liberty',
+'washington monument', 'The Colosseum', 'Burj al Arab', 'Golden Gate Bridge',
+'Victoria Falls', 'Hawa Mahal', 'Fushimi Inari Taisha', 'pyramids of giza',
+'Eiffel Tower', 'Arc de Triomphe', 'cloud gate', 'Great Buddha of Kamakura',
+'Taj Mahal']
 
  # class_names=[
 # 'airfield', "aquarium", "badlands",
