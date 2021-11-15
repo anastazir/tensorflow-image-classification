@@ -6,7 +6,7 @@ from constants import landmark_labels
 from loadModels import landmarkInterpreter     
 
 
-def dogClassificationURL(img):
+def landmarkClassificationURL(img):
     """
     Keyword arguments:
     img(numpy array) -- The array of the image to predict on.
