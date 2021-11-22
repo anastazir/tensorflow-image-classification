@@ -71,6 +71,7 @@ export default function CropImage({url, setCoordinates}) {
           crossOrigin="anonymous"
         />
         <canvas
+          className="canvas"
           ref={previewCanvasRef}
           style={{
           marginLeft: '4em',
