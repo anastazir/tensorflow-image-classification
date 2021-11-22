@@ -379,15 +379,14 @@ li {
     vertical-align: top; 
     font-size: 12px;
   }
-  .backdrop{
+  /* .backdrop{
     display: none;
-  }
+  } */
   .result{
-    /* display: flex;
+    display: flex;
     flex-direction: column;
     align-items: center;
-    max-width: 100%; */
-    display: none;
+    max-width: 100%;
   }
   .backdrop{
     height: inherit;
@@ -410,13 +409,13 @@ li {
   #left{
     width: 100%;
   }
-  .result-text{
+  /* .result-text{
     text-align: center;
     display: flex;
    
     flex-direction: column;
     margin: auto;
-  }
+  } */
   .result-text-li{
     width: 100%;
     background-color: red;
@@ -425,8 +424,17 @@ li {
     z-index: 0;
     position: none;
   }
-}  
+  .image-shown{
+    width: 100%;
+  }
+}
 
+@media only screen and (max-width:400px){
+  .canvas{
+    display: none;
+  }
+}
+  
 .predict-random{
   margin: 1rem auto 1rem 0;
 }
