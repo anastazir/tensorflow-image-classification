@@ -1,9 +1,9 @@
 import { getLocalStorage } from "../helper/localStorage";
 const labelArray=[]
 
-export const getLabel = async (style, setLabels) => {
+export const getLabel = async (style, setLabels, reFresh) => {
   let alreadyExists= getLocalStorage(style) 
-  if (alreadyExists) {
+  if (alreadyExists && !reFresh) {
     let savedResult= localStorage.getItem('myLabels')
     savedResult= JSON.parse(savedResult)
       for (let i=0; i<savedResult.length; i++) {
@@ -24,6 +24,7 @@ export const getLabel = async (style, setLabels) => {
     localStorage.setItem('myLabels', JSON.stringify(labelArray))
     getLocalStorage(style)
   }).catch((error) =>{
-    setLabels(['Loading..'])
+    console.log(error);
+    setLabels(['No Labels Available'])
   })
 }
