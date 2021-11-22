@@ -68,7 +68,7 @@ const Sidebar = ({ width = 320, style }) => {
   const x = useSpring(0, { stiffness: 400, damping: 40 })
   console.log('style is ', style);
   useEffect(() => {
-    (getLabel(style, setLabels, refresh= false))
+    (getLabel(style, setLabels, false))
   }, [style])
 
   return (
@@ -95,7 +95,7 @@ const Sidebar = ({ width = 320, style }) => {
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.95 }}
               className="refresh-button"
-              onClick={() =>getLabel(style, setLabels, refresh= true)}>
+              onClick={() =>getLabel(style, setLabels, true)}>
                 Refresh
             </motion.button>
           </SidebarContainer>
