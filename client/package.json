@@ -4,6 +4,7 @@
   "private": true,
   "proxy": "http://127.0.0.1:5000",
   "dependencies": {
+    "axios": "^0.24.0",
     "compress.js": "^1.2.1",
     "framer-motion": "^4.1.17",
     "prop-types": "latest",
