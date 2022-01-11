@@ -37,11 +37,12 @@ export const handleUrl = (text, coordinates, setNotifications, add, style, notif
 }
 
 
-export const handleUpload=(uploadedImage, coordinates, style, add, notifications, setPredicting, openResultdModal, setNotifications, isCrop) =>{
+export const handleUpload= async (uploadedImage, coordinates, style, add, notifications, setPredicting, openResultdModal, setNotifications, isCrop) =>{
   const compress= new Compress()
   var [dx, dy, dHeight, dWidth]= coordinates
   newImage= uploadedImage ? uploadedImage : newImage
   console.log(newImage)
+  const compressedFile = await 
   compress.compress([newImage], {
     size: 4, 
     quality: .75,
@@ -49,7 +50,8 @@ export const handleUpload=(uploadedImage, coordinates, style, add, notifications
     maxHeight: 1920, 
     resize: true,
     rotate: false,
-  }).then((data) => {
+  })
+  console.log('compressed file is ', compressedFile);
 
     const formData = new FormData();
     formData.append('isCropped', !isCrop)
@@ -57,14 +59,16 @@ export const handleUpload=(uploadedImage, coordinates, style, add, notifications
     formData.append('dy', Math.floor(dy));
     formData.append('dHeight', Math.floor(dHeight));
     formData.append('dWidth', Math.floor(dWidth));
-    formData.append('base64', data[0].data);
-
+    formData.append('base64', compressedFile[0].data);
+    console.log('formData', formData);
+  
     const Upload = async() => {
       setPredicting(true)
       await fetch(`upload-image/${style}`, {
         method: 'POST',
         body: formData
-      }).then(response => {
+      })
+      .then(response => {
           response.json().then(data => {
           if (Array.isArray(data.data)){
             openResultdModal(data.data)
@@ -78,5 +82,5 @@ export const handleUpload=(uploadedImage, coordinates, style, add, notifications
       setPredicting(false)
     }
     Upload();
-  })
+  // })
 }
