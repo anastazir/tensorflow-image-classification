@@ -1,6 +1,6 @@
 # Full stack image classification application 
 
-4 binary and 5 multiclass classification models.
+4 binary and 7 multiclass classification models.
 
 ## Tech Stack Used
 
