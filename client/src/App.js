@@ -18,6 +18,7 @@ import Select from "./components/Select/Select"
 import CropImage from "./components/CropImage/CropImage"
 import SelectType from "./components/Select/SelectType"
 import ResultDisplay from "./components/ResultDiv/index"
+import Header from "./components/Header/Header";
 
 function App() {
   let uploadedImage= null
@@ -207,18 +208,6 @@ function App() {
   </>
   );
 }
-
-const Header = () => (
-  <div style={{textAlign: 'center'}}>
-    <motion.h1 className="pink">
-      Tensorflow
-      <span className="light-blue"> Project</span>
-      <button style={{float: "right", backgroundColor: "black"}} onClick={() => window.open("https://github.com/anastazir/tensorflow-image-classification", "_blank")}>
-        <img src="https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white" />
-      </button>
-    </motion.h1>
-  </div>
-);
 
 const SubHeader = ({ text }) => <motion.h2 className="sub-header">{text}</motion.h2>;
 
