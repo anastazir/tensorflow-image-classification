@@ -174,12 +174,6 @@ places365=['airplane_cabin','airport_terminal','alcove','alley','amphitheater','
  'village','vineyard','volcano','volleyball_court-outdoor','waiting_room','water_park','water_tower','waterfall','watering_hole',
  'wave','wet_bar','wheat_field','wind_farm','windmill','yard','youth_hostel','zen_garden']
 
-forest_and_fileds_labels=['bamboo_forest', 'forest-broadleaf','forest_road', 'forest_path','rainforest', 'baseball_field','corn_field'
-,'field-cultivated','football_field', 'snowfield','soccer_field', 'wheat_field']
-
-houses_labels=['beach_house', 'building_facade', 'campsite','castle', 'cottage', 'embassy','harbor', 'igloo', 'boathouse','house',
-'oast_house', 'schoolhouse','tree_house','motel']
-
 landmark_labels= ['Abu Simbel', 'Acropolis of Athens', 'Arc de Triomphe', 
 'Atomium', 'Big Ben', 'Burj al Arab', 'CN Tower', 'Cathedral of Brasilia', 
 'Chichen Itza', 'Christ the Redeemer', 'ChГteau de Chenonceau', 'Eiffel Tower',
