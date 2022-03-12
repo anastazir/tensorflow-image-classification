@@ -3,7 +3,7 @@ import cv2
 import numpy as np
 from config import *
 
-class ClassificationClass:
+class SingleClassifier():
 
     def __init__(self, type):
         self.type = type
@@ -27,8 +27,7 @@ class ClassificationClass:
         self.model.invoke()
         pred = self.model.get_tensor(output_details[0]['index'])
         arr= pred[0]
-        if not self.multiclass:
-            return {'data': "not multi class"}
+
         arr1=arr.argsort()[-3:][::-1]  #get the top three results
         for i in arr1:
             ans.append(f'{self.labels[i].title()}: {float("{0:.2f}".format(arr[i]))*100}%') # show upto 2 decimal palces

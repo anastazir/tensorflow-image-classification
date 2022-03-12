@@ -6,7 +6,7 @@ from config import *
 age_labels = ['0-5', '19-30', '31-50', '51-65', '6-18', '66-100']
 emotion_labels = ['Angry','Disgust','Fear','Happy','Neutral', 'Sad', 'Surprise']
 
-class FaceClassification:
+class MultiClassifier():
     def __init__(self, type, isCropped = False):
         self.type = type
         self.isCropped = isCropped
@@ -32,7 +32,7 @@ class FaceClassification:
         return crop
 
     def perdict_image(self, img):
-        if self.isCropped:
+        if not self.isCropped and self.type != "catvsDog":
             img = self.detect_faces(img)
 
         new_img = cv2.resize(img,(self.img_size, self.img_size)).astype("float32")
