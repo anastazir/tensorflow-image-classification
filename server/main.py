@@ -8,8 +8,8 @@ from flask_cors import CORS
 from helperFunctions.returnArray      import returnArray
 from fetchLabels                      import getLabels
 from classifications.EverythingClass  import EverythingClassification
-from classifications.SingleClassifier import MultiClassifier
-from classifications.MultiClassifier  import SingleClassifier
+from classifications.SingleClassifier import SingleClassifier
+from classifications.MultiClassifier  import MultiClassifier
 
 app = Flask(__name__)
 cors = CORS(app)
@@ -49,9 +49,9 @@ def dynamicRoute(classificationType):
     if classificationType == "everything":
         classifier = EverythingClassification(isCropped = isCropped)
     elif classificationType in ["faceMaskClassification", "genderClassification", "emotionClassification", "glassesClassification", "ageClassification", "catvsDog"]:
-        classifier = MultiClassifier(type= classificationType, isCropped = isCropped)
+        classifier = SingleClassifier(type= classificationType, isCropped = isCropped)
     else:
-        classifier = SingleClassifier(type = classificationType)
+        classifier = MultiClassifier(type = classificationType)
 
     return classifier.perdict_image(img)
 

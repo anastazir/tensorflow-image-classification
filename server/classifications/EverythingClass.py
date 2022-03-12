@@ -1,7 +1,7 @@
 import tensorflow as tf
 import cv2
 from config import *
-from classifications.MultiClassifier import SingleClassifier
+from classifications.SingleClassifier import SingleClassifier
 
 # from classifications.faceMaskClassification import maskClassification
 # from classifications.genderClassification   import genderClassification
