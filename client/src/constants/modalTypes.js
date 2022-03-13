@@ -1,0 +1,11 @@
+export const emptyInput = 'emptyInput';
+export const invalid = 'invalid';
+export const FETCH_ALL = 'FETCH_ALL';
+export const RESULT = 'RESULT';
+export const result = 'result';
+export const OPEN = 'OPEN';
+export const CLOSE = 'CLOSE';
+export const LOGOUT = 'LOGOUT';
+export const ERROR = 'ERROR';
+export const END_LOADING = 'END_LOADING';
+export const START_LOADING = 'START_LOADING';
