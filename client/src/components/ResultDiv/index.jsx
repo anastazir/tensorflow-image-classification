@@ -1,6 +1,11 @@
 import React from 'react'
+import { useSelector } from 'react-redux';
 
-const ResultDiv = ({data, handleClose}) => {
+const ResultDiv = ({ handleClose }) => {
+    const data = useSelector((state) => state.modalReducer.result)
+    if (!data){
+        return <></>
+    }
     return (
         <div className="result-text" onClick={handleClose}>
             {data.map((data, i)=>{
