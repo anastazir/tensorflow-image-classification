@@ -1,6 +1,6 @@
 import * as actionTypes from "../constants/modalTypes"
 
-const modalReducer = (state = {loading: false, result : null, error : null, openModal : false, notificationList : []}, action) => {
+const modalReducer = (state = {loading: false, result : null, error : null, openModal : false}, action) => {
     switch (action.type) {
         case actionTypes.START_LOADING:
             return { ...state, loading: true}            
