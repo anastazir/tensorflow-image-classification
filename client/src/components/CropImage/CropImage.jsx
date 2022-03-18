@@ -1,14 +1,16 @@
 import React, { useState, useCallback, useRef, useEffect } from "react";
 import ReactCrop from "react-image-crop";
 import "./CropImage.css";
+import { useSelector } from 'react-redux';
 
-export default function CropImage({url, setCoordinates}) {
-  console.log(url);
+export default function CropImage({ setCoordinates}) {
+  const url = useSelector((state) => state.imageReducer.image)
   const [upImg, setUpImg] = useState(`${url}`);
   const imgRef = useRef(null);
   const previewCanvasRef = useRef(null);
-  const [crop, setCrop] = useState({ unit: "%", width: 30 });
+  const [crop, setCrop] = useState({ display: 'block', maxWidth: '100%' });
   const [completedCrop, setCompletedCrop] = useState(null);
+
   const onLoad = useCallback((img) => {
     imgRef.current = img;
   }, []);
@@ -60,8 +62,9 @@ export default function CropImage({url, setCoordinates}) {
       <div style={{
         maxHidth: '250px',
         justifyContent: 'space-between',
-        marginLeft: '4em',
-        marginTop: '2rem'}}>
+        // marginLeft: '4em',
+        // marginTop: '2rem'
+        }}>
         <ReactCrop
           src={upImg}
           onImageLoaded={onLoad}
