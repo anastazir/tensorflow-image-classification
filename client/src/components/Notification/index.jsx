@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
-import { remove } from "../../helper/arr-utils";
+import { useDispatch } from             'react-redux';
+import { removeNotification } from "../../actions/notifications";
 
 const notificationVariants = {
   initial: {
@@ -21,14 +22,12 @@ const notificationVariants = {
   hover: { scale: 1.05, transition: { duration: 0.1 } },
 };
 
-const Notification = ({ notifications, setNotifications, notification, openResultdModal }) => {
-  const { text, style, ans } = notification;
-  // console.log("ans---",([text]))
-  const handleClose = () => setNotifications(remove(notifications, notification));
-  console.log(notifications)
+const Notification = ({ notification}) => {
+  const { style, ans } = notification;
+  const dispatch = useDispatch();
+  const handleClose = () => {dispatch(removeNotification(notification))};
+
   const styleType = () => {
-    // Controlled by selection menu
-    console.log(style);
     switch (style) {
       case "faceMaskClassification":
         return { background: "linear-gradient(15deg, #6adb00, #04e800)", cursor: "pointer"};
@@ -49,7 +48,6 @@ const Notification = ({ notifications, setNotifications, notification, openResul
 
   return  (
     <motion.li
-    onClick={()=> console.log('clicking')}
       style={styleType()} // Change the style based on style selection
       variants={notificationVariants} // Defined animation states
       whileHover="hover" // Animation on hover gesture
@@ -58,7 +56,6 @@ const Notification = ({ notifications, setNotifications, notification, openResul
       exit="exit" // Target to animate to when removed from the tree
     >
       <h3 style={{ color: style ? "#030303" : "#929292" }} className="notification-text">
-        {/* {`Prediction is ${ans}`} */}
         {ans}
       </h3>
       <CloseButton color={style ? "#030303" : "#989898"} handleClose={handleClose} />
