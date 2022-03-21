@@ -2,11 +2,12 @@ import io
 from flask import Flask, request
 from skimage import io
 from flask_cors import CORS
-
+import json
 
 # IMPORT FUNCTIONS
 from helperFunctions.returnArray      import returnArray
 from fetchLabels                      import getLabels
+# IMPORT CLASSES
 from classifications.EverythingClass  import EverythingClassification
 from classifications.SingleClassifier import SingleClassifier
 from classifications.MultiClassifier  import MultiClassifier
@@ -27,22 +28,20 @@ def dynamicRoute(classificationType):
     if request.method != "POST":
         return {'data': 'only POST method is supported'}
 
-    url= request.form['url']
+    data = json.loads(request.data)
+    url= data['url']
 
     try:
         img = io.imread(url)
-
     except:
         return {'data': 'ERROR: unable to read image'}
-
-    if request.form["isCropped"] == 'true':
+    if data["isCropped"] == True:
         isCropped = True
-        dx= int(request.form['dx'])
-        dy= int(request.form['dy'])
-        dHeight= int(request.form['dHeight'])
-        dWidth= int(request.form['dWidth'])
+        dx= data['dx']
+        dy= data['dy']
+        dHeight= data['dHeight']
+        dWidth= data['dWidth']
         img= img[dy:dy+dHeight, dx:dx+dWidth]
-
     else:
         isCropped = False
 
@@ -57,14 +56,16 @@ def dynamicRoute(classificationType):
 
 @app.route('/upload-image/<classificationType>', methods=['POST'])
 def uploadImageAndClassify(classificationType):
-    if not request.form['base64']:
+    data = json.loads(request.data)
+
+    if not data['base64']:
         return  {'data': 'unable to  read file'}
         
-    if request.form["isCropped"] == 'true':
+    if data["isCropped"] == 'true':
         isCropped= True
     else: isCropped= False
 
-    img = returnArray(request)
+    img = returnArray(data)
 
     if classificationType in ["faceMaskClassification", "genderClassification", "emotionClassification", "glassesClassification", "ageClassification", "catvsDog"]:
         classifier = SingleClassifier(type= classificationType, isCropped = isCropped)
