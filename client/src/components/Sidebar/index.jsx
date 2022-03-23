@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from "react"
-import styled from "styled-components"
+import React, { useState, useEffect } from         "react"
 import { AnimatePresence, motion, useSpring } from "framer-motion"
-import { getLabel } from "../../Fetch/fetchLabels"
-
+import styled from                                 "styled-components"
+import { useDispatch, useSelector } from           'react-redux';
+import { fetchLabels } from                        "../../actions/labels";
 
 const SidebarContainer = styled(motion.div)`
   border-radius: 5px;
@@ -51,7 +51,6 @@ const HamburgerButton = ({ x, width, isOpen, setOpen }) => {
   return (
     <HamburgerContainer
       onTap={() => {
-        console.log(isOpen)
         setOpen(!isOpen)
         isOpen ? x.set(-width) : x.set(0)
       }}
@@ -63,13 +62,19 @@ const HamburgerButton = ({ x, width, isOpen, setOpen }) => {
 }
 
 const Sidebar = ({ width = 320, style }) => {
-  const [labels, setLabels] = useState(['Loading...'])
+  const labels = useSelector((state) => state.labelReducer.labelsArray);
+  const dispatch = useDispatch();
+
   const [isOpen, setOpen] = useState(false)
   const x = useSpring(0, { stiffness: 400, damping: 40 })
-  console.log('style is ', style);
+
   useEffect(() => {
-    (getLabel(style, setLabels, false))
+    dispatch(fetchLabels(style))
   }, [style])
+
+  // const handleChange = () => {
+     // getLabel(style, setLabels, true)
+  // }
 
   return (
     <>
@@ -91,13 +96,13 @@ const Sidebar = ({ width = 320, style }) => {
              return <li className='lables-li' key={i}>{lable}</li>
             })
             }
-            <motion.button
+            {/* <motion.button
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.95 }}
               className="refresh-button"
-              onClick={() =>getLabel(style, setLabels, true)}>
+              onClick={() =>handleChange}>
                 Refresh
-            </motion.button>
+            </motion.button> */}
           </SidebarContainer>
         )}
       </AnimatePresence>
