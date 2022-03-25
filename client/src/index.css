@@ -126,8 +126,6 @@ button {
   width: 100%;
   background: #000000e1;
   display: flex;
-  align-items: center;
-  justify-content: center;
 }
 
 .modal {
@@ -161,12 +159,9 @@ button {
 
 .lables-li{
   text-transform: capitalize;
-  width: 70%;
   text-align: center;
   box-shadow: 1px 1px 15px #03030399;
-  margin-right: 2.5rem;
   margin-bottom: 0.5rem;
-  margin-left: 2.5rem;
 }
 
 .orange-gradient {
@@ -326,8 +321,8 @@ li {
 }
 
 .loading {
-  padding: 0 1rem;
-  margin: 2rem 6rem 0rem 5rem;
+  /* padding: 0 1rem;
+  margin: 2rem 6rem 0rem 5rem; */
   color: var(--dark);
 }
 
@@ -370,23 +365,33 @@ li {
     color: #ff9d00;
     font-size: 250%;
   }
-  
 }
 
 @media screen and (max-width: 960px) {
+  .lables-li{
+    text-transform: capitalize;
+    width: 100%;
+    margin-left: 1.5rem;
+    box-shadow: 1px 1px 15px #03030399;
+    margin-bottom: 0.5rem;
+  }
 #left, #middle, #right {display: block;
     *display: inline; zoom: 1; 
     vertical-align: top; 
     font-size: 12px;
   }
-  /* .backdrop{
+  .backdrop{
     display: none;
-  } */
+  }
+  .container{
+    display: none;
+  }
   .result{
-    display: flex;
+    /* display: flex;
     flex-direction: column;
     align-items: center;
-    max-width: 100%;
+    max-width: 100%; */
+    display: none;
   }
   .backdrop{
     height: inherit;
@@ -396,9 +401,9 @@ li {
     height: 100%;
     width: 100%;
   }
-  /* .image-container{
-    display:none;
-  } */
+  .image-container{
+    object-fit: cover;
+  }
   .main{
     flex-direction: row;
   }
@@ -409,23 +414,24 @@ li {
   #left{
     width: 100%;
   }
-  /* .result-text{
+  .result-text{
     text-align: center;
     display: flex;
    
     flex-direction: column;
     margin: auto;
-  } */
+  }
   .result-text-li{
     width: 100%;
-    background-color: red;
+    color: rgba(255,255,255);
+    background-color: black;
     margin: auto;
     padding: 2rem;
-    z-index: 0;
+    z-index: -1;
     position: none;
   }
   .image-shown{
-    width: 100%;
+    max-width: 100%;
   }
 }
 
@@ -434,7 +440,7 @@ li {
     display: none;
   }
 }
-  
+
 .predict-random{
   margin: 1rem auto 1rem 0;
 }
