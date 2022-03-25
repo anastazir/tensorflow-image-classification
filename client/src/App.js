@@ -1,45 +1,47 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/jsx-no-comment-textnodes */
-import { useState, useEffect } from "react";
-import { AnimatePresence, motion } from "framer-motion";
-import useModal from "./hooks/useModal";
-import validator from 'validator' // to check if URL is valid
-
-import Notification from "./components/Notification";
-import Input from "./components/Input";
-import Modal from "./components/Modal";
-import { add } from "./helper/arr-utils";
-import ImageShow from "./components/ImageShow/ImageShow";
-import { handleUrl, handleUpload} from "./Fetch/fetchByUrl";
-import NotificationContainer from "./hooks/NotificationContainer";
-import ThreeDotsWave from "./components/Loading/ThreeDotsWave";
-import {randomImages} from "./helper/randomImages";
-import Sidebar from "./components/Sidebar/index"
-import Select from "./components/Select/Select"
-import CropImage from "./components/CropImage/CropImage"
-import SelectType from "./components/Select/SelectType"
-import ResultDisplay from "./components/ResultDiv/index"
-import Header from "./components/Header/Header";
+import { useState } from                  "react";
+import { useSelector } from               'react-redux';
+import { AnimatePresence, motion } from   "framer-motion";
+import validator from                     'validator';
+import Notification from                  "./components/Notification";
+import Input from                         "./components/Input";
+import Modal from                         "./components/Modal";
+import ImageShow from                     "./components/ImageShow/ImageShow";
+import NotificationContainer from         "./hooks/NotificationContainer";
+import ThreeDotsWave from                 "./components/Loading/ThreeDotsWave";
+import Sidebar from                       "./components/Sidebar/index";
+import Select from                        "./components/Select/Select";
+import CropImage from                     "./components/CropImage/CropImage";
+import SelectType from                    "./components/Select/SelectType";
+import ResultDisplay from                 "./components/ResultDiv/index";
+import Header from                        "./components/Header/Header";
+import { randomImages } from              "./helper/randomImages";
+import { useDispatch } from               "react-redux";
+import { updateImage } from               "./actions/image";
+import { compressFile } from              "./helper/compressFile";
+import { predictFile, predictImage } from "./actions/modal";
 
 function App() {
+  const dispatch = useDispatch();
+  const [base64, setbase64] = useState(null)
+  const loading = useSelector((state) => state.modalReducer.loading);
+  const openModal = useSelector((state) => state.modalReducer.openModal);
+  const messages = useSelector((state) => state.notificationReducer.notificationList)
   let uploadedImage= null
-  const [image, setImage] = useState(null)    // for image file
-  const [imgUrl, setImgUrl] = useState('')    // for image URL
-  // Result Data
-  const [resultData, setResultData] = useState(["No faces found"])
   //Toggle Crop 
-  const [isCrop, setIsCrop] = useState(true)
-  // Modal state
-  const { modalOpen, close, open } = useModal();
+  const [isCrop, setIsCrop] = useState(false);
   // Modal type
   const [modalType, setModalType] = useState("dropIn");
   // Set Coordinates
   const [coordinates, setCoordinates] = useState([])
-  // Notifications state
-  const [notifications, setNotifications] = useState([]);
 
   // Notification text
   const [text, setText] = useState("");
-  const handleText = (e) => setText(e.target.value);
+  const handleText = (e) =>{
+    setText(e.target.value)
+    dispatch(updateImage(e.target.value))
+  };
 
   // Option style
   const [style, setStyle] = useState("everything");
@@ -50,66 +52,68 @@ function App() {
   // Notification position
   const position= 'bottom'
 
-  const [predicting, setPredicting] = useState(false)
+  // const [imageFile, setImageFile] = useState(null)
 
-  const [imageShown, setImageShown] = useState(null)
+  const onImageFileChange= async (e) =>{
 
-  const onImageFileChange= (e) =>{
-    if(e.target.files && e.target.files[0]) {
+    if((e.target.files && e.target.files[0])) {
       uploadedImage= e.target.files[0]
-      setImage(URL.createObjectURL(e.target.files[0]))
-        console.log(uploadedImage)
-        setImageShown(uploadedImage)
-      }
-    handleUpload(uploadedImage, coordinates, style, add, notifications, setPredicting, openResultdModal, setNotifications, isCrop)
-  }
 
-  const openResultdModal = (data) =>{
+      dispatch(updateImage(URL.createObjectURL(e.target.files[0])))
+
+      const file = await compressFile(uploadedImage)
+      setbase64(file[0].data);
+    }
+  }
+  
+  const predictImageFile = async () =>{
+    const [dx, dy, dHeight, dWidth]= coordinates
+    console.log(coordinates);
+    console.log(base64.slice(0, 5));
+    const formData = {
+      'dx'  : Math.floor(dx),
+      'dy': Math.floor(dy),
+      'dHeight': Math.floor(dHeight),
+      'dWidth': Math.floor(dWidth),
+      "base64" : base64,
+      'isCropped': isCrop, 
+    }
     setModalType('result')
-    setResultData(data)
-    open()
+    dispatch(predictFile(formData, style))
   }
 
-  const readFromClipboard =async ()=>{
+  const readFromClipboard = async ()=>{
     const clipboardText = await navigator.clipboard.readText();
-    setImage(clipboardText)
     setText(clipboardText)
-    setImgUrl(clipboardText)
+    dispatch(updateImage(clipboardText))
   }
 
   const validateUrl = () =>{
     if(text){
       if (validator.isURL(text)){
-        setImgUrl(text)
-        if(!predicting){
-          handleUrl(text, coordinates, setNotifications, add, style, notifications, setPredicting, openResultdModal, isCrop);
+        if(!loading){
+          const [dx, dy, dHeight, dWidth]= coordinates
+          const formData = {
+            "url" : text,
+            'dx'  : Math.floor(dx),
+            'dy': Math.floor(dy),
+            'dHeight': Math.floor(dHeight),
+            'dWidth': Math.floor(dWidth),
+            'isCropped': isCrop,
+          }
+          setModalType('result')
+          dispatch(predictImage(formData, style))
         }
       }
       else{
         setModalType('invalid')
-        open()
+        dispatch({type : "OPEN"})
       }
     }else{
       setModalType('emptyInput')
-      open();
+      dispatch({type : "OPEN"})
     }
   }
-
-  useEffect(() =>{  // if the no. of notifications is more than 10 then remove the oldest notification
-    if(notifications.length > 10){
-      notifications.shift()
-    }
-  }, [notifications])
-
-  useEffect(() =>{
-    setImageShown(imgUrl)
-  }, [imgUrl])
-
-  useEffect(() =>{
-    setImageShown(image)
-  }, [image])
-
-  console.log('coordinates are:', coordinates);
 
   return (
   <>
@@ -126,7 +130,7 @@ function App() {
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.9 }}
           className="save-button"
-          onClick={onImageFileChange}>
+          onClick={predictImageFile}>
           Predict Local Image
         </motion.button> 
         <br />
@@ -140,7 +144,7 @@ function App() {
         <SubHeader text="Select type of Classification" />
         <Select handleStyle={handleStyle} category={category}/>
         <div className="predict-random">
-          {  predicting ? 
+          {  loading ? 
             <ThreeDotsWave/> :
             <>
               <motion.button
@@ -156,11 +160,10 @@ function App() {
                 className="random-button"
                 onClick={()=>{
                   var url=randomImages(style)
-                  setImage(url)
                   setText(url)
-                  setImgUrl(url)}}>
+                  dispatch(updateImage(url))}}>
                 Random Image
-              </motion.button> 
+              </motion.button>
               <motion.button
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
@@ -169,11 +172,11 @@ function App() {
                 Copy From Clipboard
               </motion.button> 
               <motion.button
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.9 }}
-              className="crop-button"
-              onClick={()=>{setIsCrop(!isCrop)}}>
-              Toggle Crop
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+                className="crop-button"
+                onClick={()=>{setIsCrop(!isCrop)}}>
+                Toggle Crop
               </motion.button> 
             </>
           }
@@ -181,30 +184,27 @@ function App() {
       </motion.main>
 
       <ModalContainer>
-        {modalOpen && (
-          <Modal modalOpen={modalOpen} text={modalType} type={modalType} handleClose={close} data={resultData} img={image}/>
+        {openModal && (
+          <Modal text={modalType} type = {modalType}/>
         )}
       </ModalContainer>
 
       <NotificationContainer position={position}>
-        {notifications &&
-          notifications.map((notification) => (
+        {messages &&
+          messages.map((notification, index) => (
             <Notification
-              key={notification.id}
+              key={index}
               notification={notification}
-              notifications={notifications}
-              setNotifications={setNotifications}
-              openResultdModal={openResultdModal}
             />
           ))
         }
       </NotificationContainer>
     </div>
     <div id='right'>
-      {isCrop && <ImageShow img={imageShown}  />}
-      {!isCrop && !modalOpen && <CropImage url= {imageShown ? imageShown: imgUrl} setCoordinates={setCoordinates} />}
+      {!isCrop && <ImageShow />}
+      {isCrop && !openModal && <CropImage setCoordinates={setCoordinates} />}
     </div>
-    <ResultDisplay data={resultData} handleClose={close} />
+    <ResultDisplay />
   </>
   );
 }
