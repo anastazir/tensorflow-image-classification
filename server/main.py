@@ -41,7 +41,8 @@ def dynamicRoute(classificationType):
         dy= data['dy']
         dHeight= data['dHeight']
         dWidth= data['dWidth']
-        img= img[dy:dy+dHeight, dx:dx+dWidth]
+        if dHeight > 0 and dWidth > 0 :
+            img= img[dy:dy+dHeight, dx:dx+dWidth]
     else:
         isCropped = False
 
@@ -60,12 +61,18 @@ def uploadImageAndClassify(classificationType):
 
     if not data['base64']:
         return  {'data': 'unable to  read file'}
-        
-    if data["isCropped"] == 'true':
-        isCropped= True
-    else: isCropped= False
 
     img = returnArray(data)
+
+    if data["isCropped"] == True:
+        isCropped = True
+        dx= data['dx']
+        dy= data['dy']
+        dHeight= data['dHeight']
+        dWidth= data['dWidth']
+        if dHeight > 0 and dWidth > 0 :
+            img= img[dy:dy+dHeight, dx:dx+dWidth]
+    else: isCropped= False
 
     if classificationType == "everything":
         classifier = EverythingClassification(isCropped = isCropped)
