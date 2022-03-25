@@ -3,18 +3,19 @@ import { AnimatePresence, motion, useSpring } from "framer-motion"
 import styled from                                 "styled-components"
 import { useDispatch, useSelector } from           'react-redux';
 import { fetchLabels } from                        "../../actions/labels";
+import Backdrop from "../Backdrop";
 
 const SidebarContainer = styled(motion.div)`
   border-radius: 5px;
   position: fixed;
   background-color: ${({ color }) => `${color}`};
-  width: 25%;
   height: 100%;
   box-sizing: border-box;
   box-shadow: 16px 0 32px -16px #000;
   padding: 64px;
   @media screen and (max-width: 960px) {
-    width: 50%;
+    width: 75%;
+    align-items: left;
   }
   ::-webkit-scrollbar {
     width: 0;  /* Remove scrollbar space */
@@ -82,27 +83,20 @@ const Sidebar = ({ width = 320, style }) => {
       <AnimatePresence>
         {isOpen && (
           <SidebarContainer
-            className='sidebar-container'
-            color={"#ff9d00"}
-            initial={{ x: 300, opacity: 0 }}
-            animate={{ x: 0, opacity: 1 }}
-            exit={{ x: -300, opacity: 0 }}
-            style={{overflowY: 'scroll', alignItems: 'center'}}
-            >
-            <h3 style={{textColor: 'white', alignSelf: 'centers'}}>
+          className='sidebar-container'
+          color={"#ff9d00"}
+          initial={{ x: 300, opacity: 0 }}
+          animate={{ x: 0, opacity: 1 }}
+          exit={{ x: -300, opacity: 0 }}
+          style={{overflowY: 'scroll',overflowX: 'hidden'}}
+          >
+            <h3 style={{textColor: 'white',}}>
               Labels
             </h3>
             {labels && labels.map((lable, i) => {
-             return <li className='lables-li' key={i}>{lable}</li>
+              return <li className='lables-li' key={i}>{lable}</li>
             })
-            }
-            {/* <motion.button
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.95 }}
-              className="refresh-button"
-              onClick={() =>handleChange}>
-                Refresh
-            </motion.button> */}
+          }
           </SidebarContainer>
         )}
       </AnimatePresence>
