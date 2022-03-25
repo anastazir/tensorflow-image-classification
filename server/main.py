@@ -67,10 +67,13 @@ def uploadImageAndClassify(classificationType):
 
     img = returnArray(data)
 
-    if classificationType in ["faceMaskClassification", "genderClassification", "emotionClassification", "glassesClassification", "ageClassification", "catvsDog"]:
+    if classificationType == "everything":
+        classifier = EverythingClassification(isCropped = isCropped)
+    elif classificationType in ["faceMaskClassification", "genderClassification", "emotionClassification", "glassesClassification", "ageClassification", "catvsDog"]:
         classifier = SingleClassifier(type= classificationType, isCropped = isCropped)
     else:
         classifier = MultiClassifier(type = classificationType)
+
     return classifier.perdict_image(img)
 
 @app.route('/')
