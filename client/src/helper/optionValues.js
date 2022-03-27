@@ -66,7 +66,7 @@ export const optionValues=[
     },
     {
         name: '🗼 Landmarks Classification',
-        value: 'landmarksClassification',
+        value: 'landmarkClassification',
         type: ['multiClassification', 'showAll']
     },
 ]
