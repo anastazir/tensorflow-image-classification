@@ -52,8 +52,6 @@ function App() {
   // Notification position
   const position= 'bottom'
 
-  // const [imageFile, setImageFile] = useState(null)
-
   const onImageFileChange= async (e) =>{
 
     if((e.target.files && e.target.files[0])) {
