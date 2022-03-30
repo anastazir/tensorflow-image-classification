@@ -83,6 +83,10 @@ def uploadImageAndClassify(classificationType):
 
     return classifier.perdict_image(img)
 
-@app.route('/')
+@app.route('/ping')
 def ping():
-    return {'data': 'server is on and running.'}
+    return {'data': True}
+
+@app.route('/')
+def home():
+    return {'data': 'server is up and running.'}
