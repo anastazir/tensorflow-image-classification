@@ -7,3 +7,5 @@ export const predict_image = (formData, style) => API.post(`/urlRoute/${style}`,
 export const predict_file = (fromData, style) => API.post(`/upload-image/${style}`, fromData);
 
 export const fetch_labels = (style) => API.get(`/fetchLabels?labelsType=${style}`)
+
+export const ping_server = () => API.get(`/ping`)
