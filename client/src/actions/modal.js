@@ -1,4 +1,4 @@
-import { START_LOADING, END_LOADING, RESULT, ERROR, OPEN, ADD } from '../constants/modalTypes';
+import { START_LOADING, END_LOADING, RESULT, ERROR, OPEN, ADD, PING } from '../constants/modalTypes';
 import * as api from '../api/index.js';
 import { switchAns } from '../helper/helperFunctions';
 
@@ -40,4 +40,13 @@ export const predictFile = (formData, style) => async (dispatch) => {
         dispatch({ type: ERROR, error });
     }
     dispatch({type: END_LOADING});
+}
+
+export const pingServer = () => async (dispatch) => {
+    try{
+        const { data: { data } } = await api.ping_server();
+        dispatch({ type: PING, data: data})
+    } catch (error) {
+        console.log(error);
+    }
 }

@@ -9,6 +9,7 @@ export const REMOVE = 'REMOVE';
 export const CLOSE = 'CLOSE';
 export const LOGOUT = 'LOGOUT';
 export const ERROR = 'ERROR';
+export const PING = 'PING';
 export const END_LOADING = 'END_LOADING';
 export const START_LOADING = 'START_LOADING';
 export const FETCH_LABELS = 'FETCH_LABELS';

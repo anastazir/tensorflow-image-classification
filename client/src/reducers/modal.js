@@ -1,6 +1,6 @@
 import * as actionTypes from "../constants/modalTypes"
 
-const modalReducer = (state = {loading: false, result : null, error : null, openModal : false}, action) => {
+const modalReducer = (state = {loading: false, result : null, error : null, openModal : false, connectedToServer: false}, action) => {
     switch (action.type) {
         case actionTypes.START_LOADING:
             return { ...state, loading: true}            
@@ -17,6 +17,9 @@ const modalReducer = (state = {loading: false, result : null, error : null, open
         }
         case actionTypes.CLOSE:{
             return { ...state, openModal : false}
+        }
+        case actionTypes.PING:{
+            return { ...state, connectedToServer: action.data}
         }
         default:
             return state
