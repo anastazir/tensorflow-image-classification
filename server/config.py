@@ -64,7 +64,7 @@ MODEL_LOCATIONS = {
     "ageClassification"      : "./models_quantized/ageClassificationNasNetModel160_quantized.tflite",
     "foodClassification"     : "./models_quantized/foodClassificationMobilenetv2_quantized.tflite",
     "dogClassification"      : "./models_quantized/dogClassificationMobileNet224(78)_quantized.tflite",
-    "birdsClassification"    : "./models_quantized/birdClassificationMobileNet224_quantized.tflite",
+    "birdsClassification"    : "./models_quantized/birdClassificationNasNetModel224_quantized.tflite",
     "wildlifeClassification" : "./models_quantized/oregonWildlife224(92)_quantized.tflite",
     "landmarkClassification" : "./models_quantized/landMarks224_quantized.tflite",
     "flowerClassification"   : "./models_quantized/flower299MobileNet244(76)_quantized.tflite",
