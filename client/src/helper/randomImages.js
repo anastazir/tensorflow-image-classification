@@ -174,23 +174,23 @@ const randomIntFromInterval=(min=0, max=8)=> { // min and max included
 }
 export const randomImages=(style)=>{
     if (style==='genderClassification'){
-        return genderClassification[randomIntFromInterval(0 ,genderClassification.length)]  
+        return genderClassification[randomIntFromInterval(0 ,genderClassification.length-1)]  
     }else if(style==='catvsDog'){
         return catvsDog[randomIntFromInterval(0 ,8)]
     }else if(style==='emotionClassification' || style==='everything' || style==='glassesClassification' || style==='ageClassification'){
         const concat= [...emotionClassification, ...genderClassification, ...glassesClassification]
-        return concat[randomIntFromInterval(0 ,concat.length)] 
+        return concat[randomIntFromInterval(0 ,concat.length-1)] 
     }else if (style==='birdsClassification'){
-        return birdsClassification[randomIntFromInterval(0, birdsClassification.length)]
+        return birdsClassification[randomIntFromInterval(0, birdsClassification.length-1)]
     }else if (style==='foodClassification'){
-        return foodClassification[randomIntFromInterval(0 ,foodClassification.length)]
+        return foodClassification[randomIntFromInterval(0 ,foodClassification.length-1)]
     }else if (style==='animalClassification'){
-        return animalClassification[randomIntFromInterval(0 ,animalClassification.length)]
+        return animalClassification[randomIntFromInterval(0 ,animalClassification.length-1)]
     }else if(style==='dogClassification'){
-        return dogClassification[randomIntFromInterval(0 ,dogClassification.length)]
+        return dogClassification[randomIntFromInterval(0 ,dogClassification.length-1)]
     }else if(style==='landmarkClassification'){
-        return landmarkClassification[randomIntFromInterval(0 ,landmarkClassification.length)]
+        return landmarkClassification[randomIntFromInterval(0 ,landmarkClassification.length-1)]
     }else if (style==='flowerClassification'){
-        return flowerClassification[randomIntFromInterval(0 ,flowerClassification.length)]
+        return flowerClassification[randomIntFromInterval(0 ,flowerClassification.length-1)]
     }
 };
