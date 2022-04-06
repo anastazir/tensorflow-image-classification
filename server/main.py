@@ -8,7 +8,7 @@ import json
 from helperFunctions.returnArray      import returnArray
 from fetchLabels                      import getLabels
 # IMPORT CLASSES
-from classifications.EverythingClass  import EverythingClassification
+from classifications.FaceClassifier  import FaceClassifier
 from classifications.SingleClassifier import SingleClassifier
 from classifications.MultiClassifier  import MultiClassifier
 
@@ -47,7 +47,7 @@ def dynamicRoute(classificationType):
         isCropped = False
 
     if classificationType == "everything":
-        classifier = EverythingClassification(isCropped = isCropped)
+        classifier = FaceClassifier(isCropped = isCropped)
     elif classificationType in ["faceMaskClassification", "genderClassification", "emotionClassification", "glassesClassification", "ageClassification", "catvsDog"]:
         classifier = SingleClassifier(type= classificationType, isCropped = isCropped)
     else:
@@ -75,7 +75,7 @@ def uploadImageAndClassify(classificationType):
     else: isCropped= False
 
     if classificationType == "everything":
-        classifier = EverythingClassification(isCropped = isCropped)
+        classifier = FaceClassifier(isCropped = isCropped)
     elif classificationType in ["faceMaskClassification", "genderClassification", "emotionClassification", "glassesClassification", "ageClassification", "catvsDog"]:
         classifier = SingleClassifier(type= classificationType, isCropped = isCropped)
     else:
