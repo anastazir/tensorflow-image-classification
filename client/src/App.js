@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/jsx-no-comment-textnodes */
-import { useState } from                  "react";
+import { useState, useEffect } from       "react";
 import { useSelector } from               'react-redux';
 import { AnimatePresence, motion } from   "framer-motion";
 import validator from                     'validator';
@@ -20,7 +20,7 @@ import { randomImages } from              "./helper/randomImages";
 import { useDispatch } from               "react-redux";
 import { updateImage } from               "./actions/image";
 import { compressFile } from              "./helper/compressFile";
-import { predictFile, predictImage } from "./actions/modal";
+import { predictFile, predictImage, pingServer } from "./actions/modal";
 
 function App() {
   const dispatch = useDispatch();
@@ -112,6 +112,10 @@ function App() {
       dispatch({type : "OPEN"})
     }
   }
+
+  useEffect(() =>{
+    dispatch(pingServer());
+  }, [])
 
   return (
   <>
