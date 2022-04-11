@@ -1,14 +1,17 @@
 import io
 from flask import Flask, request
+from io import BytesIO
+import requests
 from skimage import io
 from flask_cors import CORS
 import json
-
+from PIL import Image
+import numpy
 # IMPORT FUNCTIONS
 from helperFunctions.returnArray      import returnArray
 from fetchLabels                      import getLabels
 # IMPORT CLASSES
-from classifications.FaceClassifier  import FaceClassifier
+from classifications.FaceClassifier   import FaceClassifier
 from classifications.SingleClassifier import SingleClassifier
 from classifications.MultiClassifier  import MultiClassifier
 
@@ -34,7 +37,10 @@ def dynamicRoute(classificationType):
     try:
         img = io.imread(url)
     except:
-        return {'data': 'ERROR: unable to read image'}
+        print("========================")
+        response = requests.get(url)
+        img = Image.open(BytesIO(response.content))
+        img = numpy.array(img)
     if data["isCropped"] == True:
         isCropped = True
         dx= data['dx']
