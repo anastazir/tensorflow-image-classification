@@ -1,4 +1,4 @@
-export const switchAns = (data) =>{
+export const addEmoji = (data) =>{
   if (data==='Mask'){
     data= data+' 😷'
   }else if (data==='No Mask'){
