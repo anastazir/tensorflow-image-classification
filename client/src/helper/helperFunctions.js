@@ -1,32 +1,38 @@
 export const addEmoji = (data) =>{
-  if (data==='Mask'){
-    data= data+' 😷'
-  }else if (data==='No Mask'){
-    data=data+' 😃' 
-  }else if (data==='Female'){
-    data=data+' 👩'
-  }else if (data==='Male'){
-    data=data+' 👨'
-  }else if (data==='Dog'){
-    data=data+' 🐶'
-  }else if (data==='Cat'){
-    data=data+' 🐱'
-  }else if (data==='Happy'){
-    data=data+' 😃'
-  }else if (data==='Surprise'){
-    data=data+' 😮'
-  }else if (data==='Angry'){
-    data=data+' 👿'
-  }else if (data==='Sad'){
-    data= data+' 😔'
-  }else if (data==='Neutral'){
-    data= data+' 😐'
+  switch(data){
+    case 'Mask':
+      return data+' 😷';
+    case 'No Mask':
+      return data+' 😃' ;
+    case 'Female':
+      return data+' 👩';
+    case 'Male':
+      return data+' 👨';
+    case 'Dog':
+      return data+' 🐶';
+    case 'Cat':
+      return data+' 🐱';
+    case 'Happy':
+      return data+' 😃';
+    case 'Surprise':
+      return data+' 😮';
+    case 'Sad':
+      return data+' 😢';
+    case 'Angry':
+      return data+' 😠';
+    case 'Scared':
+      return data+' 😱';
+    case 'Disgust':
+      return data+' 😡';
+    case 'Fear':
+      return data+' 😨';
+    case 'Neutral':
+      return data+' 😐';
+    case 'No Glasses':
+      return data+' 🙄'
+    case 'Glasses':
+      return data+' 🤓'
+    default:
+      return data;
   }
-  else if (data==='No Glasses'){
-    data=data+' 🙄'
-  }
-  else if (data==='Glasses'){
-    data= data+' 🤓'
-  }
-  return data;
 }
