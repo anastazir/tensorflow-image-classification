@@ -1,4 +1,4 @@
-from constants import dog_breeds_labels, birds_names_labels, food_labels, wildlife_labels, flowers_name_labels, animal_labels, landmark_labels
+from constants import *
 
 CLASSIFICATIONS = {
     "catvsDog": {
