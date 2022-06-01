@@ -53,6 +53,10 @@ CLASSIFICATIONS = {
         "img_size"   : 160,
         "normalize"  : True,
     },
+    "sportsClassification": {
+        "img_size"   : 224,
+        "normalize"  : True,
+    },
 }
 
 MODEL_LOCATIONS = {
@@ -69,6 +73,7 @@ MODEL_LOCATIONS = {
     "landmarkClassification" : "./models_quantized/landMarks224_quantized.tflite",
     "flowerClassification"   : "./models_quantized/flower299MobileNet244(76)_quantized.tflite",
     "animalClassification"   : "./models_quantized/animalClassification160_quantized.tflite",
+    "sportsClassification"   : "./models_quantized/sportsClassification224_quantized.tflite",
 }
 
 LABELS = {
@@ -85,6 +90,7 @@ LABELS = {
     "landmarkClassification" : landmark_labels,
     "flowerClassification"   : flowers_name_labels,
     "animalClassification"   : animal_labels,
+    "sportsClassification"   : sports_labels,
 }
 
 MULTIPLE_CLASSES = {
@@ -101,4 +107,5 @@ MULTIPLE_CLASSES = {
     "landmarkClassification" : True,
     "flowerClassification"   : True,
     "animalClassification"   : True,
+    "sportsClassification"   : True,
 }
