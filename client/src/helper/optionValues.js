@@ -69,4 +69,9 @@ export const optionValues=[
         value: 'landmarkClassification',
         type: ['multiClassification', 'showAll']
     },
+    {
+        name: "⚾ Sports Classification",
+        value: 'sportsClassification',
+        type: ['multiClassification', 'showAll']
+    }
 ]
